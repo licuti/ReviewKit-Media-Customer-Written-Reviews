@@ -1,0 +1,38 @@
+# Copyright (C) 2024 Your Name
+# This file is distributed under the GPL-2.0-or-later license.
+# Generated with WP-CLI (https://wp-cli.org/)
+#
+# IMPORTANT: Sau khi tạo file này, chạy lệnh để extract strings:
+# wp i18n make-pot . languages/my-custom-woo-reviews.pot --slug=my-custom-woo-reviews
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ReviewKit: Media & Customer Written Reviews 1.1.0\n"
+"Report-Msgid-Bugs-To: https://yoursite.com/support\n"
+"POT-Creation-Date: 2024-04-13T00:00:00+07:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2024-04-13T00:00:00+07:00\n"
+"X-Generator: WP-CLI 2.8.0\n"
+"X-Domain: my-custom-woo-reviews\n"
+
+#. Plugin Name of the plugin
+msgid "ReviewKit: Media & Customer Written Reviews"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://github.com/your-username/my-custom-woo-reviews"
+msgstr ""
+
+#. Description of the plugin
+msgid "Nâng cấp hệ thống đánh giá WooCommerce với hình ảnh, video, thống kê chuyên nghiệp và công cụ quản trị mạnh mẽ."
+msgstr ""
+
+#. Author of the plugin
+msgid "Your Name"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://yoursite.com"
+msgstr ""

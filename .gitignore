@@ -1,0 +1,25 @@
+# WordPress
+wp-config.php
+wp-content/uploads/
+*.log
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# Build output
+/assets/css/admin-settings.css.map
+/assets/js/*.min.js
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Composer
+composer.lock

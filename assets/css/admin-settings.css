@@ -1,0 +1,468 @@
+/**
+ * MCWR Admin Settings — Design System
+ * Áp dụng thống nhất cho tất cả các tab trong trang cài đặt plugin.
+ * Phong cách: Card-based, gradient header, code-dark, màu chủ đạo #ee4d2d.
+ */
+
+/* ============================================================
+   BIẾN MÀU (CSS CUSTOM PROPERTIES)
+   ============================================================ */
+:root {
+    --mcwr-admin-primary:      #ee4d2d;
+    --mcwr-admin-primary-end:  #f97316;
+    --mcwr-admin-accent:       #1e1e2e;
+    --mcwr-admin-white:        #ffffff;
+    --mcwr-admin-bg:           #f0f0f1;
+    --mcwr-admin-border:       #ddd;
+    --mcwr-admin-text:         #555;
+    --mcwr-admin-text-dark:    #1d2327;
+    --mcwr-admin-tip-bg:       #eff6ff;
+    --mcwr-admin-tip-border:   #bfdbfe;
+    --mcwr-admin-tip-color:    #1d4ed8;
+    --mcwr-admin-badge-bg:     #fef3c7;
+    --mcwr-admin-badge-border: #fcd34d;
+    --mcwr-admin-badge-color:  #92400e;
+    --mcwr-admin-code-fg:      #cdd6f4;
+    --mcwr-admin-radius:       8px;
+    --mcwr-admin-radius-sm:    6px;
+    --mcwr-admin-radius-xs:    4px;
+    --mcwr-admin-shadow:       0 1px 4px rgba(0, 0, 0, 0.06);
+    --mcwr-admin-shadow-md:    0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Số ID được highlight trong ví dụ URL */
+.mcwr-code-highlight {
+    color: #f9e2af;
+    font-weight: bold;
+}
+
+/* ============================================================
+   PAGE WRAPPER
+   ============================================================ */
+.mcwr-settings-wrap {
+    max-width: 1100px;
+}
+
+.mcwr-settings-wrap h1 {
+    margin-bottom: 8px;
+}
+
+/* ============================================================
+   PAGE HEADER BANNER — dùng cho tất cả các tab
+   ============================================================ */
+.mcwr-page-header {
+    background: linear-gradient(135deg, var(--mcwr-admin-primary) 0%, var(--mcwr-admin-primary-end) 100%);
+    border-radius: var(--mcwr-admin-radius);
+    padding: 18px 24px;
+    color: var(--mcwr-admin-white);
+    margin: 12px 0 20px;
+}
+
+.mcwr-page-header h2 {
+    margin: 0 0 6px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--mcwr-admin-white);
+}
+
+.mcwr-page-header h2 .dashicons {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+}
+
+.mcwr-page-header p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 13px;
+}
+
+/* ============================================================
+   GRID LAYOUT — 2 cột responsive
+   ============================================================ */
+.mcwr-admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 20px;
+    margin-top: 4px;
+}
+
+.mcwr-admin-grid--single {
+    grid-template-columns: 1fr;
+}
+
+/* ============================================================
+   CARD — đơn vị bố cục chính
+   ============================================================ */
+.mcwr-admin-card {
+    background: var(--mcwr-admin-white);
+    border: 1px solid var(--mcwr-admin-border);
+    border-radius: var(--mcwr-admin-radius);
+    overflow: hidden;
+    box-shadow: var(--mcwr-admin-shadow);
+}
+
+.mcwr-admin-card--wide {
+    grid-column: 1 / -1;
+}
+
+/* Card Header */
+.mcwr-admin-card__header {
+    background: linear-gradient(135deg, var(--mcwr-admin-primary) 0%, var(--mcwr-admin-primary-end) 100%);
+    padding: 14px 20px;
+}
+
+.mcwr-admin-card__header h3 {
+    margin: 0;
+    color: var(--mcwr-admin-white);
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mcwr-admin-card__header h3 .dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    opacity: 0.9;
+}
+
+/* Card Body */
+.mcwr-admin-card__body {
+    padding: 18px 20px;
+}
+
+.mcwr-admin-card__body p {
+    margin: 0 0 12px;
+    color: var(--mcwr-admin-text);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.mcwr-admin-card__body p:last-child {
+    margin-bottom: 0;
+}
+
+/* ============================================================
+   SETTINGS TABLE (wp standard) — override để đẹp hơn
+   ============================================================ */
+.mcwr-admin-card__body .form-table {
+    margin: 0;
+}
+
+.mcwr-admin-card__body .form-table th {
+    width: 200px;
+    padding: 12px 10px 12px 0;
+    font-weight: 600;
+    color: var(--mcwr-admin-text-dark);
+    font-size: 13px;
+}
+
+.mcwr-admin-card__body .form-table td {
+    padding: 10px 0;
+}
+
+.mcwr-admin-card__body .form-table tr {
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.mcwr-admin-card__body .form-table tr:last-child {
+    border-bottom: none;
+}
+
+/* ============================================================
+   BADGE — "Khuyên dùng", "Pro", v.v.
+   ============================================================ */
+.mcwr-admin-badge {
+    display: inline-block;
+    background: var(--mcwr-admin-badge-bg);
+    color: var(--mcwr-admin-badge-color);
+    border: 1px solid var(--mcwr-admin-badge-border);
+    border-radius: var(--mcwr-admin-radius-xs);
+    font-size: 11px;
+    padding: 2px 8px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.mcwr-admin-badge--blue {
+    background: var(--mcwr-admin-tip-bg);
+    color: var(--mcwr-admin-tip-color);
+    border-color: var(--mcwr-admin-tip-border);
+}
+
+.mcwr-admin-badge--green {
+    background: #dcfce7;
+    color: #166534;
+    border-color: #86efac;
+}
+
+/* ============================================================
+   CODE BLOCK (dark theme)
+   ============================================================ */
+.mcwr-sc-code-block {
+    background: var(--mcwr-admin-accent);
+    border-radius: var(--mcwr-admin-radius-sm);
+    padding: 12px 16px;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.mcwr-sc-code-block code {
+    color: var(--mcwr-admin-code-fg);
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    display: block;
+    white-space: pre-wrap;
+    word-break: break-all;
+    background: none;
+    padding: 0;
+}
+
+.mcwr-sc-copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--mcwr-admin-white);
+    border-radius: var(--mcwr-admin-radius-xs);
+    padding: 3px 10px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.mcwr-sc-copy-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* ============================================================
+   PARAMS TABLE — bảng mô tả tham số shortcode
+   ============================================================ */
+.mcwr-sc-params {
+    background: #f8f9fa;
+    border-left: 3px solid var(--mcwr-admin-primary);
+    border-radius: 0 var(--mcwr-admin-radius-xs) var(--mcwr-admin-radius-xs) 0;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.mcwr-sc-params table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.mcwr-sc-params td {
+    padding: 4px 8px 4px 0;
+    vertical-align: top;
+}
+
+.mcwr-sc-params td:first-child {
+    font-family: monospace;
+    color: var(--mcwr-admin-primary);
+    font-weight: 600;
+    white-space: nowrap;
+    width: 140px;
+}
+
+/* ============================================================
+   TIP / INFO BOX
+   ============================================================ */
+.mcwr-admin-tip {
+    background: var(--mcwr-admin-tip-bg);
+    border: 1px solid var(--mcwr-admin-tip-border);
+    border-radius: var(--mcwr-admin-radius-sm);
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--mcwr-admin-tip-color);
+    margin-top: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.mcwr-admin-tip .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    color: var(--mcwr-admin-tip-color);
+}
+
+.mcwr-admin-tip strong {
+    display: block;
+    margin-bottom: 2px;
+}
+
+/* Shortcodes tab — alias cũ vẫn dùng được */
+.mcwr-sc-tip {
+    background: var(--mcwr-admin-tip-bg);
+    border: 1px solid var(--mcwr-admin-tip-border);
+    border-radius: var(--mcwr-admin-radius-sm);
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--mcwr-admin-tip-color);
+    margin-top: 8px;
+}
+
+.mcwr-sc-tip .dashicons {
+    vertical-align: middle;
+    margin-right: 2px;
+}
+
+/* Tip variants */
+.mcwr-admin-tip--warning {
+    background: #fffbeb;
+    border-color: #fcd34d;
+    color: #92400e;
+}
+
+.mcwr-admin-tip--warning .dashicons {
+    color: #d97706;
+}
+
+.mcwr-admin-tip--success {
+    background: #f0fdf4;
+    border-color: #86efac;
+    color: #166534;
+}
+
+.mcwr-admin-tip--success .dashicons {
+    color: #16a34a;
+}
+
+/* ============================================================
+   SUBMIT BUTTON ROW
+   ============================================================ */
+.mcwr-submit-row {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--mcwr-admin-border);
+}
+
+/* ============================================================
+   SECTION DIVIDER LABEL
+   ============================================================ */
+.mcwr-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mcwr-admin-primary);
+    margin: 20px 0 8px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid #f0f0f1;
+}
+
+/* ============================================================
+   TAB NAV — dashicons trong tab
+   ============================================================ */
+.nav-tab .dashicons {
+    vertical-align: middle;
+    margin-top: -2px;
+    margin-right: 4px;
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+}
+
+/* ============================================================
+   SHORTCODES GRID — giữ nguyên class cũ
+   ============================================================ */
+.mcwr-sc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.mcwr-sc-card {
+    background: var(--mcwr-admin-white);
+    border: 1px solid var(--mcwr-admin-border);
+    border-radius: var(--mcwr-admin-radius);
+    overflow: hidden;
+    box-shadow: var(--mcwr-admin-shadow);
+}
+
+.mcwr-sc-card-header {
+    background: linear-gradient(135deg, var(--mcwr-admin-primary) 0%, var(--mcwr-admin-primary-end) 100%);
+    padding: 14px 20px;
+}
+
+.mcwr-sc-card-header h3 {
+    margin: 0;
+    color: var(--mcwr-admin-white);
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mcwr-sc-card-body {
+    padding: 18px 20px;
+}
+
+.mcwr-sc-card-body p {
+    margin: 0 0 12px;
+    color: var(--mcwr-admin-text);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* Alias cho badge cũ trong Shortcodes tab */
+.mcwr-sc-badge {
+    display: inline-block;
+    background: var(--mcwr-admin-badge-bg);
+    color: var(--mcwr-admin-badge-color);
+    border: 1px solid var(--mcwr-admin-badge-border);
+    border-radius: var(--mcwr-admin-radius-xs);
+    font-size: 11px;
+    padding: 2px 8px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* ============================================================
+   FIND PRODUCT ID BOX
+   ============================================================ */
+.mcwr-find-id-box {
+    background: var(--mcwr-admin-white);
+    border: 1px solid var(--mcwr-admin-border);
+    border-radius: var(--mcwr-admin-radius);
+    padding: 20px 24px;
+    margin-top: 20px;
+    box-shadow: var(--mcwr-admin-shadow);
+}
+
+.mcwr-find-id-box h3 {
+    margin-top: 0;
+    color: var(--mcwr-admin-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mcwr-find-id-box p {
+    color: var(--mcwr-admin-text);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+    .mcwr-admin-grid,
+    .mcwr-sc-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mcwr-admin-card--wide {
+        grid-column: auto;
+    }
+}
