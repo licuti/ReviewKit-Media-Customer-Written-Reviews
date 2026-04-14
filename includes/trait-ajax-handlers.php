@@ -133,7 +133,7 @@ trait MCWR_Trait_Ajax_Handlers {
         ob_start();
 
         if ( ! $comments ) {
-            echo '<p class="mcwr-no-review">' . __( 'Không tìm thấy đánh giá nào phù hợp.', 'my-custom-woo-reviews' ) . '</p>';
+            echo '<p class="mcwr-no-review">' . __( 'Không tìm thấy đánh giá nào phù hợp.', 'review-kit' ) . '</p>';
         } else {
             foreach ( $comments as $comment ) {
                 echo $this->get_single_review_html( $comment, $product );
@@ -143,7 +143,7 @@ trait MCWR_Trait_Ajax_Handlers {
                 if ( count($comments) == $per_page && ($offset + $per_page < $total_comments) ) {
                     $next_page = $page + 1;
                     echo '<div class="mcwr-load-more-container">';
-                    echo '<button id="mcwr-load-more-btn" class="mcwr-btn mcwr-load-more-btn" data-page="' . $next_page . '">' . __( 'Tải thêm đánh giá', 'my-custom-woo-reviews' ) . '</button>';
+                    echo '<button id="mcwr-load-more-btn" class="mcwr-btn mcwr-load-more-btn" data-page="' . $next_page . '">' . __( 'Tải thêm đánh giá', 'review-kit' ) . '</button>';
                     echo '</div>';
                 }
             } else {
@@ -173,7 +173,7 @@ trait MCWR_Trait_Ajax_Handlers {
         require_once( ABSPATH . 'wp-admin/includes/media.php' );
 
         if ( ! isset( $_POST['mcwr_nonce'] ) || ! wp_verify_nonce( $_POST['mcwr_nonce'], 'submit_review' ) ) {
-            wp_die( __( 'Lỗi bảo mật (Nonce Error). Vui lòng tải lại trang.', 'my-custom-woo-reviews' ) );
+            wp_die( __( 'Lỗi bảo mật (Nonce Error). Vui lòng tải lại trang.', 'review-kit' ) );
         }
 
         $product_id = intval( $_POST['product_id'] );
@@ -182,15 +182,15 @@ trait MCWR_Trait_Ajax_Handlers {
         $email      = sanitize_email( $_POST['email'] );
         $content    = sanitize_textarea_field( $_POST['comment'] );
 
-        if ( ! $product_id ) wp_die( __( 'Lỗi: Không tìm thấy ID sản phẩm.', 'my-custom-woo-reviews' ) );
-        if ( ! $rating )     wp_die( __( 'Lỗi: Chưa chọn số sao.', 'my-custom-woo-reviews' ) );
-        if ( empty($email) ) wp_die( __( 'Lỗi: Email trống.', 'my-custom-woo-reviews' ) );
+        if ( ! $product_id ) wp_die( __( 'Lỗi: Không tìm thấy ID sản phẩm.', 'review-kit' ) );
+        if ( ! $rating )     wp_die( __( 'Lỗi: Chưa chọn số sao.', 'review-kit' ) );
+        if ( empty($email) ) wp_die( __( 'Lỗi: Email trống.', 'review-kit' ) );
 
         $require_login = get_option('mcwr_require_login', 0);
         if ( $require_login && ! is_user_logged_in() ) {
             wp_die(
-                __( 'Bạn cần phải đăng nhập để gửi đánh giá.', 'my-custom-woo-reviews' ),
-                __( 'Lỗi: Yêu cầu Đăng nhập', 'my-custom-woo-reviews' ),
+                __( 'Bạn cần phải đăng nhập để gửi đánh giá.', 'review-kit' ),
+                __( 'Lỗi: Yêu cầu Đăng nhập', 'review-kit' ),
                 array('response' => 403)
             );
         }
@@ -212,7 +212,7 @@ trait MCWR_Trait_Ajax_Handlers {
         $comment_id = wp_insert_comment( $comment_data );
 
         if ( ! $comment_id ) {
-            wp_die( __( 'Lỗi: Không thể lưu đánh giá của bạn. Vui lòng thử lại.', 'my-custom-woo-reviews' ) );
+            wp_die( __( 'Lỗi: Không thể lưu đánh giá của bạn. Vui lòng thử lại.', 'review-kit' ) );
         }
 
         add_comment_meta( $comment_id, 'rating', $rating );
@@ -298,11 +298,11 @@ trait MCWR_Trait_Ajax_Handlers {
      */
     public function handle_admin_reply_submission() {
         if ( ! current_user_can( 'administrator' ) ) {
-            wp_die( __( 'Bạn không có quyền thực hiện tác vụ này.', 'my-custom-woo-reviews' ) );
+            wp_die( __( 'Bạn không có quyền thực hiện tác vụ này.', 'review-kit' ) );
         }
 
         if ( ! isset( $_POST['mcwr_admin_reply_nonce'] ) || ! wp_verify_nonce( $_POST['mcwr_admin_reply_nonce'], 'mcwr_admin_reply_action' ) ) {
-            wp_die( __( 'Lỗi bảo mật.', 'my-custom-woo-reviews' ) );
+            wp_die( __( 'Lỗi bảo mật.', 'review-kit' ) );
         }
 
         $product_id = intval( $_POST['product_id'] );
@@ -310,7 +310,7 @@ trait MCWR_Trait_Ajax_Handlers {
         $content    = sanitize_textarea_field( $_POST['admin_reply_content'] );
         $user       = wp_get_current_user();
 
-        if ( empty( $content ) ) wp_die( __( 'Nội dung trống.', 'my-custom-woo-reviews' ) );
+        if ( empty( $content ) ) wp_die( __( 'Nội dung trống.', 'review-kit' ) );
 
         $comment_data = array(
             'comment_post_ID'      => $product_id,
@@ -329,7 +329,7 @@ trait MCWR_Trait_Ajax_Handlers {
             wp_redirect( get_permalink( $product_id ) . '#reviews' );
             exit;
         } else {
-            wp_die( __( 'Lỗi khi lưu phản hồi.', 'my-custom-woo-reviews' ) );
+            wp_die( __( 'Lỗi khi lưu phản hồi.', 'review-kit' ) );
         }
     }
 
@@ -347,7 +347,7 @@ trait MCWR_Trait_Ajax_Handlers {
 
         $cookie_name = 'mcwr_voted_' . $comment_id;
         if ( isset( $_COOKIE[$cookie_name] ) ) {
-            wp_send_json_error( array( 'message' => __( 'Bạn đã bình chọn rồi.', 'my-custom-woo-reviews' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Bạn đã bình chọn rồi.', 'review-kit' ) ) );
         }
 
         $current_likes = intval( get_comment_meta( $comment_id, 'helpful_count', true ) );

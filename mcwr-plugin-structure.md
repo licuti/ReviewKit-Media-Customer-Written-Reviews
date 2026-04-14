@@ -1,12 +1,12 @@
 ---
 plugin: "ReviewKit: Media & Customer Written Reviews (MCWR)"
 version: "1.1.0"
-text_domain: "my-custom-woo-reviews"
+text_domain: "review-kit"
 ---
 
 # 0. TL;DR
 - Purpose: Nâng cấp hệ thống đánh giá mặc định của WooCommerce với hình ảnh, video, thống kê chuyên nghiệp và công cụ quản trị.
-- Entry file: `my-custom-woo-reviews.php`
+- Entry file: `review-kit.php`
 - Main modules:
   - `MCWR_Frontend`: Xử lý hiển thị Tab/Shortcode, AJAX Submit, Bộ lọc, Like/Report.
   - `MCWR_Admin_Settings`: Cấu hình plugin (General, Limits, Display, Shortcodes).
@@ -51,7 +51,7 @@ text_domain: "my-custom-woo-reviews"
 
 # 3. ARCHITECTURE
 ## File structure
-- `my-custom-woo-reviews.php`: Khởi tạo và nạp module.
+- `review-kit.php`: Khởi tạo và nạp module.
 - `includes/`: Chứa các Class logic thực thi.
 - `assets/`: 
   - `css/`: `frontend.css`, `admin-pro.css`.
@@ -66,7 +66,7 @@ text_domain: "my-custom-woo-reviews"
 ---
 
 # 4. ENTRY POINT
-- File chính: `my-custom-woo-reviews.php`
+- File chính: `review-kit.php`
 - Load flow:
   1. Define constants: `MCWR_VERSION`, `MCWR_PLUGIN_FILE`, `MCWR_PLUGIN_DIR`, `MCWR_PLUGIN_URL`.
   2. `require_once` toàn bộ file class qua `MCWR_PLUGIN_DIR`.
@@ -78,7 +78,7 @@ text_domain: "my-custom-woo-reviews"
 - Files bổ sung (WP.org compliance):
   - `uninstall.php` → Xóa toàn bộ `mcwr_*` options khi người dùng Delete plugin.
   - `readme.txt` → Metadata cho WordPress.org plugin directory.
-  - `languages/my-custom-woo-reviews.pot` → Template dịch thuật.
+  - `languages/review-kit.pot` → Template dịch thuật.
 
 ---
 

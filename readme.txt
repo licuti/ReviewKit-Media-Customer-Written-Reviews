@@ -43,7 +43,7 @@ Nâng cấp hệ thống đánh giá WooCommerce với upload ảnh/video, bộ 
 == Installation ==
 
 1. Tải và giải nén file plugin.
-2. Upload thư mục `my-custom-woo-reviews` vào `/wp-content/plugins/`.
+2. Upload thư mục `review-kit` vào `/wp-content/plugins/`.
 3. Kích hoạt plugin trong menu **Plugins** của WordPress Admin.
 4. Go to **ReviewKit** in the admin menu to configure.
 

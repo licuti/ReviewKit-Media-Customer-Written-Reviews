@@ -59,10 +59,10 @@ class MCWR_Pro_Features {
             if ( ! empty( $keyword_lower ) && strpos( $content, $keyword_lower ) !== false ) {
                 wp_die(
                     sprintf(
-                        __( 'Đánh giá của bạn chứa từ ngữ không được phép: "%s". Vui lòng chỉnh sửa và thử lại.', 'my-custom-woo-reviews' ),
+                        __( 'Đánh giá của bạn chứa từ ngữ không được phép: "%s". Vui lòng chỉnh sửa và thử lại.', 'review-kit' ),
                         esc_html( $keyword )
                     ),
-                    __( 'Nội dung không hợp lệ', 'my-custom-woo-reviews' ),
+                    __( 'Nội dung không hợp lệ', 'review-kit' ),
                     array( 'response' => 400, 'back_link' => true )
                 );
             }
@@ -84,13 +84,13 @@ class MCWR_Pro_Features {
         $reason     = sanitize_text_field( $_POST['reason'] ?? '' );
 
         if ( ! $comment_id ) {
-            wp_send_json_error( array( 'message' => __( 'Không hợp lệ.', 'my-custom-woo-reviews' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Không hợp lệ.', 'review-kit' ) ) );
         }
 
         // Tránh báo cáo trùng lặp từ cùng một IP
         $cookie_key = 'mcwr_reported_' . $comment_id;
         if ( isset( $_COOKIE[ $cookie_key ] ) ) {
-            wp_send_json_error( array( 'message' => __( 'Bạn đã báo cáo đánh giá này rồi.', 'my-custom-woo-reviews' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Bạn đã báo cáo đánh giá này rồi.', 'review-kit' ) ) );
         }
 
         // Lưu số lần báo cáo và lý do mới nhất
@@ -105,9 +105,9 @@ class MCWR_Pro_Features {
             $product     = get_post( $comment->comment_post_ID );
             $admin_email = get_option( 'admin_email' );
 
-            $subject = sprintf( __( '[MCWR] Cảnh báo: Đánh giá #%d bị báo cáo %d lần', 'my-custom-woo-reviews' ), $comment_id, $count + 1 );
+            $subject = sprintf( __( '[MCWR] Cảnh báo: Đánh giá #%d bị báo cáo %d lần', 'review-kit' ), $comment_id, $count + 1 );
             $body    = sprintf(
-                __( "Đánh giá của \"%s\" trên sản phẩm \"%s\" đã bị báo cáo %d lần.\n\nLý do mới nhất: %s\n\nXem tại: %s", 'my-custom-woo-reviews' ),
+                __( "Đánh giá của \"%s\" trên sản phẩm \"%s\" đã bị báo cáo %d lần.\n\nLý do mới nhất: %s\n\nXem tại: %s", 'review-kit' ),
                 esc_html( $comment->comment_author ),
                 esc_html( $product->post_title ?? 'Không xác định' ),
                 $count + 1,
@@ -121,7 +121,7 @@ class MCWR_Pro_Features {
         // Đặt cookie 30 ngày
         setcookie( $cookie_key, '1', time() + ( 86400 * 30 ), COOKIEPATH, COOKIE_DOMAIN );
 
-        wp_send_json_success( array( 'message' => __( 'Đã ghi nhận báo cáo của bạn. Cảm ơn!', 'my-custom-woo-reviews' ) ) );
+        wp_send_json_success( array( 'message' => __( 'Đã ghi nhận báo cáo của bạn. Cảm ơn!', 'review-kit' ) ) );
     }
 
     // =========================================================
@@ -132,7 +132,7 @@ class MCWR_Pro_Features {
      * Xuất tất cả đánh giá ra file CSV.
      */
     public function handle_export_reviews() {
-        if ( ! current_user_can( 'manage_options' ) ) wp_die( __( 'Không có quyền.', 'my-custom-woo-reviews' ) );
+        if ( ! current_user_can( 'manage_options' ) ) wp_die( __( 'Không có quyền.', 'review-kit' ) );
         check_admin_referer( 'mcwr_export_nonce' );
 
         $product_id = isset( $_GET['product_id'] ) ? intval( $_GET['product_id'] ) : 0;
@@ -186,7 +186,7 @@ class MCWR_Pro_Features {
      * Cột CSV kỳ vọng: product_id, author, email, rating, content, date
      */
     public function handle_import_reviews() {
-        if ( ! current_user_can( 'manage_options' ) ) wp_die( __( 'Không có quyền.', 'my-custom-woo-reviews' ) );
+        if ( ! current_user_can( 'manage_options' ) ) wp_die( __( 'Không có quyền.', 'review-kit' ) );
         check_admin_referer( 'mcwr_import_nonce' );
 
         if ( ! isset( $_FILES['mcwr_import_file'] ) || $_FILES['mcwr_import_file']['error'] !== UPLOAD_ERR_OK ) {
@@ -239,7 +239,7 @@ class MCWR_Pro_Features {
 
             $comment_id = wp_insert_comment( array(
                 'comment_post_ID'      => $post_id,
-                'comment_author'       => $author ?: __( 'Khách hàng', 'my-custom-woo-reviews' ),
+                'comment_author'       => $author ?: __( 'Khách hàng', 'review-kit' ),
                 'comment_author_email' => $email,
                 'comment_content'      => $content,
                 'comment_type'         => 'review',
@@ -316,7 +316,7 @@ class MCWR_Pro_Features {
     public function send_single_reminder( $order_id, $customer_name, $customer_email, $product_id, $product_name ) {
         if ( ! get_option( 'mcwr_reminder_enabled', 0 ) ) return;
 
-        $subject_template = get_option( 'mcwr_reminder_subject', __( '[{site_name}] Bạn có hài lòng với đơn hàng #{order_id}?', 'my-custom-woo-reviews' ) );
+        $subject_template = get_option( 'mcwr_reminder_subject', __( '[{site_name}] Bạn có hài lòng với đơn hàng #{order_id}?', 'review-kit' ) );
         $body_template    = get_option( 'mcwr_reminder_body', $this->get_default_reminder_body() );
         $from_name        = get_option( 'mcwr_reminder_from_name', get_bloginfo( 'name' ) );
         $from_email       = get_option( 'mcwr_reminder_from_email', get_option( 'admin_email' ) );
@@ -335,7 +335,7 @@ class MCWR_Pro_Features {
             '{customer_name}'=> $customer_name,
             '{product_name}' => $product_name,
             '{product_url}'  => '<a href="' . esc_url( $product_url ) . '">' . esc_html( $product_name ) . '</a>',
-            '{review_link}'  => '<a href="' . esc_url( $product_url ) . '#tab-reviews">' . __( 'Để lại đánh giá', 'my-custom-woo-reviews' ) . '</a>',
+            '{review_link}'  => '<a href="' . esc_url( $product_url ) . '#tab-reviews">' . __( 'Để lại đánh giá', 'review-kit' ) . '</a>',
         );
 
         $subject = str_replace( array_keys( $placeholders ), array_values( $placeholders ), $subject_template );

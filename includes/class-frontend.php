@@ -86,7 +86,7 @@ class MCWR_Frontend {
      * @return array
      */
     public function customize_review_tab( $tabs ) {
-        $tabs['reviews']['title']    = __( 'Đánh giá từ khách hàng', 'my-custom-woo-reviews' );
+        $tabs['reviews']['title']    = __( 'Đánh giá từ khách hàng', 'review-kit' );
         $tabs['reviews']['callback'] = array( $this, 'render_review_content' );
         return $tabs;
     }
@@ -102,7 +102,7 @@ class MCWR_Frontend {
         // Thông báo đánh giá đang chờ duyệt
         if ( isset( $_GET['review_pending'] ) && $_GET['review_pending'] == '1' ) {
             echo '<div class="mcwr-notice-success">';
-            echo __( 'Cảm ơn bạn! Đánh giá của bạn đã được gửi thành công và đang chờ quản trị viên xét duyệt.', 'my-custom-woo-reviews' );
+            echo __( 'Cảm ơn bạn! Đánh giá của bạn đã được gửi thành công và đang chờ quản trị viên xét duyệt.', 'review-kit' );
             echo '</div>';
         }
 
@@ -123,7 +123,7 @@ class MCWR_Frontend {
     public function shortcode_reviews( $atts ) {
         $atts       = shortcode_atts( array( 'product_id' => 0 ), $atts, 'mcwr_reviews' );
         $product_id = $this->get_product_id_from_atts( $atts );
-        if ( ! $product_id ) return '<p class="mcwr-error">' . __( 'Vui lòng cung cấp product_id hợp lệ.', 'my-custom-woo-reviews' ) . '</p>';
+        if ( ! $product_id ) return '<p class="mcwr-error">' . __( 'Vui lòng cung cấp product_id hợp lệ.', 'review-kit' ) . '</p>';
 
         $this->ensure_assets_loaded();
 
@@ -143,7 +143,7 @@ class MCWR_Frontend {
     public function shortcode_review_form( $atts ) {
         $atts       = shortcode_atts( array( 'product_id' => 0 ), $atts, 'mcwr_review_form' );
         $product_id = $this->get_product_id_from_atts( $atts );
-        if ( ! $product_id ) return '<p class="mcwr-error">' . __( 'Vui lòng cung cấp product_id hợp lệ.', 'my-custom-woo-reviews' ) . '</p>';
+        if ( ! $product_id ) return '<p class="mcwr-error">' . __( 'Vui lòng cung cấp product_id hợp lệ.', 'review-kit' ) . '</p>';
 
         $this->ensure_assets_loaded();
 
@@ -169,7 +169,7 @@ class MCWR_Frontend {
     public function shortcode_review_list( $atts ) {
         $atts       = shortcode_atts( array( 'product_id' => 0 ), $atts, 'mcwr_review_list' );
         $product_id = $this->get_product_id_from_atts( $atts );
-        if ( ! $product_id ) return '<p class="mcwr-error">' . __( 'Vui lòng cung cấp product_id hợp lệ.', 'my-custom-woo-reviews' ) . '</p>';
+        if ( ! $product_id ) return '<p class="mcwr-error">' . __( 'Vui lòng cung cấp product_id hợp lệ.', 'review-kit' ) . '</p>';
 
         $this->ensure_assets_loaded();
 
@@ -189,7 +189,7 @@ class MCWR_Frontend {
     public function shortcode_review_summary( $atts ) {
         $atts       = shortcode_atts( array( 'product_id' => 0 ), $atts, 'mcwr_review_summary' );
         $product_id = $this->get_product_id_from_atts( $atts );
-        if ( ! $product_id ) return '<p class="mcwr-error">' . __( 'Vui lòng cung cấp product_id hợp lệ.', 'my-custom-woo-reviews' ) . '</p>';
+        if ( ! $product_id ) return '<p class="mcwr-error">' . __( 'Vui lòng cung cấp product_id hợp lệ.', 'review-kit' ) . '</p>';
 
         $this->ensure_assets_loaded();
 
@@ -250,16 +250,16 @@ class MCWR_Frontend {
             'lb_theme'      => get_option('mcwr_lightbox_theme',  'dark'),
             'lb_toolbar'    => get_option('mcwr_lightbox_toolbar', 1) ? 'yes' : 'no',
             'i18n'          => array(
-                'upload_locked'      => __( 'Tính năng upload đang tạm khóa.', 'my-custom-woo-reviews' ),
-                'max_files_reached'  => __( 'Đã đủ số lượng tệp tối đa (%d tệp).', 'my-custom-woo-reviews' ),
-                'extra_images_limit' => __( 'Chỉ lấy thêm %d tệp.', 'my-custom-woo-reviews' ),
-                'file_too_large'     => __( 'Tệp "%s" quá lớn. Tối đa %dMB.', 'my-custom-woo-reviews' ),
-                'connection_error'   => __( 'Lỗi kết nối Server.', 'my-custom-woo-reviews' ),
-                'voted_already'      => __( 'Bạn đã bình chọn rồi.', 'my-custom-woo-reviews' ),
-                'helpful'            => __( 'Hữu ích', 'my-custom-woo-reviews' ),
-                'loading'            => __( 'Đang tải...', 'my-custom-woo-reviews' ),
-                'load_more'          => __( 'Tải thêm đánh giá', 'my-custom-woo-reviews' ),
-                'no_results'         => __( 'Không tìm thấy kết quả.', 'my-custom-woo-reviews' ),
+                'upload_locked'      => __( 'Tính năng upload đang tạm khóa.', 'review-kit' ),
+                'max_files_reached'  => __( 'Đã đủ số lượng tệp tối đa (%d tệp).', 'review-kit' ),
+                'extra_images_limit' => __( 'Chỉ lấy thêm %d tệp.', 'review-kit' ),
+                'file_too_large'     => __( 'Tệp "%s" quá lớn. Tối đa %dMB.', 'review-kit' ),
+                'connection_error'   => __( 'Lỗi kết nối Server.', 'review-kit' ),
+                'voted_already'      => __( 'Bạn đã bình chọn rồi.', 'review-kit' ),
+                'helpful'            => __( 'Hữu ích', 'review-kit' ),
+                'loading'            => __( 'Đang tải...', 'review-kit' ),
+                'load_more'          => __( 'Tải thêm đánh giá', 'review-kit' ),
+                'no_results'         => __( 'Không tìm thấy kết quả.', 'review-kit' ),
             ),
         ) );
     }

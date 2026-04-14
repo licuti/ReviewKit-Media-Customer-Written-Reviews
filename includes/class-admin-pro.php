@@ -316,7 +316,7 @@ class MCWR_Admin_Pro
                             </td>
                         </tr>
                     </table>
-                    <?php submit_button(__('Bắt đầu nhập', 'my-custom-woo-reviews'), 'primary', 'submit', false, array('class' => 'button-primary')); ?>
+                    <?php submit_button(__('Bắt đầu nhập', 'review-kit'), 'primary', 'submit', false, array('class' => 'button-primary')); ?>
                     <p class="description" style="color:#d63638;margin-top:10px; display:flex; align-items:center; gap:5px;"><span
                             class="dashicons dashicons-warning" style="font-size:16px;width:16px;height:16px;"></span> ⚠️ Lưu ý:
                         Hành động này không thể hoàn tác. Hãy sao lưu database trước khi nhập.</p>

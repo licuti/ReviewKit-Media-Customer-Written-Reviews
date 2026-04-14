@@ -3,7 +3,7 @@
 # Generated with WP-CLI (https://wp-cli.org/)
 #
 # IMPORTANT: Sau khi tạo file này, chạy lệnh để extract strings:
-# wp i18n make-pot . languages/my-custom-woo-reviews.pot --slug=my-custom-woo-reviews
+# wp i18n make-pot . languages/review-kit.pot --slug=review-kit
 #
 msgid ""
 msgstr ""
@@ -15,14 +15,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2024-04-13T00:00:00+07:00\n"
 "X-Generator: WP-CLI 2.8.0\n"
-"X-Domain: my-custom-woo-reviews\n"
+"X-Domain: review-kit\n"
 
 #. Plugin Name of the plugin
 msgid "ReviewKit: Media & Customer Written Reviews"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://github.com/your-username/my-custom-woo-reviews"
+msgid "https://github.com/your-username/review-kit"
 msgstr ""
 
 #. Description of the plugin

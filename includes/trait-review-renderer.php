@@ -73,7 +73,7 @@ trait MCWR_Trait_Renderer {
                 if ( ! $can_show_form ) {
                     echo '<div class="mcwr-notice-warning">';
                     echo sprintf(
-                        __( 'Vui lòng %sĐăng nhập%s để gửi đánh giá.', 'my-custom-woo-reviews' ),
+                        __( 'Vui lòng %sĐăng nhập%s để gửi đánh giá.', 'review-kit' ),
                         '<a href="' . wp_login_url( get_permalink() ) . '"><strong>',
                         '</strong></a>'
                     );
@@ -114,25 +114,25 @@ trait MCWR_Trait_Renderer {
 
         // Toolbar lọc & sắp xếp
         echo '<div class="mcwr-filter-container" data-product-id="' . $product_id . '">';
-            echo '<h3>' . __( 'Đánh giá từ khách hàng', 'my-custom-woo-reviews' ) . '</h3>';
+            echo '<h3>' . __( 'Đánh giá từ khách hàng', 'review-kit' ) . '</h3>';
             echo '<div class="mcwr-toolbar">';
                 echo '<div class="mcwr-filter-group">';
-                    echo '<button class="filter-btn active" data-filter="all">'  . __( 'Tất cả', 'my-custom-woo-reviews' )     . '</button>';
-                    echo '<button class="filter-btn" data-filter="5">'           . __( '5 Sao', 'my-custom-woo-reviews' )      . '</button>';
-                    echo '<button class="filter-btn" data-filter="4">'           . __( '4 Sao', 'my-custom-woo-reviews' )      . '</button>';
-                    echo '<button class="filter-btn" data-filter="3">'           . __( '3 Sao', 'my-custom-woo-reviews' )      . '</button>';
-                    echo '<button class="filter-btn" data-filter="2">'           . __( '2 Sao', 'my-custom-woo-reviews' )      . '</button>';
-                    echo '<button class="filter-btn" data-filter="1">'           . __( '1 Sao', 'my-custom-woo-reviews' )      . '</button>';
-                    echo '<button class="filter-btn" data-filter="has_image">'   . __( 'Có hình ảnh', 'my-custom-woo-reviews' )  . '</button>';
-                    echo '<button class="filter-btn" data-filter="verified">'    . __( 'Đã mua hàng', 'my-custom-woo-reviews' ) . '</button>';
+                    echo '<button class="filter-btn active" data-filter="all">'  . __( 'Tất cả', 'review-kit' )     . '</button>';
+                    echo '<button class="filter-btn" data-filter="5">'           . __( '5 Sao', 'review-kit' )      . '</button>';
+                    echo '<button class="filter-btn" data-filter="4">'           . __( '4 Sao', 'review-kit' )      . '</button>';
+                    echo '<button class="filter-btn" data-filter="3">'           . __( '3 Sao', 'review-kit' )      . '</button>';
+                    echo '<button class="filter-btn" data-filter="2">'           . __( '2 Sao', 'review-kit' )      . '</button>';
+                    echo '<button class="filter-btn" data-filter="1">'           . __( '1 Sao', 'review-kit' )      . '</button>';
+                    echo '<button class="filter-btn" data-filter="has_image">'   . __( 'Có hình ảnh', 'review-kit' )  . '</button>';
+                    echo '<button class="filter-btn" data-filter="verified">'    . __( 'Đã mua hàng', 'review-kit' ) . '</button>';
                 echo '</div>';
                 echo '<div class="mcwr-sort-group">';
                     echo '<select class="mcwr-sort-dropdown" data-uid="' . esc_attr($uid) . '">';
-                        echo '<option value="newest" selected>' . __( 'Mới nhất', 'my-custom-woo-reviews' )    . '</option>';
-                        echo '<option value="helpful">'         . __( 'Hữu ích nhất', 'my-custom-woo-reviews' ) . '</option>';
-                        echo '<option value="rating_desc">'     . __( 'Đánh giá cao', 'my-custom-woo-reviews' ) . '</option>';
-                        echo '<option value="rating_asc">'      . __( 'Đánh giá thấp', 'my-custom-woo-reviews' ) . '</option>';
-                        echo '<option value="oldest">'          . __( 'Cũ nhất', 'my-custom-woo-reviews' )     . '</option>';
+                        echo '<option value="newest" selected>' . __( 'Mới nhất', 'review-kit' )    . '</option>';
+                        echo '<option value="helpful">'         . __( 'Hữu ích nhất', 'review-kit' ) . '</option>';
+                        echo '<option value="rating_desc">'     . __( 'Đánh giá cao', 'review-kit' ) . '</option>';
+                        echo '<option value="rating_asc">'      . __( 'Đánh giá thấp', 'review-kit' ) . '</option>';
+                        echo '<option value="oldest">'          . __( 'Cũ nhất', 'review-kit' )     . '</option>';
                     echo '</select>';
                 echo '</div>';
             echo '</div>';
@@ -157,7 +157,7 @@ trait MCWR_Trait_Renderer {
             $total_pages    = ceil( $total_comments / $per_page );
 
             if ( ! $comments ) {
-                echo '<p class="mcwr-no-review">' . __( 'Chưa có đánh giá nào.', 'my-custom-woo-reviews' ) . '</p>';
+                echo '<p class="mcwr-no-review">' . __( 'Chưa có đánh giá nào.', 'review-kit' ) . '</p>';
             } else {
                 foreach ( $comments as $comment ) {
                     echo $this->get_single_review_html( $comment, $product );
@@ -165,7 +165,7 @@ trait MCWR_Trait_Renderer {
                 if ( $pagination_style == 'load_more' ) {
                     if ( $total_comments > $per_page ) {
                         echo '<div class="mcwr-load-more-container">';
-                        echo '<button id="mcwr-load-more-btn" class="mcwr-btn" data-page="2">' . __( 'Tải thêm đánh giá', 'my-custom-woo-reviews' ) . '</button>';
+                        echo '<button id="mcwr-load-more-btn" class="mcwr-btn" data-page="2">' . __( 'Tải thêm đánh giá', 'review-kit' ) . '</button>';
                         echo '</div>';
                     }
                 } else {
@@ -232,7 +232,7 @@ trait MCWR_Trait_Renderer {
         $is_verified   = get_comment_meta( $comment->comment_ID, 'verified', true );
         $helpful_count = intval( get_comment_meta( $comment->comment_ID, 'helpful_count', true ) );
         $enable_voting = get_option( 'mcwr_enable_voting', 1 );
-        $badge_text    = get_option( 'mcwr_verified_text', __( 'Đã mua hàng', 'my-custom-woo-reviews' ) );
+        $badge_text    = get_option( 'mcwr_verified_text', __( 'Đã mua hàng', 'review-kit' ) );
         $badge_color   = get_option( 'mcwr_verified_color', '#27ae60' );
 
         ob_start();
@@ -310,7 +310,7 @@ trait MCWR_Trait_Renderer {
                                     data-src="<?php echo esc_url( $img_full[0] ); ?>"
                                     data-thumb="<?php echo esc_url( $img_thumb[0] ); ?>"
                                     data-fancybox="gallery-<?php echo $comment->comment_ID; ?>"
-                                    data-caption="<?php echo sprintf( __( 'Đánh giá của %s', 'my-custom-woo-reviews' ), esc_attr(get_comment_author($comment->comment_ID)) ); ?>"
+                                    data-caption="<?php echo sprintf( __( 'Đánh giá của %s', 'review-kit' ), esc_attr(get_comment_author($comment->comment_ID)) ); ?>"
                                 >
                                     <img src="<?php echo esc_url( $img_thumb[0] ); ?>">
                                 </div>
@@ -325,18 +325,18 @@ trait MCWR_Trait_Renderer {
             <div class="review-actions">
                 <?php if ( $enable_voting ): ?>
                 <button class="action-btn like-btn" data-comment-id="<?php echo $comment->comment_ID; ?>">
-                        <?php echo mcwr_icon( 'thumbs-up' ); ?> <?php _e( 'Hữu ích', 'my-custom-woo-reviews' ); ?> (<span class="count"><?php echo $helpful_count; ?></span>)
+                        <?php echo mcwr_icon( 'thumbs-up' ); ?> <?php _e( 'Hữu ích', 'review-kit' ); ?> (<span class="count"><?php echo $helpful_count; ?></span>)
                     </button>
                 <?php endif; ?>
 
                 <?php if ( current_user_can( 'administrator' ) ): ?>
                 <button class="action-btn reply-toggle-btn" data-comment-id="<?php echo $comment->comment_ID; ?>">
-                        <?php echo mcwr_icon( 'chat' ); ?> <?php _e( 'Phản hồi', 'my-custom-woo-reviews' ); ?>
+                        <?php echo mcwr_icon( 'chat' ); ?> <?php _e( 'Phản hồi', 'review-kit' ); ?>
                     </button>
                 <?php endif; ?>
 
-                <button class="action-btn mcwr-report-btn" data-comment-id="<?php echo $comment->comment_ID; ?>" title="<?php _e( 'Báo cáo đánh giá vi phạm', 'my-custom-woo-reviews' ); ?>">
-                    <?php echo mcwr_icon( 'flag' ); ?> <?php _e( 'Báo cáo', 'my-custom-woo-reviews' ); ?>
+                <button class="action-btn mcwr-report-btn" data-comment-id="<?php echo $comment->comment_ID; ?>" title="<?php _e( 'Báo cáo đánh giá vi phạm', 'review-kit' ); ?>">
+                    <?php echo mcwr_icon( 'flag' ); ?> <?php _e( 'Báo cáo', 'review-kit' ); ?>
                 </button>
             </div>
 
@@ -347,10 +347,10 @@ trait MCWR_Trait_Renderer {
                         <input type="hidden" name="product_id" value="<?php echo $product->get_id(); ?>">
                         <input type="hidden" name="parent_id" value="<?php echo $comment->comment_ID; ?>">
                         <?php wp_nonce_field( 'mcwr_admin_reply_action', 'mcwr_admin_reply_nonce' ); ?>
-                        <textarea name="admin_reply_content" placeholder="<?php _e( 'Viết phản hồi...', 'my-custom-woo-reviews' ); ?>" required></textarea>
+                        <textarea name="admin_reply_content" placeholder="<?php _e( 'Viết phản hồi...', 'review-kit' ); ?>" required></textarea>
                         <div class="reply-form-actions">
-                            <button type="button" class="cancel-btn" onclick="document.getElementById('reply-form-<?php echo $comment->comment_ID; ?>').style.display='none'"><?php _e( 'Hủy', 'my-custom-woo-reviews' ); ?></button>
-                            <button type="submit" class="submit-btn"><?php _e( 'Gửi', 'my-custom-woo-reviews' ); ?></button>
+                            <button type="button" class="cancel-btn" onclick="document.getElementById('reply-form-<?php echo $comment->comment_ID; ?>').style.display='none'"><?php _e( 'Hủy', 'review-kit' ); ?></button>
+                            <button type="submit" class="submit-btn"><?php _e( 'Gửi', 'review-kit' ); ?></button>
                         </div>
                     </form>
                 </div>
@@ -368,7 +368,7 @@ trait MCWR_Trait_Renderer {
                         </div>
                         <div class="reply-author-info">
                             <span class="reply-author-name"><?php echo esc_html( $reply->comment_author ); ?></span>
-                            <span class="reply-badge"><?php echo mcwr_icon( 'admin' ); ?> <?php _e( 'Quản trị viên', 'my-custom-woo-reviews' ); ?></span>
+                            <span class="reply-badge"><?php echo mcwr_icon( 'admin' ); ?> <?php _e( 'Quản trị viên', 'review-kit' ); ?></span>
                             <span class="reply-date">&bull; <?php
                                 $reply_ts   = strtotime( $reply->comment_date );
                                 $reply_full = get_comment_date( 'd/m/Y H:i', $reply->comment_ID );
@@ -479,7 +479,7 @@ trait MCWR_Trait_Renderer {
                         <?php echo str_repeat( mcwr_icon( 'star' ), 5 ); ?>
                     </div>
                 </div>
-                <div class="total-text"><?php echo sprintf( __( '%d đánh giá', 'my-custom-woo-reviews' ), $total ); ?></div>
+                <div class="total-text"><?php echo sprintf( __( '%d đánh giá', 'review-kit' ), $total ); ?></div>
             </div>
             <div class="summary-right">
                 <?php
@@ -488,7 +488,7 @@ trait MCWR_Trait_Renderer {
                     $percent = ($total > 0) ? ($count / $total) * 100 : 0;
                     ?>
                     <div class="summary-row" onclick="jQuery('.filter-btn[data-filter=<?php echo $i; ?>]').trigger('click');">
-                        <span class="row-label"><?php echo sprintf( __( '%d sao', 'my-custom-woo-reviews' ), $i ); ?></span>
+                        <span class="row-label"><?php echo sprintf( __( '%d sao', 'review-kit' ), $i ); ?></span>
                         <div class="row-bar-bg">
                             <div class="row-bar-fill mcwr-progress-bar" style="width: 0;" data-percent="<?php echo esc_attr( $percent ); ?>%"></div>
                         </div>
@@ -560,19 +560,19 @@ trait MCWR_Trait_Renderer {
         $diff = $now - $timestamp;
 
         if ( $diff < 60 ) {
-            return __( 'Vừa xong', 'my-custom-woo-reviews' );
+            return __( 'Vừa xong', 'review-kit' );
         }
         if ( $diff < HOUR_IN_SECONDS ) {
             $minutes = round( $diff / MINUTE_IN_SECONDS );
-            return sprintf( _n( '%d phút trước', '%d phút trước', $minutes, 'my-custom-woo-reviews' ), $minutes );
+            return sprintf( _n( '%d phút trước', '%d phút trước', $minutes, 'review-kit' ), $minutes );
         }
         if ( $diff < DAY_IN_SECONDS ) {
             $hours = round( $diff / HOUR_IN_SECONDS );
-            return sprintf( _n( '%d giờ trước', '%d giờ trước', $hours, 'my-custom-woo-reviews' ), $hours );
+            return sprintf( _n( '%d giờ trước', '%d giờ trước', $hours, 'review-kit' ), $hours );
         }
         if ( $diff < ( 7 * DAY_IN_SECONDS ) ) {
             $days = round( $diff / DAY_IN_SECONDS );
-            return sprintf( _n( '%d ngày trước', '%d ngày trước', $days, 'my-custom-woo-reviews' ), $days );
+            return sprintf( _n( '%d ngày trước', '%d ngày trước', $days, 'review-kit' ), $days );
         }
 
         return date_i18n( 'd/m/Y', $timestamp );

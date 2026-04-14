@@ -14,8 +14,8 @@ class MCWR_Admin_Settings {
     // 1. TẠO MENU ADMIN
     public function add_admin_menu() {
         add_menu_page(
-            __( 'ReviewKit Settings', 'my-custom-woo-reviews' ), // Page Title
-            __( 'ReviewKit', 'my-custom-woo-reviews' ),           // Menu Title
+            __( 'ReviewKit Settings', 'review-kit' ), // Page Title
+            __( 'ReviewKit', 'review-kit' ),           // Menu Title
             'manage_options',   // Capability
             'mcwr-settings',    // Menu Slug
             array( $this, 'render_settings_page' ), // Callback
@@ -55,11 +55,11 @@ class MCWR_Admin_Settings {
         register_setting( 'mcwr_display_group', 'mcwr_stars_color' );
         register_setting( 'mcwr_display_group', 'mcwr_border_color' );
 
-        add_settings_section( 'mcwr_general_section', __( 'Cấu hình cơ bản', 'my-custom-woo-reviews' ), null, 'mcwr_general_page' );
+        add_settings_section( 'mcwr_general_section', __( 'Cấu hình cơ bản', 'review-kit' ), null, 'mcwr_general_page' );
 
-        add_settings_field( 'mcwr_moderation_mode', __( 'Chế độ duyệt bài', 'my-custom-woo-reviews' ), array( $this, 'render_select_moderation' ), 'mcwr_general_page', 'mcwr_general_section' );
-        add_settings_field( 'mcwr_enable_voting', __( 'Tính năng Hữu ích (Like)', 'my-custom-woo-reviews' ), array( $this, 'render_checkbox' ), 'mcwr_general_page', 'mcwr_general_section', array( 'id' => 'mcwr_enable_voting' ) );
-        add_settings_field(  'mcwr_require_login' , __( 'Yêu cầu đăng nhập', 'my-custom-woo-reviews' ), array( $this, 'render_checkbox' ), 'mcwr_general_page', 'mcwr_general_section', array( 
+        add_settings_field( 'mcwr_moderation_mode', __( 'Chế độ duyệt bài', 'review-kit' ), array( $this, 'render_select_moderation' ), 'mcwr_general_page', 'mcwr_general_section' );
+        add_settings_field( 'mcwr_enable_voting', __( 'Tính năng Hữu ích (Like)', 'review-kit' ), array( $this, 'render_checkbox' ), 'mcwr_general_page', 'mcwr_general_section', array( 'id' => 'mcwr_enable_voting' ) );
+        add_settings_field(  'mcwr_require_login' , __( 'Yêu cầu đăng nhập', 'review-kit' ), array( $this, 'render_checkbox' ), 'mcwr_general_page', 'mcwr_general_section', array( 
                 'id' => 'mcwr_require_login',
                 'default' => 0 // Mặc định là TẮT (cho phép khách gửi review)
         ) 
@@ -76,25 +76,25 @@ class MCWR_Admin_Settings {
         register_setting( 'mcwr_limits_group', 'mcwr_max_video_size' );
         register_setting( 'mcwr_limits_group', 'mcwr_allowed_video_types' );
 
-        add_settings_section( 'mcwr_limits_section', __( 'Cấu hình hình ảnh và Video', 'my-custom-woo-reviews' ), null, 'mcwr_limits_page' );
+        add_settings_section( 'mcwr_limits_section', __( 'Cấu hình hình ảnh và Video', 'review-kit' ), null, 'mcwr_limits_page' );
 
-        add_settings_field( 'mcwr_enable_uploads', __( 'Cho phép Upload ảnh', 'my-custom-woo-reviews' ), array( $this, 'render_checkbox' ), 'mcwr_limits_page', 'mcwr_limits_section', array( 'id' => 'mcwr_enable_uploads' ) );
-        add_settings_field( 'mcwr_max_images', __( 'Số ảnh tối đa', 'my-custom-woo-reviews' ), array( $this, 'render_number' ), 'mcwr_limits_page', 'mcwr_limits_section', array( 'id' => 'mcwr_max_images', 'desc' => __( 'ảnh/review', 'my-custom-woo-reviews' ) ) );
-        add_settings_field( 'mcwr_max_file_size', __( 'Dung lượng ảnh tối đa', 'my-custom-woo-reviews' ), array( $this, 'render_number' ), 'mcwr_limits_page', 'mcwr_limits_section', array( 'id' => 'mcwr_max_file_size', 'desc' => 'MB' ) );
+        add_settings_field( 'mcwr_enable_uploads', __( 'Cho phép Upload ảnh', 'review-kit' ), array( $this, 'render_checkbox' ), 'mcwr_limits_page', 'mcwr_limits_section', array( 'id' => 'mcwr_enable_uploads' ) );
+        add_settings_field( 'mcwr_max_images', __( 'Số ảnh tối đa', 'review-kit' ), array( $this, 'render_number' ), 'mcwr_limits_page', 'mcwr_limits_section', array( 'id' => 'mcwr_max_images', 'desc' => __( 'ảnh/review', 'review-kit' ) ) );
+        add_settings_field( 'mcwr_max_file_size', __( 'Dung lượng ảnh tối đa', 'review-kit' ), array( $this, 'render_number' ), 'mcwr_limits_page', 'mcwr_limits_section', array( 'id' => 'mcwr_max_file_size', 'desc' => 'MB' ) );
 
-        add_settings_field( 'mcwr_enable_video_upload', __( 'Cho phép Upload Video', 'my-custom-woo-reviews' ), array( $this, 'render_checkbox' ), 'mcwr_limits_page', 'mcwr_limits_section', array( 'id' => 'mcwr_enable_video_upload', 'default' => 0 ) );
-        add_settings_field( 'mcwr_max_video_size', __( 'Dung lượng Video tối đa', 'my-custom-woo-reviews' ), array( $this, 'render_number' ), 'mcwr_limits_page', 'mcwr_limits_section', array( 'id' => 'mcwr_max_video_size', 'default' => 10, 'desc' => 'MB' ) );
-        add_settings_field( 'mcwr_allowed_video_types', __( 'Định dạng Video cho phép', 'my-custom-woo-reviews' ), array( $this, 'render_text' ), 'mcwr_limits_page', 'mcwr_limits_section', array( 'id' => 'mcwr_allowed_video_types', 'default' => 'mp4,webm,mov', 'desc' => __( 'Phân cách bằng dấu phẩy (vd: mp4,webm,mov)', 'my-custom-woo-reviews' ) ) );
+        add_settings_field( 'mcwr_enable_video_upload', __( 'Cho phép Upload Video', 'review-kit' ), array( $this, 'render_checkbox' ), 'mcwr_limits_page', 'mcwr_limits_section', array( 'id' => 'mcwr_enable_video_upload', 'default' => 0 ) );
+        add_settings_field( 'mcwr_max_video_size', __( 'Dung lượng Video tối đa', 'review-kit' ), array( $this, 'render_number' ), 'mcwr_limits_page', 'mcwr_limits_section', array( 'id' => 'mcwr_max_video_size', 'default' => 10, 'desc' => 'MB' ) );
+        add_settings_field( 'mcwr_allowed_video_types', __( 'Định dạng Video cho phép', 'review-kit' ), array( $this, 'render_text' ), 'mcwr_limits_page', 'mcwr_limits_section', array( 'id' => 'mcwr_allowed_video_types', 'default' => 'mp4,webm,mov', 'desc' => __( 'Phân cách bằng dấu phẩy (vd: mp4,webm,mov)', 'review-kit' ) ) );
 
 
         // --- TAB 3: HIỂN THỊ (DISPLAY) ---
         register_setting( 'mcwr_display_group', 'mcwr_verified_text' );
         register_setting( 'mcwr_display_group', 'mcwr_verified_color' );
 
-        add_settings_section( 'mcwr_display_section', __( 'Giao diện', 'my-custom-woo-reviews' ), null, 'mcwr_display_page' );
+        add_settings_section( 'mcwr_display_section', __( 'Giao diện', 'review-kit' ), null, 'mcwr_display_page' );
 
-        add_settings_field( 'mcwr_verified_text', __( 'Chữ Badge xác thực', 'my-custom-woo-reviews' ), array( $this, 'render_text' ), 'mcwr_display_page', 'mcwr_display_section', array( 'id' => 'mcwr_verified_text' ) );
-        add_settings_field( 'mcwr_verified_color', __( 'Màu Badge xác thực', 'my-custom-woo-reviews' ), array( $this, 'render_color_picker' ), 'mcwr_display_page', 'mcwr_display_section', array( 'id' => 'mcwr_verified_color' ) );
+        add_settings_field( 'mcwr_verified_text', __( 'Chữ Badge xác thực', 'review-kit' ), array( $this, 'render_text' ), 'mcwr_display_page', 'mcwr_display_section', array( 'id' => 'mcwr_verified_text' ) );
+        add_settings_field( 'mcwr_verified_color', __( 'Màu Badge xác thực', 'review-kit' ), array( $this, 'render_color_picker' ), 'mcwr_display_page', 'mcwr_display_section', array( 'id' => 'mcwr_verified_color' ) );
 
 
         register_setting( 'mcwr_display_group', 'mcwr_per_page' );
@@ -106,22 +106,22 @@ class MCWR_Admin_Settings {
         register_setting( 'mcwr_display_group', 'mcwr_lightbox_toolbar' );
         register_setting( 'mcwr_display_group', 'mcwr_lightbox_theme' );
 
-        add_settings_section( 'mcwr_display_section', __( 'Cấu hình Hiển thị', 'my-custom-woo-reviews' ), null, 'mcwr_display_page' );
+        add_settings_section( 'mcwr_display_section', __( 'Cấu hình Hiển thị', 'review-kit' ), null, 'mcwr_display_page' );
 
         // 1. Số đánh giá mỗi trang
         add_settings_field( 
             'mcwr_per_page', 
-            __( 'Số đánh giá mỗi trang', 'my-custom-woo-reviews' ), 
+            __( 'Số đánh giá mỗi trang', 'review-kit' ), 
             array( $this, 'render_number' ), 
             'mcwr_display_page', 
             'mcwr_display_section', 
-            array( 'id' => 'mcwr_per_page', 'default' => 5, 'desc' => __( 'Số lượng đánh giá hiển thị trong 1 lần tải.', 'my-custom-woo-reviews' ) ) 
+            array( 'id' => 'mcwr_per_page', 'default' => 5, 'desc' => __( 'Số lượng đánh giá hiển thị trong 1 lần tải.', 'review-kit' ) ) 
         );
         
         // 2. Kiểu Phân Trang
         add_settings_field( 
             'mcwr_pagination_style', 
-            __( 'Kiểu Phân Trang', 'my-custom-woo-reviews' ), 
+            __( 'Kiểu Phân Trang', 'review-kit' ), 
             array( $this, 'render_select' ), 
             'mcwr_display_page', 
             'mcwr_display_section', 
@@ -129,21 +129,21 @@ class MCWR_Admin_Settings {
                 'id' => 'mcwr_pagination_style', 
                 'default' => 'numbered_ajax',
                 'options' => array(
-                    'numbered_ajax' => __( 'Phân trang số (1, 2, 3...)', 'my-custom-woo-reviews' ),
-                    'load_more'     => __( 'Tải thêm (Load More Button)', 'my-custom-woo-reviews' )
+                    'numbered_ajax' => __( 'Phân trang số (1, 2, 3...)', 'review-kit' ),
+                    'load_more'     => __( 'Tải thêm (Load More Button)', 'review-kit' )
                 ),
-                'desc' => __( 'Chọn kiểu hiển thị cho đánh giá.', 'my-custom-woo-reviews' )
+                'desc' => __( 'Chọn kiểu hiển thị cho đánh giá.', 'review-kit' )
             ) 
         );
 
 
         // ======
-        add_settings_section( 'mcwr_lightbox_section', __( 'Cấu hình Lightbox (Popup)', 'my-custom-woo-reviews' ), null, 'mcwr_display_page' );
+        add_settings_section( 'mcwr_lightbox_section', __( 'Cấu hình Lightbox (Popup)', 'review-kit' ), null, 'mcwr_display_page' );
 
         // 2. Vị trí Thumbnails (Layout)
         add_settings_field( 
             'mcwr_lightbox_layout', 
-            __( 'Kiểu hiển thị Thumbnails', 'my-custom-woo-reviews' ), 
+            __( 'Kiểu hiển thị Thumbnails', 'review-kit' ), 
             array( $this, 'render_select' ), 
             'mcwr_display_page', 
             'mcwr_lightbox_section', 
@@ -151,22 +151,22 @@ class MCWR_Admin_Settings {
                 'id' => 'mcwr_lightbox_layout',
                 'default' => 'modern',
                 'options' => array(
-                    'modern'     => 'Modern (' . __( 'Mặc định', 'my-custom-woo-reviews' ) . ')',
-                    'classic'    => __( 'Classic', 'my-custom-woo-reviews' ),
-                    'scrollable' => __( 'Scrollable', 'my-custom-woo-reviews' ),
-                    'vertical'   => __( 'Vertical Thumbnails', 'my-custom-woo-reviews' ),
-                    ''           => __( 'Không hiển thị Thumbnails', 'my-custom-woo-reviews' )
+                    'modern'     => 'Modern (' . __( 'Mặc định', 'review-kit' ) . ')',
+                    'classic'    => __( 'Classic', 'review-kit' ),
+                    'scrollable' => __( 'Scrollable', 'review-kit' ),
+                    'vertical'   => __( 'Vertical Thumbnails', 'review-kit' ),
+                    ''           => __( 'Không hiển thị Thumbnails', 'review-kit' )
                 ),
-                'desc' => __( 'Chọn "Dọc" cho màn hình rộng, "Ngang" cho phong cách cổ điển.', 'my-custom-woo-reviews' )
+                'desc' => __( 'Chọn "Dọc" cho màn hình rộng, "Ngang" cho phong cách cổ điển.', 'review-kit' )
             ) 
         );
 
         // ====== MÀU SẮC ======
-        add_settings_section( 'mcwr_color_section', __( 'Màu sắc giao diện', 'my-custom-woo-reviews' ), null, 'mcwr_display_page' );
+        add_settings_section( 'mcwr_color_section', __( 'Màu sắc giao diện', 'review-kit' ), null, 'mcwr_display_page' );
 
         add_settings_field( 
             'mcwr_primary_color', 
-            __( 'Màu chủ đạo (Nút, Badge)', 'my-custom-woo-reviews' ), 
+            __( 'Màu chủ đạo (Nút, Badge)', 'review-kit' ), 
             array( $this, 'render_color_picker' ), 
             'mcwr_display_page', 
             'mcwr_color_section', 
@@ -175,7 +175,7 @@ class MCWR_Admin_Settings {
 
         add_settings_field( 
             'mcwr_stars_color', 
-            __( 'Màu ngôi sao & Thanh biểu đồ', 'my-custom-woo-reviews' ), 
+            __( 'Màu ngôi sao & Thanh biểu đồ', 'review-kit' ), 
             array( $this, 'render_color_picker' ), 
             'mcwr_display_page', 
             'mcwr_color_section', 
@@ -184,7 +184,7 @@ class MCWR_Admin_Settings {
 
         add_settings_field( 
             'mcwr_border_color', 
-            __( 'Màu đường viền card', 'my-custom-woo-reviews' ), 
+            __( 'Màu đường viền card', 'review-kit' ), 
             array( $this, 'render_color_picker' ), 
             'mcwr_display_page', 
             'mcwr_color_section', 
@@ -193,7 +193,7 @@ class MCWR_Admin_Settings {
 
         add_settings_field( 
             'mcwr_lightbox_theme', 
-            __( 'Giao diện (Theme)', 'my-custom-woo-reviews' ), 
+            __( 'Giao diện (Theme)', 'review-kit' ), 
             array( $this, 'render_select' ), 
             'mcwr_display_page', 
             'mcwr_lightbox_section', 
@@ -201,18 +201,18 @@ class MCWR_Admin_Settings {
                 'id' => 'mcwr_lightbox_theme', 
                 'default' => 'dark',
                 'options' => array(
-                    'dark'  => __( 'Dark theme (Tối)', 'my-custom-woo-reviews' ),
-                    'light' => __( 'Light theme (Sáng)', 'my-custom-woo-reviews' ),
-                    'auto'  => __( 'Auto (Theo thiết bị)', 'my-custom-woo-reviews' )
+                    'dark'  => __( 'Dark theme (Tối)', 'review-kit' ),
+                    'light' => __( 'Light theme (Sáng)', 'review-kit' ),
+                    'auto'  => __( 'Auto (Theo thiết bị)', 'review-kit' )
                 ),
-                'desc' => __( 'Chọn màu nền cho Popup ảnh.', 'my-custom-woo-reviews' )
+                'desc' => __( 'Chọn màu nền cho Popup ảnh.', 'review-kit' )
             ) 
         );
 
         // 3. Bật/Tắt Toolbar
         add_settings_field( 
             'mcwr_lightbox_toolbar', 
-            __( 'Hiển thị thanh công cụ (Toolbar)', 'my-custom-woo-reviews' ), 
+            __( 'Hiển thị thanh công cụ (Toolbar)', 'review-kit' ), 
             array( $this, 'render_checkbox' ), 
             'mcwr_display_page', 
             'mcwr_lightbox_section', 
@@ -232,7 +232,7 @@ class MCWR_Admin_Settings {
         // Lấy giá trị từ DB, nếu không có thì dùng mặc định
         $option = get_option( $args['id'], $default_val );
         
-        echo '<input type="checkbox" name="' . $args['id'] . '" value="1" ' . checked( 1, $option, false ) . ' /> ' . __( 'Cho phép', 'my-custom-woo-reviews' );
+        echo '<input type="checkbox" name="' . $args['id'] . '" value="1" ' . checked( 1, $option, false ) . ' /> ' . __( 'Cho phép', 'review-kit' );
     }
 
     // Input Number
@@ -254,10 +254,10 @@ class MCWR_Admin_Settings {
         $option = get_option( 'mcwr_moderation_mode' );
         ?>
         <select name="mcwr_moderation_mode">
-            <option value="0" <?php selected( $option, '0' ); ?>><?php _e( 'Chờ duyệt (Pending)', 'my-custom-woo-reviews' ); ?></option>
-            <option value="1" <?php selected( $option, '1' ); ?>><?php _e( 'Tự động đăng (Approved)', 'my-custom-woo-reviews' ); ?></option>
+            <option value="0" <?php selected( $option, '0' ); ?>><?php _e( 'Chờ duyệt (Pending)', 'review-kit' ); ?></option>
+            <option value="1" <?php selected( $option, '1' ); ?>><?php _e( 'Tự động đăng (Approved)', 'review-kit' ); ?></option>
         </select>
-        <p class="description"><?php _e( 'Chọn "Chờ duyệt" để kiểm tra nội dung trước khi hiển thị.', 'my-custom-woo-reviews' ); ?></p>
+        <p class="description"><?php _e( 'Chọn "Chờ duyệt" để kiểm tra nội dung trước khi hiển thị.', 'review-kit' ); ?></p>
         <?php
     }
 
@@ -276,36 +276,36 @@ class MCWR_Admin_Settings {
         // Map tab → [ title, icon, description ]
         $tab_meta = array(
             'general'    => array(
-                'title' => __( 'Cài đặt chung', 'my-custom-woo-reviews' ),
+                'title' => __( 'Cài đặt chung', 'review-kit' ),
                 'icon'  => 'dashicons-admin-settings',
-                'desc'  => __( 'Cấu hình chế độ duyệt bài, bình chọn hữu ích và yêu cầu đăng nhập.', 'my-custom-woo-reviews' ),
+                'desc'  => __( 'Cấu hình chế độ duyệt bài, bình chọn hữu ích và yêu cầu đăng nhập.', 'review-kit' ),
             ),
             'limits'     => array(
-                'title' => __( 'Giới hạn & Upload', 'my-custom-woo-reviews' ),
+                'title' => __( 'Giới hạn & Upload', 'review-kit' ),
                 'icon'  => 'dashicons-upload',
-                'desc'  => __( 'Cấu hình số lượng, dung lượng tối đa cho ảnh và video khách hàng upload.', 'my-custom-woo-reviews' ),
+                'desc'  => __( 'Cấu hình số lượng, dung lượng tối đa cho ảnh và video khách hàng upload.', 'review-kit' ),
             ),
             'display'    => array(
-                'title' => __( 'Hiển thị', 'my-custom-woo-reviews' ),
+                'title' => __( 'Hiển thị', 'review-kit' ),
                 'icon'  => 'dashicons-visibility',
-                'desc'  => __( 'Tuỳ chỉnh giao diện: màu sắc, badge xác thực, phân trang, lightbox popup.', 'my-custom-woo-reviews' ),
+                'desc'  => __( 'Tuỳ chỉnh giao diện: màu sắc, badge xác thực, phân trang, lightbox popup.', 'review-kit' ),
             ),
             'shortcodes' => array(
-                'title' => __( 'Mã ngắn', 'my-custom-woo-reviews' ),
+                'title' => __( 'Mã ngắn', 'review-kit' ),
                 'icon'  => 'dashicons-editor-code',
-                'desc'  => __( 'Chèn các mã ngắn vào trang, bài viết hoặc widget để hiển thị khu vực đánh giá.', 'my-custom-woo-reviews' ),
+                'desc'  => __( 'Chèn các mã ngắn vào trang, bài viết hoặc widget để hiển thị khu vực đánh giá.', 'review-kit' ),
             ),
             'tools'      => array(
-                'title' => __( 'Công cụ Pro', 'my-custom-woo-reviews' ),
+                'title' => __( 'Công cụ Pro', 'review-kit' ),
                 'icon'  => 'dashicons-hammer',
-                'desc'  => __( 'Các công cụ nâng cao: nhắc nhở email, blacklist, xóa file media khi xóa đánh giá.', 'my-custom-woo-reviews' ),
+                'desc'  => __( 'Các công cụ nâng cao: nhắc nhở email, blacklist, xóa file media khi xóa đánh giá.', 'review-kit' ),
             ),
         );
 
         $current = isset( $tab_meta[ $this->active_tab ] ) ? $tab_meta[ $this->active_tab ] : $tab_meta['general'];
         ?>
         <div class="wrap mcwr-settings-wrap">
-            <h1><?php _e( 'ReviewKit: Media & Customer Written Reviews', 'my-custom-woo-reviews' ); ?></h1>
+            <h1><?php _e( 'ReviewKit: Media & Customer Written Reviews', 'review-kit' ); ?></h1>
 
             <h2 class="nav-tab-wrapper">
                 <?php foreach ( $tab_meta as $slug => $meta ) : ?>
@@ -391,70 +391,70 @@ class MCWR_Admin_Settings {
                         <h3><span class="dashicons dashicons-layout"></span> Toàn bộ giao diện đánh giá</h3>
                     </div>
                     <div class="mcwr-sc-card-body">
-                        <span class="mcwr-sc-badge"><?php _e( 'Khuyên dùng', 'my-custom-woo-reviews' ); ?></span>
-                        <p><?php _e( 'Hiển thị đầy đủ 2 cột: <strong>Danh sách + bộ lọc</strong> ở trái và <strong>Thống kê + Form</strong> ở phải. Giống hệt tab Đánh giá mặc định của WooCommerce.', 'my-custom-woo-reviews' ); ?></p>
+                        <span class="mcwr-sc-badge"><?php _e( 'Khuyên dùng', 'review-kit' ); ?></span>
+                        <p><?php _e( 'Hiển thị đầy đủ 2 cột: <strong>Danh sách + bộ lọc</strong> ở trái và <strong>Thống kê + Form</strong> ở phải. Giống hệt tab Đánh giá mặc định của WooCommerce.', 'review-kit' ); ?></p>
                         <div class="mcwr-sc-code-block">
                             <code>[mcwr_reviews product_id="<?php echo $pid; ?>"]</code>
-                            <button class="mcwr-sc-copy-btn" onclick="mcwrCopy(this)" data-code="[mcwr_reviews product_id=&quot;<?php echo $pid; ?>&quot;]"><?php _e( 'Copy', 'my-custom-woo-reviews' ); ?></button>
+                            <button class="mcwr-sc-copy-btn" onclick="mcwrCopy(this)" data-code="[mcwr_reviews product_id=&quot;<?php echo $pid; ?>&quot;]"><?php _e( 'Copy', 'review-kit' ); ?></button>
                         </div>
                         <div class="mcwr-sc-params">
-                            <table><tr><td>product_id</td><td><?php _e( 'ID của sản phẩm (tìm trong URL trang sửa sản phẩm). Nếu bỏ trống, tự động lấy sản phẩm hiện tại.', 'my-custom-woo-reviews' ); ?></td></tr></table>
+                            <table><tr><td>product_id</td><td><?php _e( 'ID của sản phẩm (tìm trong URL trang sửa sản phẩm). Nếu bỏ trống, tự động lấy sản phẩm hiện tại.', 'review-kit' ); ?></td></tr></table>
                         </div>
-                        <div class="mcwr-sc-tip"><strong><span class="dashicons dashicons-lightbulb"></span> <?php _e( 'Mẹo:', 'my-custom-woo-reviews' ); ?></strong> <?php _e( 'Trang sản phẩm (Single Product) không cần điền <code>product_id</code> — plugin tự nhận diện.', 'my-custom-woo-reviews' ); ?></div>
+                        <div class="mcwr-sc-tip"><strong><span class="dashicons dashicons-lightbulb"></span> <?php _e( 'Mẹo:', 'review-kit' ); ?></strong> <?php _e( 'Trang sản phẩm (Single Product) không cần điền <code>product_id</code> — plugin tự nhận diện.', 'review-kit' ); ?></div>
                     </div>
                 </div>
 
                 <!-- Shortcode 2: Form -->
                 <div class="mcwr-sc-card">
                     <div class="mcwr-sc-card-header">
-                        <h3><span class="dashicons dashicons-edit"></span> <?php _e( 'Chỉ Form gửi đánh giá', 'my-custom-woo-reviews' ); ?></h3>
+                        <h3><span class="dashicons dashicons-edit"></span> <?php _e( 'Chỉ Form gửi đánh giá', 'review-kit' ); ?></h3>
                     </div>
                     <div class="mcwr-sc-card-body">
-                        <p><?php _e( 'Hiển thị riêng form nhập sao, tên, email, nội dung và upload ảnh/video. Phù hợp để nhúng vào sidebar, landing page hoặc popup.', 'my-custom-woo-reviews' ); ?></p>
+                        <p><?php _e( 'Hiển thị riêng form nhập sao, tên, email, nội dung và upload ảnh/video. Phù hợp để nhúng vào sidebar, landing page hoặc popup.', 'review-kit' ); ?></p>
                         <div class="mcwr-sc-code-block">
                             <code>[mcwr_review_form product_id="<?php echo $pid; ?>"]</code>
-                            <button class="mcwr-sc-copy-btn" onclick="mcwrCopy(this)" data-code="[mcwr_review_form product_id=&quot;<?php echo $pid; ?>&quot;]"><?php _e( 'Copy', 'my-custom-woo-reviews' ); ?></button>
+                            <button class="mcwr-sc-copy-btn" onclick="mcwrCopy(this)" data-code="[mcwr_review_form product_id=&quot;<?php echo $pid; ?>&quot;]"><?php _e( 'Copy', 'review-kit' ); ?></button>
                         </div>
                         <div class="mcwr-sc-params">
-                            <table><tr><td>product_id</td><td><?php _e( 'ID sản phẩm cần gửi đánh giá (bắt buộc nếu dùng ngoài trang sản phẩm).', 'my-custom-woo-reviews' ); ?></td></tr></table>
+                            <table><tr><td>product_id</td><td><?php _e( 'ID sản phẩm cần gửi đánh giá (bắt buộc nếu dùng ngoài trang sản phẩm).', 'review-kit' ); ?></td></tr></table>
                         </div>
-                        <div class="mcwr-sc-tip mcwr-admin-tip--warning"><strong><span class="dashicons dashicons-warning"></span> <?php _e( 'Lưu ý:', 'my-custom-woo-reviews' ); ?></strong> <?php _e( 'Cài đặt <em>"Yêu cầu đăng nhập"</em> vẫn được áp dụng — khách chưa đăng nhập sẽ thấy thông báo.', 'my-custom-woo-reviews' ); ?></div>
+                        <div class="mcwr-sc-tip mcwr-admin-tip--warning"><strong><span class="dashicons dashicons-warning"></span> <?php _e( 'Lưu ý:', 'review-kit' ); ?></strong> <?php _e( 'Cài đặt <em>"Yêu cầu đăng nhập"</em> vẫn được áp dụng — khách chưa đăng nhập sẽ thấy thông báo.', 'review-kit' ); ?></div>
                     </div>
                 </div>
 
                 <!-- Shortcode 3: List -->
                 <div class="mcwr-sc-card">
                     <div class="mcwr-sc-card-header">
-                        <h3><span class="dashicons dashicons-list-view"></span> <?php _e( 'Chỉ Danh sách đánh giá', 'my-custom-woo-reviews' ); ?></h3>
+                        <h3><span class="dashicons dashicons-list-view"></span> <?php _e( 'Chỉ Danh sách đánh giá', 'review-kit' ); ?></h3>
                     </div>
                     <div class="mcwr-sc-card-body">
-                        <p><?php _e( 'Hiển thị danh sách các bình luận kèm <strong>thanh lọc theo sao</strong>, lọc theo ảnh/đã mua và <strong>sắp xếp</strong> (mới nhất, hữu ích, điểm cao...).', 'my-custom-woo-reviews' ); ?></p>
+                        <p><?php _e( 'Hiển thị danh sách các bình luận kèm <strong>thanh lọc theo sao</strong>, lọc theo ảnh/đã mua và <strong>sắp xếp</strong> (mới nhất, hữu ích, điểm cao...).', 'review-kit' ); ?></p>
                         <div class="mcwr-sc-code-block">
                             <code>[mcwr_review_list product_id="<?php echo $pid; ?>"]</code>
-                            <button class="mcwr-sc-copy-btn" onclick="mcwrCopy(this)" data-code="[mcwr_review_list product_id=&quot;<?php echo $pid; ?>&quot;]"><?php _e( 'Copy', 'my-custom-woo-reviews' ); ?></button>
+                            <button class="mcwr-sc-copy-btn" onclick="mcwrCopy(this)" data-code="[mcwr_review_list product_id=&quot;<?php echo $pid; ?>&quot;]"><?php _e( 'Copy', 'review-kit' ); ?></button>
                         </div>
                         <div class="mcwr-sc-params">
-                            <table><tr><td>product_id</td><td><?php _e( 'ID sản phẩm muốn lấy danh sách đánh giá.', 'my-custom-woo-reviews' ); ?></td></tr></table>
+                            <table><tr><td>product_id</td><td><?php _e( 'ID sản phẩm muốn lấy danh sách đánh giá.', 'review-kit' ); ?></td></tr></table>
                         </div>
-                        <div class="mcwr-sc-tip"><strong><span class="dashicons dashicons-lightbulb"></span> <?php _e( 'Mẹo:', 'my-custom-woo-reviews' ); ?></strong> <?php printf( __( 'Ghép cặp với %s để tạo layout tuỳ chỉnh theo thiết kế riêng.', 'my-custom-woo-reviews' ), '<code>[mcwr_review_summary]</code>' ); ?></div>
+                        <div class="mcwr-sc-tip"><strong><span class="dashicons dashicons-lightbulb"></span> <?php _e( 'Mẹo:', 'review-kit' ); ?></strong> <?php printf( __( 'Ghép cặp với %s để tạo layout tuỳ chỉnh theo thiết kế riêng.', 'review-kit' ), '<code>[mcwr_review_summary]</code>' ); ?></div>
                     </div>
                 </div>
 
                 <!-- Shortcode 4: Summary -->
                 <div class="mcwr-sc-card">
                     <div class="mcwr-sc-card-header">
-                        <h3><span class="dashicons dashicons-chart-bar"></span> <?php _e( 'Chỉ Thống kê đánh giá', 'my-custom-woo-reviews' ); ?></h3>
+                        <h3><span class="dashicons dashicons-chart-bar"></span> <?php _e( 'Chỉ Thống kê đánh giá', 'review-kit' ); ?></h3>
                     </div>
                     <div class="mcwr-sc-card-body">
-                        <p><?php _e( 'Hiển thị <strong>điểm trung bình</strong> (Ví dụ: 4.8 / 5) cùng biểu đồ thanh tiến trình cho từng mức sao từ 5★ đến 1★.', 'my-custom-woo-reviews' ); ?></p>
+                        <p><?php _e( 'Hiển thị <strong>điểm trung bình</strong> (Ví dụ: 4.8 / 5) cùng biểu đồ thanh tiến trình cho từng mức sao từ 5★ đến 1★.', 'review-kit' ); ?></p>
                         <div class="mcwr-sc-code-block">
                             <code>[mcwr_review_summary product_id="<?php echo $pid; ?>"]</code>
-                            <button class="mcwr-sc-copy-btn" onclick="mcwrCopy(this)" data-code="[mcwr_review_summary product_id=&quot;<?php echo $pid; ?>&quot;]"><?php _e( 'Copy', 'my-custom-woo-reviews' ); ?></button>
+                            <button class="mcwr-sc-copy-btn" onclick="mcwrCopy(this)" data-code="[mcwr_review_summary product_id=&quot;<?php echo $pid; ?>&quot;]"><?php _e( 'Copy', 'review-kit' ); ?></button>
                         </div>
                         <div class="mcwr-sc-params">
-                            <table><tr><td>product_id</td><td><?php _e( 'ID sản phẩm muốn xem thống kê đánh giá.', 'my-custom-woo-reviews' ); ?></td></tr></table>
+                            <table><tr><td>product_id</td><td><?php _e( 'ID sản phẩm muốn xem thống kê đánh giá.', 'review-kit' ); ?></td></tr></table>
                         </div>
-                        <div class="mcwr-sc-tip"><strong><span class="dashicons dashicons-lightbulb"></span> <?php _e( 'Mẹo:', 'my-custom-woo-reviews' ); ?></strong> <?php _e( 'Phù hợp để nhúng vào trang mô tả sản phẩm hoặc bảng so sánh sản phẩm.', 'my-custom-woo-reviews' ); ?></div>
+                        <div class="mcwr-sc-tip"><strong><span class="dashicons dashicons-lightbulb"></span> <?php _e( 'Mẹo:', 'review-kit' ); ?></strong> <?php _e( 'Phù hợp để nhúng vào trang mô tả sản phẩm hoặc bảng so sánh sản phẩm.', 'review-kit' ); ?></div>
                     </div>
                 </div>
 
@@ -462,14 +462,14 @@ class MCWR_Admin_Settings {
 
             <!-- Hướng dẫn tìm Product ID -->
             <div class="mcwr-find-id-box">
-                <h3><span class="dashicons dashicons-search"></span> <?php _e( 'Cách tìm Product ID', 'my-custom-woo-reviews' ); ?></h3>
-                <p><?php _e( 'Product ID là số hiển thị trong URL khi bạn chỉnh sửa sản phẩm trong WooCommerce:', 'my-custom-woo-reviews' ); ?></p>
+                <h3><span class="dashicons dashicons-search"></span> <?php _e( 'Cách tìm Product ID', 'review-kit' ); ?></h3>
+                <p><?php _e( 'Product ID là số hiển thị trong URL khi bạn chỉnh sửa sản phẩm trong WooCommerce:', 'review-kit' ); ?></p>
                 <div class="mcwr-sc-code-block">
                     <code>https://yoursite.com/wp-admin/post.php?post=<span class="mcwr-code-highlight">123</span>&action=edit</code>
                 </div>
-                <p><?php _e( 'Bạn cũng có thể xem cột <strong>ID</strong> trong danh sách sản phẩm WooCommerce (bật cột ID qua <em>Screen Options</em> ở góc trên phải).', 'my-custom-woo-reviews' ); ?></p>
+                <p><?php _e( 'Bạn cũng có thể xem cột <strong>ID</strong> trong danh sách sản phẩm WooCommerce (bật cột ID qua <em>Screen Options</em> ở góc trên phải).', 'review-kit' ); ?></p>
                 <?php if ( $example_id ) : ?>
-                <div class="mcwr-sc-tip mcwr-admin-tip--success"><strong><span class="dashicons dashicons-yes-alt"></span> <?php _e( 'Sản phẩm mẫu của bạn:', 'my-custom-woo-reviews' ); ?></strong> <?php printf( __( 'Product ID = <strong>%d</strong> — đã được điền sẵn trong các ví dụ phía trên.', 'my-custom-woo-reviews' ), $example_id ); ?></div>
+                <div class="mcwr-sc-tip mcwr-admin-tip--success"><strong><span class="dashicons dashicons-yes-alt"></span> <?php _e( 'Sản phẩm mẫu của bạn:', 'review-kit' ); ?></strong> <?php printf( __( 'Product ID = <strong>%d</strong> — đã được điền sẵn trong các ví dụ phía trên.', 'review-kit' ), $example_id ); ?></div>
                 <?php endif; ?>
             </div>
 

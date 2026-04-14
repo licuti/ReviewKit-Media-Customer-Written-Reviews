@@ -1,14 +1,14 @@
 <?php
 /**
  * Plugin Name:       ReviewKit: Media & Customer Written Reviews
- * Plugin URI:        https://github.com/your-username/my-custom-woo-reviews
+ * Plugin URI:        https://github.com/your-username/review-kit
  * Description:       Upgrade your WooCommerce store with rich media reviews: photo & video uploads, verified buyer badges, star statistics, and a powerful admin toolkit.
  * Version:           1.1.0
  * Author:            Linh Nguyen
  * Author URI:        https://yoursite.com
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       my-custom-woo-reviews
+ * Text Domain:       review-kit
  * Domain Path:       /languages
  * Requires at least: 6.0
  * Requires PHP:      7.4
@@ -37,7 +37,7 @@ add_filter(
         $settings_link = sprintf(
             '<a href="%s">%s</a>',
             esc_url( admin_url( 'admin.php?page=mcwr-settings' ) ),
-            __( 'Settings', 'my-custom-woo-reviews' )
+            __( 'Settings', 'review-kit' )
         );
         array_unshift( $links, $settings_link );
         return $links;
@@ -117,7 +117,7 @@ add_action( 'before_woocommerce_init', function () {
 // ============================================================
 add_action( 'init', function () {
     load_plugin_textdomain(
-        'my-custom-woo-reviews',
+        'review-kit',
         false,
         dirname( plugin_basename( __FILE__ ) ) . '/languages/'
     );

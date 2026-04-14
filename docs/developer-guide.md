@@ -2,7 +2,7 @@
 
 > **Plugin:** ReviewKit: Media & Customer Written Reviews  
 > **Version:** 1.2.0+  
-> **Text Domain:** `my-custom-woo-reviews`
+> **Text Domain:** `review-kit`
 
 Plugin cung cấp hệ thống **Action Hooks**, **Filter Hooks**, và **Icon API**
 để developer có thể mở rộng mà không cần chỉnh sửa code gốc.
