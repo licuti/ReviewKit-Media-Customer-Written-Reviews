@@ -16,36 +16,36 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 // Danh sách tất cả options của plugin cần xóa
-$mcwr_options = array(
-    'mcwr_moderation_mode',
-    'mcwr_enable_voting',
-    'mcwr_require_login',
-    'mcwr_enable_uploads',
-    'mcwr_max_images',
-    'mcwr_max_file_size',
-    'mcwr_enable_video_upload',
-    'mcwr_max_video_size',
-    'mcwr_allowed_video_types',
-    'mcwr_per_page',
-    'mcwr_pagination_style',
-    'mcwr_primary_color',
-    'mcwr_stars_color',
-    'mcwr_border_color',
-    'mcwr_verified_text',
-    'mcwr_verified_color',
-    'mcwr_lightbox_layout',
-    'mcwr_lightbox_toolbar',
-    'mcwr_lightbox_theme',
-    'mcwr_blacklist_keywords',
-    'mcwr_reminder_enabled',
-    'mcwr_reminder_delay',
-    'mcwr_reminder_subject',
-    'mcwr_reminder_body',
-    'mcwr_delete_media_with_review',
-    'mcwr_installed_version',
+$reviewkit_options = array(
+    'reviewkit_moderation_mode',
+    'reviewkit_enable_voting',
+    'reviewkit_require_login',
+    'reviewkit_enable_uploads',
+    'reviewkit_max_images',
+    'reviewkit_max_file_size',
+    'reviewkit_enable_video_upload',
+    'reviewkit_max_video_size',
+    'reviewkit_allowed_video_types',
+    'reviewkit_per_page',
+    'reviewkit_pagination_style',
+    'reviewkit_primary_color',
+    'reviewkit_stars_color',
+    'reviewkit_border_color',
+    'reviewkit_verified_text',
+    'reviewkit_verified_color',
+    'reviewkit_lightbox_layout',
+    'reviewkit_lightbox_toolbar',
+    'reviewkit_lightbox_theme',
+    'reviewkit_blacklist_keywords',
+    'reviewkit_reminder_enabled',
+    'reviewkit_reminder_delay',
+    'reviewkit_reminder_subject',
+    'reviewkit_reminder_body',
+    'reviewkit_delete_media_with_review',
+    'reviewkit_installed_version',
 );
 
-foreach ( $mcwr_options as $option_key ) {
+foreach ( $reviewkit_options as $option_key ) {
     delete_option( $option_key );
 }
 
@@ -54,7 +54,7 @@ if ( is_multisite() ) {
     $sites = get_sites( array( 'fields' => 'ids' ) );
     foreach ( $sites as $site_id ) {
         switch_to_blog( $site_id );
-        foreach ( $mcwr_options as $option_key ) {
+        foreach ( $reviewkit_options as $option_key ) {
             delete_option( $option_key );
         }
         restore_current_blog();

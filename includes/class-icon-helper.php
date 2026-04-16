@@ -2,20 +2,20 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * MCWR Icon Helper
+ * ReviewKit Icon Helper
  *
- * Cung cấp hệ thống icon có thể override thông qua filter `mcwr_icons`.
+ * Cung cấp hệ thống icon có thể override thông qua filter `reviewkit_icons`.
  * Mặc định dùng WordPress Dashicons (được enqueue tự động trên frontend).
  *
  * ── Cách dùng trong code plugin ─────────────────────────────────────────
  *
- *   echo mcwr_icon( 'thumbs-up' );   // <i class="dashicons dashicons-thumbs-up"></i>
- *   echo mcwr_icon( 'star' );        // <i class="dashicons dashicons-star-filled"></i>
+ *   echo reviewkit_icon( 'thumbs-up' );   // <i class="dashicons dashicons-thumbs-up"></i>
+ *   echo reviewkit_icon( 'star' );        // <i class="dashicons dashicons-star-filled"></i>
  *
  * ── Developer: Override toàn bộ icon set ────────────────────────────────
  *
  *   // Ví dụ: chuyển sang Font Awesome 6
- *   add_filter( 'mcwr_icons', function( array $icons ): array {
+ *   add_filter( 'reviewkit_icons', function( array $icons ): array {
  *       $icons['thumbs-up'] = '<i class="fa-regular fa-thumbs-up"></i>';
  *       $icons['flag']      = '<i class="fa-regular fa-flag"></i>';
  *       $icons['star']      = '<i class="fa-solid fa-star"></i>';
@@ -28,14 +28,14 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * ── Developer: Override một icon đơn lẻ ─────────────────────────────────
  *
- *   add_filter( 'mcwr_icons', function( array $icons ): array {
+ *   add_filter( 'reviewkit_icons', function( array $icons ): array {
  *       $icons['thumbs-up'] = '<svg ...>...</svg>';  // SVG tùy chỉnh
  *       return $icons;
  *   } );
  *
  * ── Developer: Override HTML theo từng icon name ─────────────────────────
  *
- *   add_filter( 'mcwr_icon_html', function( string $html, string $name ): string {
+ *   add_filter( 'reviewkit_icon_html', function( string $html, string $name ): string {
  *       if ( $name === 'star' ) {
  *           return '⭐'; // Chuyển sang emoji
  *       }
@@ -49,12 +49,12 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Trả về HTML icon theo tên.
  *
- * @param  string $name  Tên icon. Xem danh sách trong mcwr_get_icons().
+ * @param  string $name  Tên icon. Xem danh sách trong reviewkit_get_icons().
  * @param  string $class CSS class bổ sung (tùy chọn).
  * @return string        HTML của icon. Trả về chuỗi rỗng nếu không tìm thấy.
  */
-function mcwr_icon( string $name, string $class = '' ): string {
-    $icons = mcwr_get_icons();
+function reviewkit_icon( string $name, string $class = '' ): string {
+    $icons = reviewkit_get_icons();
     $html  = $icons[ $name ] ?? '';
 
     if ( '' === $html ) {
@@ -62,7 +62,7 @@ function mcwr_icon( string $name, string $class = '' ): string {
     }
 
     // Cho phép override HTML cuối cùng theo từng tên icon.
-    $html = apply_filters( 'mcwr_icon_html', $html, $name );
+    $html = apply_filters( 'reviewkit_icon_html', $html, $name );
 
     // Thêm class bổ sung nếu có (inject vào thẻ đầu tiên).
     if ( $class && false !== strpos( $html, '<' ) ) {
@@ -75,14 +75,14 @@ function mcwr_icon( string $name, string $class = '' ): string {
 }
 
 /**
- * Trả về toàn bộ danh sách icon sau khi đã áp dụng filter `mcwr_icons`.
+ * Trả về toàn bộ danh sách icon sau khi đã áp dụng filter `reviewkit_icons`.
  *
  * Danh sách mặc định dùng WordPress Dashicons.
  * Developer có thể override một phần hoặc toàn bộ qua filter này.
  *
  * @return array<string, string>  [ 'icon-name' => '<html>' ]
  */
-function mcwr_get_icons(): array {
+function reviewkit_get_icons(): array {
     /**
      * Filter toàn bộ icon set của ReviewKit.
      *
@@ -90,12 +90,12 @@ function mcwr_get_icons(): array {
      * @param array<string, string> $icons Mảng [ tên-icon => HTML-icon ].
      *
      * @example Chuyển sang Font Awesome 6:
-     *   add_filter( 'mcwr_icons', function( $icons ) {
+     *   add_filter( 'reviewkit_icons', function( $icons ) {
      *       $icons['thumbs-up'] = '<i class="fa-regular fa-thumbs-up"></i>';
      *       return $icons;
      *   } );
      */
-    return apply_filters( 'mcwr_icons', array(
+    return apply_filters( 'reviewkit_icons', array(
         // Hành động trong review card
         'thumbs-up'    => '<i class="dashicons dashicons-thumbs-up" aria-hidden="true"></i>',
         'flag'         => '<i class="dashicons dashicons-flag" aria-hidden="true"></i>',

@@ -1,19 +1,19 @@
 (function($) { // Bọc code trong hàm ẩn danh để dùng $ an toàn
     $(document).ready(function() {
-        console.log('MCWR: Script Loaded (jQuery Ready)');
+        console.log('ReviewKit: Script Loaded (jQuery Ready)');
 
         // --- KHAI BÁO BIẾN CHUNG ---
-        const dropzone = document.getElementById('mcwr_dropzone');
-        const fileInput = document.getElementById('mcwr_file_input');
-        const previewList = document.getElementById('mcwr_preview_list');
-        const form = document.getElementById('mcwr_form');
+        const dropzone = document.getElementById('reviewkit_dropzone');
+        const fileInput = document.getElementById('reviewkit_file_input');
+        const previewList = document.getElementById('reviewkit_preview_list');
+        const form = document.getElementById('reviewkit_form');
         
         // Biến cho phần Upload Form
         let filesStore = []; // Kho chứa file upload
 
         // Lấy settings và i18n từ localize script
-        const mcwr = (typeof mcwr_vars !== 'undefined') ? mcwr_vars : { i18n: {} };
-        const i18n = mcwr.i18n || {};
+        const reviewKitVars = (typeof reviewkit_vars !== 'undefined') ? reviewkit_vars : { i18n: {} };
+        const i18n = reviewKitVars.i18n || {};
 
         // Helper function for i18n with simple placeholder replacement
         function __(key, ...args) {
@@ -55,18 +55,18 @@
                 if (!newFiles || newFiles.length === 0) return;
 
                 // Check quyền upload từ Admin
-                if (mcwr.allow_upload !== 'yes') {
+                if (reviewKitVars.allow_upload !== 'yes') {
                     alert(__('upload_locked'));
                     return;
                 }
 
                 let newFilesArray = Array.from(newFiles);
                 
-                const maxFiles = parseInt(mcwr.max_files) || 5;
-                const maxSizeMB = parseInt(mcwr.max_size_mb) || 2;
-                const maxVideoSizeMB = parseInt(mcwr.max_video_mb) || 10;
+                const maxFiles = parseInt(reviewKitVars.max_files) || 5;
+                const maxSizeMB = parseInt(reviewKitVars.max_size_mb) || 2;
+                const maxVideoSizeMB = parseInt(reviewKitVars.max_video_mb) || 10;
                 
-                const allowedVideoExtensions = (mcwr.allowed_video || 'mp4,webm,mov').split(',');
+                const allowedVideoExtensions = (reviewKitVars.allowed_video || 'mp4,webm,mov').split(',');
 
                 const currentCount = filesStore.length;
                 const availableSlots = maxFiles - currentCount;
@@ -93,7 +93,7 @@
                             filesStore.push(file);
                         }
                     } else if (isVideo) {
-                        if (mcwr.enable_video !== 'yes') {
+                        if (reviewKitVars.enable_video !== 'yes') {
                             alert('Tính năng upload video hiện đang tắt.');
                             return;
                         }
@@ -118,12 +118,12 @@
                 
                 filesStore.forEach((file, index) => {
                     const item = document.createElement('div');
-                    item.className = 'mcwr-preview-item';
+                    item.className = 'reviewkit-preview-item';
                     item.draggable = true;
                     item.dataset.index = index;
 
                     const removeBtn = document.createElement('div');
-                    removeBtn.className = 'mcwr-remove-btn';
+                    removeBtn.className = 'reviewkit-remove-btn';
                     removeBtn.innerHTML = '×';
                     removeBtn.onclick = (e) => {
                         e.stopPropagation();
@@ -167,7 +167,7 @@
                         thumbImg.onerror = () => {
                             item.classList.add('is-video-preview');
                             const videoIcon = document.createElement('div');
-                            videoIcon.className = 'mcwr-video-preview-icon';
+                            videoIcon.className = 'reviewkit-video-preview-icon';
                             // Dùng dashicons class — font đã được enqueue bởi plugin.
                             videoIcon.innerHTML = '<i class="dashicons dashicons-video-alt3" aria-hidden="true"></i>';
                             item.appendChild(videoIcon);
@@ -175,7 +175,7 @@
 
                         // Play overlay icon trên thumb
                         const playOverlay = document.createElement('div');
-                        playOverlay.className = 'mcwr-thumb-play-overlay';
+                        playOverlay.className = 'reviewkit-thumb-play-overlay';
                         playOverlay.innerHTML = '▶';
 
                         item.style.position = 'relative';
@@ -225,7 +225,7 @@
 
             // 1.5. Xử lý Submit Form
             form.addEventListener('submit', function(e) {
-                console.log('MCWR: Đang chuẩn bị gửi form...');
+                console.log('ReviewKit: Đang chuẩn bị gửi form...');
                 const dataTransfer = new DataTransfer();
                 filesStore.forEach(file => {
                     dataTransfer.items.add(file);
@@ -252,12 +252,12 @@
             btn.addClass('loading').css('opacity', '0.7');
 
             $.ajax({
-                url: mcwr.ajax_url,
+                url: reviewKitVars.ajax_url,
                 type: 'POST',
                 data: {
-                    action: 'mcwr_vote_review',
+                    action: 'reviewkit_vote_review',
                     comment_id: commentId,
-                    nonce: mcwr.nonce
+                    nonce: reviewKitVars.nonce
                 },
                 success: function(response) {
                     btn.removeClass('loading').css('opacity', '1');
@@ -295,18 +295,18 @@
 
         /**
          * Khởi tạo bộ lọc/sắp xếp/phân trang cho một block review.
-         * Mỗi `.mcwr-filter-container` là một instance độc lập.
+         * Mỗi `.reviewkit-filter-container` là một instance độc lập.
          */
         function initReviewBlock(filterContainer) {
             const $container  = $(filterContainer);
             const productId   = $container.data('product-id');
 
             // Tìm wrapper danh sách của cùng product_id
-            const $listWrapper = $('.mcwr-reviews-wrapper[data-product-id="' + productId + '"]');
+            const $listWrapper = $('.reviewkit-reviews-wrapper[data-product-id="' + productId + '"]');
             if (!$listWrapper.length) return;
 
             // Tìm sort dropdown TRONG container này
-            const $sortSelect = $container.find('.mcwr-sort-dropdown');
+            const $sortSelect = $container.find('.reviewkit-sort-dropdown');
 
             // ─── Hàm gọi AJAX trung tâm ────────────────────────────
             function triggerReviewUpdate(page, append, loadBtn) {
@@ -324,12 +324,12 @@
                 }
 
                 $.ajax({
-                    url: mcwr.ajax_url,
+                    url: reviewKitVars.ajax_url,
                     type: 'POST',
                     dataType: 'json',
                     data: {
-                        action: 'mcwr_filter_reviews',
-                        product_id: productId,      // ← đọc từ data attribute, KHÔNG phải mcwr.product_id toàn cục
+                        action: 'reviewkit_filter_reviews',
+                        product_id: productId,      // ← đọc từ data attribute, KHÔNG phải reviewKitVars.product_id toàn cục
                         filter_type: filterType,
                         sort_type: sortType,
                         page: page
@@ -337,7 +337,7 @@
                     success: function(response) {
                         if (response.success && response.data) {
                             if (append) {
-                                $listWrapper.find('.mcwr-load-more-container').remove();
+                                $listWrapper.find('.reviewkit-load-more-container').remove();
                                 $listWrapper.append(response.data.html);
                             } else {
                                 $listWrapper.html(response.data.html);
@@ -358,12 +358,12 @@
 
                         } else {
                             if (!append) {
-                                $listWrapper.html('<p class="mcwr-no-review">' + (__('no_results') || 'Không có kết quả nào.') + '</p>');
+                                $listWrapper.html('<p class="reviewkit-no-review">' + (__('no_results') || 'Không có kết quả nào.') + '</p>');
                             }
                         }
                     },
                     error: function(xhr) {
-                        console.error('MCWR AJAX error:', xhr);
+                        console.error('ReviewKit AJAX error:', xhr);
                         alert(__('connection_error') || 'Lỗi kết nối.');
                     },
                     complete: function() {
@@ -404,13 +404,13 @@
          */
         function bindListEvents($wrapper, productId, triggerFn) {
             // Phân trang số (dùng event delegation nên không cần bind lại)
-            $wrapper.off('click.mcwr-page').on('click.mcwr-page', '.page-btn', function(e) {
+            $wrapper.off('click.reviewkit-page').on('click.reviewkit-page', '.page-btn', function(e) {
                 e.preventDefault();
                 triggerFn($(this).data('page'), false);
             });
 
             // Load More
-            $wrapper.off('click.mcwr-more').on('click.mcwr-more', '.mcwr-load-more-btn, #mcwr-load-more-btn', function(e) {
+            $wrapper.off('click.reviewkit-more').on('click.reviewkit-more', '.reviewkit-load-more-btn, #reviewkit-load-more-btn', function(e) {
                 e.preventDefault();
                 const nextPage = $(this).data('page');
                 triggerFn(nextPage, true, this);
@@ -418,7 +418,7 @@
         }
 
         // Khởi tạo tất cả block review trên trang hiện tại
-        $('.mcwr-filter-container').each(function() {
+        $('.reviewkit-filter-container').each(function() {
             initReviewBlock(this);
         });
 
@@ -426,11 +426,11 @@
         // --- 4. KHỞI TẠO FANCYBOX ---
         if (typeof Fancybox !== 'undefined') {
 
-            const isToolbarEnabled = (mcwr.lb_toolbar === 'yes');
+            const isToolbarEnabled = (reviewKitVars.lb_toolbar === 'yes');
 
             // '' (chuỗi rỗng) có nghĩa là tắt thumbnails – không dùng || để tránh mất ''
-            const layoutSetting = (mcwr.lb_layout !== undefined && mcwr.lb_layout !== null)
-                ? mcwr.lb_layout   // 'modern' | 'classic' | 'scrollable' | 'vertical' | ''
+            const layoutSetting = (reviewKitVars.lb_layout !== undefined && reviewKitVars.lb_layout !== null)
+                ? reviewKitVars.lb_layout   // 'modern' | 'classic' | 'scrollable' | 'vertical' | ''
                 : 'modern';
 
             // Toolbar buttons
@@ -441,7 +441,7 @@
             // Xây dựng config đúng theo Fancybox v4 docs:
             // Thumbnail plugin nằm bên trong Carousel.Thumbs
             const fancyboxConfig = {
-                theme: mcwr.lb_theme || 'dark',
+                theme: reviewKitVars.lb_theme || 'dark',
                 Toolbar: {
                     display: toolbarButtons,
                 },
@@ -478,7 +478,7 @@
         // PHẦN 5: HIỆU ỨNG PROGRESS BAR
         // ======================================================
         
-        const progressBars = document.querySelectorAll('.mcwr-progress-bar');
+        const progressBars = document.querySelectorAll('.reviewkit-progress-bar');
         if (progressBars.length > 0) {
             const observerOptions = {
                 root: null,
@@ -506,12 +506,12 @@
         // PHẦN 6: REPORT REVIEW (Báo cáo đánh giá)
         // ======================================================
 
-        $(document).on('click', '.mcwr-report-btn', function(e) {
+        $(document).on('click', '.reviewkit-report-btn', function(e) {
             e.preventDefault();
             const btn       = $(this);
             const commentId = btn.data('comment-id');
 
-            if (btn.hasClass('mcwr-reported')) return;
+            if (btn.hasClass('reviewkit-reported')) return;
 
             if (!confirm('Bạn có chắc muốn báo cáo đánh giá này là vi phạm không?')) return;
 
@@ -520,17 +520,17 @@
             btn.prop('disabled', true).text('Đang gửi...');
 
             $.ajax({
-                url: mcwr.ajax_url,
+                url: reviewKitVars.ajax_url,
                 type: 'POST',
                 data: {
-                    action: 'mcwr_report_review',
+                    action: 'reviewkit_report_review',
                     comment_id: commentId,
                     reason: reason,
-                    nonce: mcwr.nonce,
+                    nonce: reviewKitVars.nonce,
                 },
                 success: function(response) {
                     if (response.success) {
-                        btn.text('✅ Đã báo cáo').addClass('mcwr-reported').prop('disabled', true);
+                        btn.text('✅ Đã báo cáo').addClass('reviewkit-reported').prop('disabled', true);
                     } else {
                         alert(response.data.message || 'Đã xảy ra lỗi.');
                         btn.prop('disabled', false).text('🚩 Báo cáo');

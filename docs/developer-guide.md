@@ -21,11 +21,11 @@ Plugin cung cấp hệ thống **Action Hooks**, **Filter Hooks**, và **Icon AP
 
 ## 1. Icon System
 
-### `mcwr_icons` — Override toàn bộ icon set
+### `reviewkit_icons` — Override toàn bộ icon set
 
-Tất cả icon trong frontend được quản lý qua hàm `mcwr_icon( $name )`.
+Tất cả icon trong frontend được quản lý qua hàm `reviewkit_icon( $name )`.
 Mặc định dùng **WordPress Dashicons**. Bạn có thể thay thế toàn bộ hoặc từng icon
-bằng filter `mcwr_icons`.
+bằng filter `reviewkit_icons`.
 
 **Danh sách tên icon:**
 
@@ -46,7 +46,7 @@ bằng filter `mcwr_icons`.
 ### Ví dụ 1: Chuyển sang Font Awesome 6
 
 ```php
-add_filter( 'mcwr_icons', function( array $icons ): array {
+add_filter( 'reviewkit_icons', function( array $icons ): array {
     $icons['thumbs-up'] = '<i class="fa-regular fa-thumbs-up" aria-hidden="true"></i>';
     $icons['flag']      = '<i class="fa-regular fa-flag" aria-hidden="true"></i>';
     $icons['chat']      = '<i class="fa-regular fa-comment" aria-hidden="true"></i>';
@@ -62,7 +62,7 @@ add_filter( 'mcwr_icons', function( array $icons ): array {
 ### Ví dụ 2: Dùng SVG tùy chỉnh cho một icon
 
 ```php
-add_filter( 'mcwr_icons', function( array $icons ): array {
+add_filter( 'reviewkit_icons', function( array $icons ): array {
     $icons['verified'] = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
         viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
@@ -74,7 +74,7 @@ add_filter( 'mcwr_icons', function( array $icons ): array {
 ### Ví dụ 3: Dùng Emoji
 
 ```php
-add_filter( 'mcwr_icons', function( array $icons ): array {
+add_filter( 'reviewkit_icons', function( array $icons ): array {
     $icons['thumbs-up'] = '<span aria-hidden="true">👍</span>';
     $icons['star']      = '<span aria-hidden="true">⭐</span>';
     $icons['flag']      = '<span aria-hidden="true">🚩</span>';
@@ -85,8 +85,8 @@ add_filter( 'mcwr_icons', function( array $icons ): array {
 ### Ví dụ 4: Override HTML cuối cùng của một icon cụ thể
 
 ```php
-// Filter mcwr_icon_html chạy sau khi đã lấy HTML từ mcwr_icons.
-add_filter( 'mcwr_icon_html', function( string $html, string $name ): string {
+// Filter reviewkit_icon_html chạy sau khi đã lấy HTML từ reviewkit_icons.
+add_filter( 'reviewkit_icon_html', function( string $html, string $name ): string {
     if ( 'thumbs-up' === $name ) {
         return '<span class="my-custom-icon my-thumbs-up"></span>';
     }
@@ -98,16 +98,16 @@ add_filter( 'mcwr_icon_html', function( string $html, string $name ): string {
 
 ## 2. Filter Hooks
 
-### `mcwr_icons`
+### `reviewkit_icons`
 Xem [Icon System](#1-icon-system) ở trên.
 
 ---
 
-### `mcwr_icon_html`
+### `reviewkit_icon_html`
 Override HTML của một icon sau tất cả các bước xử lý.
 
 ```php
-apply_filters( 'mcwr_icon_html', string $html, string $name )
+apply_filters( 'reviewkit_icon_html', string $html, string $name )
 ```
 
 | Tham số  | Kiểu     | Mô tả                        |
@@ -120,8 +120,8 @@ apply_filters( 'mcwr_icon_html', string $html, string $name )
 ## 3. Action Hooks
 
 > 🔧 **Sắp ra mắt trong phiên bản tiếp theo:**
-> `mcwr_before_review_card`, `mcwr_after_review_card`,
-> `mcwr_before_review_form`, `mcwr_after_review_form`
+> `reviewkit_before_review_card`, `reviewkit_after_review_card`,
+> `reviewkit_before_review_form`, `reviewkit_after_review_form`
 
 ---
 
@@ -129,10 +129,10 @@ apply_filters( 'mcwr_icon_html', string $html, string $name )
 
 | Shortcode                                        | Mô tả                              |
 |--------------------------------------------------|------------------------------------|
-| `[mcwr_reviews product_id="123"]`               | Toàn bộ layout 2 cột               |
-| `[mcwr_review_form product_id="123"]`           | Chỉ form gửi đánh giá              |
-| `[mcwr_review_list product_id="123"]`           | Chỉ danh sách + bộ lọc             |
-| `[mcwr_review_summary product_id="123"]`        | Chỉ thống kê sao                   |
+| `[reviewkit_reviews product_id="123"]`               | Toàn bộ layout 2 cột               |
+| `[reviewkit_review_form product_id="123"]`           | Chỉ form gửi đánh giá              |
+| `[reviewkit_review_list product_id="123"]`           | Chỉ danh sách + bộ lọc             |
+| `[reviewkit_review_summary product_id="123"]`        | Chỉ thống kê sao                   |
 
 > **Tip:** Khi dùng trong trang sản phẩm WooCommerce, `product_id` tự động được nhận diện.
 
@@ -145,10 +145,10 @@ Bạn có thể override trong theme hoặc bộ CSS riêng.
 
 ```css
 :root {
-    --mcwr-primary:    #ee4d2d;  /* Màu chủ đạo (nút, button, badge) */
-    --mcwr-primary-lt: rgba(238,77,45,0.08); /* Màu nhạt của primary */
-    --mcwr-accent:     #f59e0b;  /* Màu sao đánh giá */
-    --mcwr-border:     #e2e8f0;  /* Màu viền card */
+    --reviewkit-primary:    #ee4d2d;  /* Màu chủ đạo (nút, button, badge) */
+    --reviewkit-primary-lt: rgba(238,77,45,0.08); /* Màu nhạt của primary */
+    --reviewkit-accent:     #f59e0b;  /* Màu sao đánh giá */
+    --reviewkit-border:     #e2e8f0;  /* Màu viền card */
 }
 ```
 
@@ -160,5 +160,5 @@ Bạn có thể override trong theme hoặc bộ CSS riêng.
 ## Ghi chú kỹ thuật
 
 - Plugin tự động `wp_enqueue_style('dashicons')` trên frontend.
-  Nếu bạn override `mcwr_icons` sang icon set khác, bạn cần tự enqueue font/CSS tương ứng.
-- Tất cả output của `mcwr_icon()` đều được escape an toàn trong context HTML.
+  Nếu bạn override `reviewkit_icons` sang icon set khác, bạn cần tự enqueue font/CSS tương ứng.
+- Tất cả output của `reviewkit_icon()` đều được escape an toàn trong context HTML.

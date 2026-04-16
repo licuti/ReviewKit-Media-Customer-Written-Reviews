@@ -2,26 +2,26 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * MCWR_Pro_Features
+ * ReviewKit_Pro_Features
  * Chứa: Blacklist Keywords, Report Review, Import/Export, Email Reminders
  */
-class MCWR_Pro_Features {
+class ReviewKit_Pro_Features {
 
     public function __construct() {
         // --- Blacklist Keywords ---
         add_filter( 'preprocess_comment', array( $this, 'check_blacklist_keywords' ) );
 
         // --- Report Review (AJAX) ---
-        add_action( 'wp_ajax_mcwr_report_review',        array( $this, 'handle_report_review' ) );
-        add_action( 'wp_ajax_nopriv_mcwr_report_review', array( $this, 'handle_report_review' ) );
+        add_action( 'wp_ajax_reviewkit_report_review',        array( $this, 'handle_report_review' ) );
+        add_action( 'wp_ajax_nopriv_reviewkit_report_review', array( $this, 'handle_report_review' ) );
 
         // --- Export/Import ---
-        add_action( 'admin_post_mcwr_export_reviews', array( $this, 'handle_export_reviews' ) );
-        add_action( 'admin_post_mcwr_import_reviews', array( $this, 'handle_import_reviews' ) );
+        add_action( 'admin_post_reviewkit_export_reviews', array( $this, 'handle_export_reviews' ) );
+        add_action( 'admin_post_reviewkit_import_reviews', array( $this, 'handle_import_reviews' ) );
 
         // --- Email Reminders (Action Scheduler) ---
         add_action( 'woocommerce_order_status_completed', array( $this, 'schedule_reminder_on_complete' ) );
-        add_action( 'mcwr_send_single_reminder_action', array( $this, 'send_single_reminder' ), 10, 5 );
+        add_action( 'reviewkit_send_single_reminder_action', array( $this, 'send_single_reminder' ), 10, 5 );
 
         // --- Cleanup Media ---
         add_action( 'wp_delete_comment',  array( $this, 'cleanup_media_on_comment_delete' ) );
@@ -42,7 +42,7 @@ class MCWR_Pro_Features {
             return $commentdata;
         }
 
-        $blacklist_raw = get_option( 'mcwr_blacklist_keywords', '' );
+        $blacklist_raw = get_option( 'reviewkit_blacklist_keywords', '' );
         if ( empty( $blacklist_raw ) ) return $commentdata;
 
         // Tách từ khóa và làm sạch
@@ -78,7 +78,7 @@ class MCWR_Pro_Features {
      * AJAX handler: Nhận báo cáo vi phạm.
      */
     public function handle_report_review() {
-        check_ajax_referer( 'mcwr_ajax_nonce', 'nonce' );
+        check_ajax_referer( 'reviewkit_ajax_nonce', 'nonce' );
         
         $comment_id = intval( $_POST['comment_id'] ?? 0 );
         $reason     = sanitize_text_field( $_POST['reason'] ?? '' );
@@ -88,24 +88,24 @@ class MCWR_Pro_Features {
         }
 
         // Tránh báo cáo trùng lặp từ cùng một IP
-        $cookie_key = 'mcwr_reported_' . $comment_id;
+        $cookie_key = 'reviewkit_reported_' . $comment_id;
         if ( isset( $_COOKIE[ $cookie_key ] ) ) {
             wp_send_json_error( array( 'message' => __( 'Bạn đã báo cáo đánh giá này rồi.', 'review-kit' ) ) );
         }
 
         // Lưu số lần báo cáo và lý do mới nhất
-        $count = intval( get_comment_meta( $comment_id, 'mcwr_report_count', true ) );
-        update_comment_meta( $comment_id, 'mcwr_report_count', $count + 1 );
-        update_comment_meta( $comment_id, 'mcwr_report_reason', $reason );
+        $count = intval( get_comment_meta( $comment_id, 'reviewkit_report_count', true ) );
+        update_comment_meta( $comment_id, 'reviewkit_report_count', $count + 1 );
+        update_comment_meta( $comment_id, 'reviewkit_report_reason', $reason );
 
         // Gửi email cho Admin nếu vượt ngưỡng
-        $threshold = intval( get_option( 'mcwr_report_threshold', 3 ) );
+        $threshold = intval( get_option( 'reviewkit_report_threshold', 3 ) );
         if ( ( $count + 1 ) >= $threshold ) {
             $comment     = get_comment( $comment_id );
             $product     = get_post( $comment->comment_post_ID );
             $admin_email = get_option( 'admin_email' );
 
-            $subject = sprintf( __( '[MCWR] Cảnh báo: Đánh giá #%d bị báo cáo %d lần', 'review-kit' ), $comment_id, $count + 1 );
+            $subject = sprintf( __( '[ReviewKit] Cảnh báo: Đánh giá #%d bị báo cáo %d lần', 'review-kit' ), $comment_id, $count + 1 );
             $body    = sprintf(
                 __( "Đánh giá của \"%s\" trên sản phẩm \"%s\" đã bị báo cáo %d lần.\n\nLý do mới nhất: %s\n\nXem tại: %s", 'review-kit' ),
                 esc_html( $comment->comment_author ),
@@ -133,7 +133,7 @@ class MCWR_Pro_Features {
      */
     public function handle_export_reviews() {
         if ( ! current_user_can( 'manage_options' ) ) wp_die( __( 'Không có quyền.', 'review-kit' ) );
-        check_admin_referer( 'mcwr_export_nonce' );
+        check_admin_referer( 'reviewkit_export_nonce' );
 
         $product_id = isset( $_GET['product_id'] ) ? intval( $_GET['product_id'] ) : 0;
 
@@ -149,7 +149,7 @@ class MCWR_Pro_Features {
 
         // Headers CSV
         header( 'Content-Type: text/csv; charset=utf-8' );
-        header( 'Content-Disposition: attachment; filename="mcwr-reviews-' . date('Y-m-d') . '.csv"' );
+        header( 'Content-Disposition: attachment; filename="reviewkit-reviews-' . date('Y-m-d') . '.csv"' );
 
         $output = fopen( 'php://output', 'w' );
         // BOM UTF-8 để Excel đọc đúng tiếng Việt
@@ -187,17 +187,17 @@ class MCWR_Pro_Features {
      */
     public function handle_import_reviews() {
         if ( ! current_user_can( 'manage_options' ) ) wp_die( __( 'Không có quyền.', 'review-kit' ) );
-        check_admin_referer( 'mcwr_import_nonce' );
+        check_admin_referer( 'reviewkit_import_nonce' );
 
-        if ( ! isset( $_FILES['mcwr_import_file'] ) || $_FILES['mcwr_import_file']['error'] !== UPLOAD_ERR_OK ) {
-            wp_safe_redirect( add_query_arg( array( 'page' => 'mcwr-settings', 'tab' => 'tools', 'import_error' => 'no_file' ), admin_url( 'admin.php' ) ) );
+        if ( ! isset( $_FILES['reviewkit_import_file'] ) || $_FILES['reviewkit_import_file']['error'] !== UPLOAD_ERR_OK ) {
+            wp_safe_redirect( add_query_arg( array( 'page' => 'reviewkit-settings', 'tab' => 'tools', 'import_error' => 'no_file' ), admin_url( 'admin.php' ) ) );
             exit;
         }
 
-        $file = $_FILES['mcwr_import_file']['tmp_name'];
+        $file = $_FILES['reviewkit_import_file']['tmp_name'];
         $handle = fopen( $file, 'r' );
         if ( ! $handle ) {
-            wp_safe_redirect( add_query_arg( array( 'page' => 'mcwr-settings', 'tab' => 'tools', 'import_error' => 'read_fail' ), admin_url( 'admin.php' ) ) );
+            wp_safe_redirect( add_query_arg( array( 'page' => 'reviewkit-settings', 'tab' => 'tools', 'import_error' => 'read_fail' ), admin_url( 'admin.php' ) ) );
             exit;
         }
 
@@ -206,7 +206,7 @@ class MCWR_Pro_Features {
         $count  = 0;
         $errors = 0;
 
-        $moderation = get_option( 'mcwr_moderation_mode', 0 );
+        $moderation = get_option( 'reviewkit_moderation_mode', 0 );
 
         while ( ( $row = fgetcsv( $handle ) ) !== false ) {
             // Hỗ trợ cột: product_id, author, email, rating, content, date
@@ -259,7 +259,7 @@ class MCWR_Pro_Features {
         fclose( $handle );
 
         wp_safe_redirect( add_query_arg( array(
-            'page'           => 'mcwr-settings',
+            'page'           => 'reviewkit-settings',
             'tab'            => 'tools',
             'import_success' => $count,
             'import_errors'  => $errors,
@@ -275,10 +275,10 @@ class MCWR_Pro_Features {
      * Khi đơn hàng hoàn thành, lên lịch gửi email nhắc đánh giá qua Action Scheduler.
      */
     public function schedule_reminder_on_complete( $order_id ) {
-        if ( ! get_option( 'mcwr_reminder_enabled', 0 ) ) return;
+        if ( ! get_option( 'reviewkit_reminder_enabled', 0 ) ) return;
         if ( ! function_exists( 'as_schedule_single_action' ) ) return; // Yêu cầu WC Action Scheduler
 
-        $days_delay = intval( get_option( 'mcwr_reminder_days', 3 ) );
+        $days_delay = intval( get_option( 'reviewkit_reminder_days', 3 ) );
         $send_after = time() + ( $days_delay * DAY_IN_SECONDS );
 
         $order = wc_get_order( $order_id );
@@ -304,8 +304,8 @@ class MCWR_Pro_Features {
             );
 
             // Kiểm tra xem action này với arguments này đã được xếp lịch chưa
-            if ( false === as_next_scheduled_action( 'mcwr_send_single_reminder_action', $args ) ) {
-                as_schedule_single_action( $send_after, 'mcwr_send_single_reminder_action', $args );
+            if ( false === as_next_scheduled_action( 'reviewkit_send_single_reminder_action', $args ) ) {
+                as_schedule_single_action( $send_after, 'reviewkit_send_single_reminder_action', $args );
             }
         }
     }
@@ -314,12 +314,12 @@ class MCWR_Pro_Features {
      * Hàm callback được Action Scheduler gọi ra để tiến hành gửi email chuẩn xác.
      */
     public function send_single_reminder( $order_id, $customer_name, $customer_email, $product_id, $product_name ) {
-        if ( ! get_option( 'mcwr_reminder_enabled', 0 ) ) return;
+        if ( ! get_option( 'reviewkit_reminder_enabled', 0 ) ) return;
 
-        $subject_template = get_option( 'mcwr_reminder_subject', __( '[{site_name}] Bạn có hài lòng với đơn hàng #{order_id}?', 'review-kit' ) );
-        $body_template    = get_option( 'mcwr_reminder_body', $this->get_default_reminder_body() );
-        $from_name        = get_option( 'mcwr_reminder_from_name', get_bloginfo( 'name' ) );
-        $from_email       = get_option( 'mcwr_reminder_from_email', get_option( 'admin_email' ) );
+        $subject_template = get_option( 'reviewkit_reminder_subject', __( '[{site_name}] Bạn có hài lòng với đơn hàng #{order_id}?', 'review-kit' ) );
+        $body_template    = get_option( 'reviewkit_reminder_body', $this->get_default_reminder_body() );
+        $from_name        = get_option( 'reviewkit_reminder_from_name', get_bloginfo( 'name' ) );
+        $from_email       = get_option( 'reviewkit_reminder_from_email', get_option( 'admin_email' ) );
 
         $headers = array(
             'Content-Type: text/html; charset=UTF-8',
@@ -365,7 +365,7 @@ class MCWR_Pro_Features {
      */
     public function cleanup_media_on_comment_delete( $comment_id ) {
         // Kiểm tra xem Option có được bật không
-        if ( ! get_option( 'mcwr_delete_media_with_review', 0 ) ) return;
+        if ( ! get_option( 'reviewkit_delete_media_with_review', 0 ) ) return;
 
         // Lấy danh sách ID ảnh và video từ meta
         $image_ids = get_comment_meta( $comment_id, 'review_image_ids', true );

@@ -5,50 +5,50 @@ if (!defined('ABSPATH'))
 /**
  * Class cấu hình tab "Tools" và tích hợp các settings Pro vào Admin.
  */
-class MCWR_Admin_Pro
+class ReviewKit_Admin_Pro
 {
 
     public function __construct()
     {
         // Thêm tab "Tools" vào admin settings
-        add_action('mcwr_admin_tabs', array($this, 'add_tools_tab'));
+        add_action('reviewkit_admin_tabs', array($this, 'add_tools_tab'));
 
         // Đăng ký settings mới
         add_action('admin_init', array($this, 'register_pro_settings'));
 
         // Render tab tools
-        add_action('mcwr_admin_tab_content_tools', array($this, 'render_tools_tab'));
+        add_action('reviewkit_admin_tab_content_tools', array($this, 'render_tools_tab'));
     }
 
     public function register_pro_settings()
     {
         // --- Blacklist ---
-        register_setting('mcwr_pro_group', 'mcwr_blacklist_keywords');
+        register_setting('reviewkit_pro_group', 'reviewkit_blacklist_keywords');
 
         // --- Report Review ---
-        register_setting('mcwr_pro_group', 'mcwr_report_threshold');
+        register_setting('reviewkit_pro_group', 'reviewkit_report_threshold');
 
         // --- Email Reminders ---
-        register_setting('mcwr_pro_group', 'mcwr_reminder_enabled');
-        register_setting('mcwr_pro_group', 'mcwr_reminder_days');
-        register_setting('mcwr_pro_group', 'mcwr_reminder_subject');
-        register_setting('mcwr_pro_group', 'mcwr_reminder_body');
-        register_setting('mcwr_pro_group', 'mcwr_reminder_from_name');
-        register_setting('mcwr_pro_group', 'mcwr_reminder_from_email');
+        register_setting('reviewkit_pro_group', 'reviewkit_reminder_enabled');
+        register_setting('reviewkit_pro_group', 'reviewkit_reminder_days');
+        register_setting('reviewkit_pro_group', 'reviewkit_reminder_subject');
+        register_setting('reviewkit_pro_group', 'reviewkit_reminder_body');
+        register_setting('reviewkit_pro_group', 'reviewkit_reminder_from_name');
+        register_setting('reviewkit_pro_group', 'reviewkit_reminder_from_email');
 
         // --- Cleanup ---
-        register_setting('mcwr_pro_group', 'mcwr_delete_media_with_review');
+        register_setting('reviewkit_pro_group', 'reviewkit_delete_media_with_review');
     }
 
     public function add_tools_tab()
     {
-        // Được gọi từ render_settings_page của MCWR_Admin_Settings
+        // Được gọi từ render_settings_page của ReviewKit_Admin_Settings
     }
 
     public function render_tools_tab()
     {
         $active_sub = isset($_GET['sub']) ? sanitize_key($_GET['sub']) : 'blacklist';
-        $base_url = admin_url('admin.php?page=mcwr-settings&tab=tools');
+        $base_url = admin_url('admin.php?page=reviewkit-settings&tab=tools');
 
         // Import/Export thông báo
         if (isset($_GET['import_success'])) {
@@ -59,7 +59,7 @@ class MCWR_Admin_Pro
         }
         ?>
         <style>
-            .mcwr-sub-tabs {
+            .reviewkit-sub-tabs {
                 display: flex;
                 gap: 8px;
                 margin-top: 10px;
@@ -67,7 +67,7 @@ class MCWR_Admin_Pro
                 border-bottom: 1px solid #ddd;
             }
 
-            .mcwr-sub-tabs a {
+            .reviewkit-sub-tabs a {
                 display: inline-flex;
                 align-items: center;
                 gap: 6px;
@@ -80,23 +80,23 @@ class MCWR_Admin_Pro
                 transition: all 0.2s;
             }
 
-            .mcwr-sub-tabs a .dashicons {
+            .reviewkit-sub-tabs a .dashicons {
                 font-size: 17px;
                 width: 17px;
                 height: 17px;
                 color: #666;
             }
 
-            .mcwr-sub-tabs a.active {
+            .reviewkit-sub-tabs a.active {
                 background: #ee4d2d;
                 color: #fff;
             }
 
-            .mcwr-sub-tabs a.active .dashicons {
+            .reviewkit-sub-tabs a.active .dashicons {
                 color: #fff;
             }
 
-            .mcwr-pro-box {
+            .reviewkit-pro-box {
                 background: #fff;
                 padding: 20px 24px;
                 border: 1px solid #e0e0e0;
@@ -105,7 +105,7 @@ class MCWR_Admin_Pro
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             }
 
-            .mcwr-pro-box h3 {
+            .reviewkit-pro-box h3 {
                 display: flex;
                 align-items: center;
                 gap: 8px;
@@ -114,21 +114,21 @@ class MCWR_Admin_Pro
                 color: #1d2327;
             }
 
-            .mcwr-pro-box h3 .dashicons {
+            .reviewkit-pro-box h3 .dashicons {
                 color: #ee4d2d;
             }
 
-            .mcwr-pro-box p.desc {
+            .reviewkit-pro-box p.desc {
                 color: #666;
                 font-size: 13px;
                 margin-top: 4px;
             }
 
-            .mcwr-pro-box .form-table {
+            .reviewkit-pro-box .form-table {
                 margin-top: 0;
             }
 
-            .mcwr-btn-export {
+            .reviewkit-btn-export {
                 display: inline-block;
                 padding: 8px 18px;
                 background: #2271b1;
@@ -139,19 +139,19 @@ class MCWR_Admin_Pro
                 font-weight: 500;
             }
 
-            .mcwr-btn-export:hover {
+            .reviewkit-btn-export:hover {
                 background: #135e96;
                 color: #fff;
             }
 
-            .mcwr-btn-export .dashicons {
+            .reviewkit-btn-export .dashicons {
                 font-size: 18px;
                 width: 18px;
                 height: 18px;
             }
         </style>
 
-        <div class="mcwr-sub-tabs">
+        <div class="reviewkit-sub-tabs">
             <a href="<?php echo esc_url($base_url . '&sub=analytics'); ?>"
                 class="<?php echo $active_sub === 'analytics' ? 'active' : ''; ?>"><span
                     class="dashicons dashicons-chart-area"></span> Thống kê</a>
@@ -173,17 +173,17 @@ class MCWR_Admin_Pro
             <?php $this->render_analytics_tab(); ?>
 
         <?php elseif ($active_sub === 'blacklist'): ?>
-            <div class="mcwr-pro-box">
+            <div class="reviewkit-pro-box">
                 <h3><span class="dashicons dashicons-shield"></span> Danh sách từ khóa cấm (Blacklist)</h3>
                 <p class="desc">Các đánh giá chứa những từ này sẽ bị từ chối tự động. Phân cách bằng dấu phẩy.</p>
                 <form method="post" action="options.php">
-                    <?php settings_fields('mcwr_pro_group'); ?>
+                    <?php settings_fields('reviewkit_pro_group'); ?>
                     <table class="form-table">
                         <tr>
-                            <th><label for="mcwr_blacklist_keywords">Từ khóa cấm</label></th>
+                            <th><label for="reviewkit_blacklist_keywords">Từ khóa cấm</label></th>
                             <td>
-                                <textarea name="mcwr_blacklist_keywords" id="mcwr_blacklist_keywords" rows="5"
-                                    style="width:100%;max-width:500px;"><?php echo esc_textarea(get_option('mcwr_blacklist_keywords', '')); ?></textarea>
+                                <textarea name="reviewkit_blacklist_keywords" id="reviewkit_blacklist_keywords" rows="5"
+                                    style="width:100%;max-width:500px;"><?php echo esc_textarea(get_option('reviewkit_blacklist_keywords', '')); ?></textarea>
                                 <p class="description">Ví dụ: <code>shopee, lazada, đối thủ, spam, xxx</code></p>
                             </td>
                         </tr>
@@ -193,17 +193,17 @@ class MCWR_Admin_Pro
             </div>
 
         <?php elseif ($active_sub === 'report'): ?>
-            <div class="mcwr-pro-box">
+            <div class="reviewkit-pro-box">
                 <h3><span class="dashicons dashicons-flag"></span> Cấu hình Báo cáo vi phạm</h3>
                 <p class="desc">Admin sẽ nhận email cảnh báo khi một đánh giá bị báo cáo đủ số lần quy định.</p>
                 <form method="post" action="options.php">
-                    <?php settings_fields('mcwr_pro_group'); ?>
+                    <?php settings_fields('reviewkit_pro_group'); ?>
                     <table class="form-table">
                         <tr>
-                            <th><label for="mcwr_report_threshold">Ngưỡng cảnh báo</label></th>
+                            <th><label for="reviewkit_report_threshold">Ngưỡng cảnh báo</label></th>
                             <td>
-                                <input type="number" name="mcwr_report_threshold" id="mcwr_report_threshold"
-                                    value="<?php echo esc_attr(get_option('mcwr_report_threshold', 3)); ?>" min="1"
+                                <input type="number" name="reviewkit_report_threshold" id="reviewkit_report_threshold"
+                                    value="<?php echo esc_attr(get_option('reviewkit_report_threshold', 3)); ?>" min="1"
                                     class="small-text" />
                                 <span class="description"> lần báo cáo</span>
                                 <p class="description">Khi đánh giá bị báo cáo đủ số lần này, một email cảnh báo sẽ được gửi tới địa
@@ -215,58 +215,58 @@ class MCWR_Admin_Pro
                 </form>
             </div>
 
-            <div class="mcwr-pro-box">
+            <div class="reviewkit-pro-box">
                 <h3>Xem danh sách bị báo cáo nhiều nhất</h3>
                 <?php $this->render_reported_reviews_table(); ?>
             </div>
 
         <?php elseif ($active_sub === 'reminder'): ?>
-            <div class="mcwr-pro-box">
+            <div class="reviewkit-pro-box">
                 <h3><span class="dashicons dashicons-email-alt"></span> Email nhắc nhở đánh giá</h3>
                 <p class="desc">Tự động gửi email sau N ngày khi đơn hàng chuyển sang "Hoàn thành".</p>
                 <form method="post" action="options.php">
-                    <?php settings_fields('mcwr_pro_group'); ?>
+                    <?php settings_fields('reviewkit_pro_group'); ?>
                     <table class="form-table">
                         <tr>
-                            <th><label for="mcwr_reminder_enabled">Bật tính năng</label></th>
-                            <td><input type="checkbox" name="mcwr_reminder_enabled" value="1" <?php checked(1, get_option('mcwr_reminder_enabled', 0)); ?> /> Cho phép gửi email nhắc nhở</td>
+                            <th><label for="reviewkit_reminder_enabled">Bật tính năng</label></th>
+                            <td><input type="checkbox" name="reviewkit_reminder_enabled" value="1" <?php checked(1, get_option('reviewkit_reminder_enabled', 0)); ?> /> Cho phép gửi email nhắc nhở</td>
                         </tr>
                         <tr>
-                            <th><label for="mcwr_reminder_days">Gửi sau</label></th>
+                            <th><label for="reviewkit_reminder_days">Gửi sau</label></th>
                             <td>
-                                <input type="number" name="mcwr_reminder_days" id="mcwr_reminder_days"
-                                    value="<?php echo esc_attr(get_option('mcwr_reminder_days', 3)); ?>" min="1"
+                                <input type="number" name="reviewkit_reminder_days" id="reviewkit_reminder_days"
+                                    value="<?php echo esc_attr(get_option('reviewkit_reminder_days', 3)); ?>" min="1"
                                     class="small-text" />
                                 <span class="description"> ngày kể từ khi đơn hàng hoàn thành</span>
                             </td>
                         </tr>
                         <tr>
-                            <th><label for="mcwr_reminder_from_name">Tên người gửi</label></th>
-                            <td><input type="text" name="mcwr_reminder_from_name" id="mcwr_reminder_from_name"
-                                    value="<?php echo esc_attr(get_option('mcwr_reminder_from_name', get_bloginfo('name'))); ?>"
+                            <th><label for="reviewkit_reminder_from_name">Tên người gửi</label></th>
+                            <td><input type="text" name="reviewkit_reminder_from_name" id="reviewkit_reminder_from_name"
+                                    value="<?php echo esc_attr(get_option('reviewkit_reminder_from_name', get_bloginfo('name'))); ?>"
                                     class="regular-text" /></td>
                         </tr>
                         <tr>
-                            <th><label for="mcwr_reminder_from_email">Email gửi đi</label></th>
-                            <td><input type="email" name="mcwr_reminder_from_email" id="mcwr_reminder_from_email"
-                                    value="<?php echo esc_attr(get_option('mcwr_reminder_from_email', get_option('admin_email'))); ?>"
+                            <th><label for="reviewkit_reminder_from_email">Email gửi đi</label></th>
+                            <td><input type="email" name="reviewkit_reminder_from_email" id="reviewkit_reminder_from_email"
+                                    value="<?php echo esc_attr(get_option('reviewkit_reminder_from_email', get_option('admin_email'))); ?>"
                                     class="regular-text" /></td>
                         </tr>
                         <tr>
-                            <th><label for="mcwr_reminder_subject">Tiêu đề Email</label></th>
+                            <th><label for="reviewkit_reminder_subject">Tiêu đề Email</label></th>
                             <td>
-                                <input type="text" name="mcwr_reminder_subject" id="mcwr_reminder_subject"
-                                    value="<?php echo esc_attr(get_option('mcwr_reminder_subject', '[{site_name}] Bạn có hài lòng với đơn hàng #{order_id}?')); ?>"
+                                <input type="text" name="reviewkit_reminder_subject" id="reviewkit_reminder_subject"
+                                    value="<?php echo esc_attr(get_option('reviewkit_reminder_subject', '[{site_name}] Bạn có hài lòng với đơn hàng #{order_id}?')); ?>"
                                     class="large-text" />
                                 <p class="description">Biến: <code>{site_name}</code>, <code>{order_id}</code>,
                                     <code>{customer_name}</code>, <code>{product_name}</code></p>
                             </td>
                         </tr>
                         <tr>
-                            <th><label for="mcwr_reminder_body">Nội dung Email (HTML)</label></th>
+                            <th><label for="reviewkit_reminder_body">Nội dung Email (HTML)</label></th>
                             <td>
-                                <textarea name="mcwr_reminder_body" id="mcwr_reminder_body" rows="12"
-                                    style="width:100%;max-width:600px;font-family:monospace;"><?php echo esc_textarea(get_option('mcwr_reminder_body', '')); ?></textarea>
+                                <textarea name="reviewkit_reminder_body" id="reviewkit_reminder_body" rows="12"
+                                    style="width:100%;max-width:600px;font-family:monospace;"><?php echo esc_textarea(get_option('reviewkit_reminder_body', '')); ?></textarea>
                                 <p class="description">Biến: <code>{customer_name}</code>, <code>{product_name}</code>,
                                     <code>{product_url}</code>, <code>{review_link}</code>, <code>{site_name}</code>,
                                     <code>{order_id}</code></p>
@@ -278,7 +278,7 @@ class MCWR_Admin_Pro
                 <hr>
                 <h4><span class="dashicons dashicons-clock"></span> Trạng thái hàng đợi</h4>
                 <?php
-                $queue = get_option('mcwr_reminder_queue', []);
+                $queue = get_option('reviewkit_reminder_queue', []);
                 $pending_count = count(array_filter($queue, fn($i) => !$i['sent']));
                 $sent_count = count(array_filter($queue, fn($i) => $i['sent']));
                 ?>
@@ -289,29 +289,29 @@ class MCWR_Admin_Pro
             </div>
 
         <?php elseif ($active_sub === 'import'): ?>
-            <div class="mcwr-pro-box">
+            <div class="reviewkit-pro-box">
                 <h3><span class="dashicons dashicons-database-export"></span> Xuất đánh giá ra CSV</h3>
                 <p class="desc">Tải xuống toàn bộ đánh giá dưới dạng file CSV (UTF-8 BOM tương thích Excel).</p>
-                <?php $export_url = wp_nonce_url(admin_url('admin-post.php?action=mcwr_export_reviews'), 'mcwr_export_nonce'); ?>
-                <a href="<?php echo esc_url($export_url); ?>" class="mcwr-btn-export"><span
+                <?php $export_url = wp_nonce_url(admin_url('admin-post.php?action=reviewkit_export_reviews'), 'reviewkit_export_nonce'); ?>
+                <a href="<?php echo esc_url($export_url); ?>" class="reviewkit-btn-export"><span
                         class="dashicons dashicons-download"></span> Xuất tất cả đánh giá</a>
                 &nbsp;&nbsp;
                 <a href="<?php echo esc_url($export_url . '&product_id=' . (isset($_GET['pid']) ? intval($_GET['pid']) : 0)); ?>"
-                    class="mcwr-btn-export" style="background:#555;">Xuất theo sản phẩm (nhập Product ID vào URL: &pid=123)</a>
+                    class="reviewkit-btn-export" style="background:#555;">Xuất theo sản phẩm (nhập Product ID vào URL: &pid=123)</a>
             </div>
 
-            <div class="mcwr-pro-box">
+            <div class="reviewkit-pro-box">
                 <h3><span class="dashicons dashicons-database-import"></span> Nhập đánh giá từ CSV</h3>
                 <p class="desc">File CSV phải có các cột theo thứ tự:
                     <code>product_id, author, email, rating (1-5), content, date (YYYY-MM-DD HH:MM:SS)</code></p>
                 <form method="post" action="<?php echo admin_url('admin-post.php'); ?>" enctype="multipart/form-data">
-                    <input type="hidden" name="action" value="mcwr_import_reviews" />
-                    <?php wp_nonce_field('mcwr_import_nonce'); ?>
+                    <input type="hidden" name="action" value="reviewkit_import_reviews" />
+                    <?php wp_nonce_field('reviewkit_import_nonce'); ?>
                     <table class="form-table">
                         <tr>
-                            <th><label for="mcwr_import_file">Chọn file CSV</label></th>
+                            <th><label for="reviewkit_import_file">Chọn file CSV</label></th>
                             <td>
-                                <input type="file" name="mcwr_import_file" id="mcwr_import_file" accept=".csv" required />
+                                <input type="file" name="reviewkit_import_file" id="reviewkit_import_file" accept=".csv" required />
                                 <p class="description">Dung lượng tối đa theo cấu hình của server (thường là 8MB - 32MB)</p>
                             </td>
                         </tr>
@@ -330,17 +330,17 @@ class MCWR_Admin_Pro
             </div>
         <?php endif; ?>
 
-        <div class="mcwr-pro-box" style="border-top: 3px solid #ee4d2d; margin-top: 30px;">
+        <div class="reviewkit-pro-box" style="border-top: 3px solid #ee4d2d; margin-top: 30px;">
             <h3><span class="dashicons dashicons-trash"></span> Cấu hình Dọn dẹp hệ thống</h3>
             <p class="desc">Các thiết lập tối ưu dung lượng và quản lý dữ liệu Media.</p>
             <form method="post" action="options.php">
-                <?php settings_fields('mcwr_pro_group'); ?>
+                <?php settings_fields('reviewkit_pro_group'); ?>
                 <table class="form-table">
                     <tr>
-                        <th style="width:200px;"><label for="mcwr_delete_media_with_review">Xóa File vật lý</label></th>
+                        <th style="width:200px;"><label for="reviewkit_delete_media_with_review">Xóa File vật lý</label></th>
                         <td>
-                            <input type="checkbox" name="mcwr_delete_media_with_review" id="mcwr_delete_media_with_review"
-                                value="1" <?php checked(1, get_option('mcwr_delete_media_with_review', 0)); ?> />
+                            <input type="checkbox" name="reviewkit_delete_media_with_review" id="reviewkit_delete_media_with_review"
+                                value="1" <?php checked(1, get_option('reviewkit_delete_media_with_review', 0)); ?> />
                             <strong>Tự động xóa vĩnh viễn Ảnh/Video trong Thư viện Media khi xóa đánh giá.</strong>
                             <p class="description">Mặc định WordPress sẽ giữ lại file trong kho Media ngay cả khi bình luận bị
                                 xóa. Bật tính năng này nếu bạn muốn dọn dẹp triệt để để tiết kiệm dung lượng hosting.</p>
@@ -367,7 +367,7 @@ class MCWR_Admin_Pro
         echo '<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>';
         ?>
         <style>
-            .mcwr-analytics-grid {
+            .reviewkit-analytics-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
                 gap: 20px;
@@ -405,7 +405,7 @@ class MCWR_Admin_Pro
                 margin-top: 5px;
             }
 
-            .mcwr-charts-row {
+            .reviewkit-charts-row {
                 display: grid;
                 grid-template-columns: 2fr 1fr;
                 gap: 20px;
@@ -413,7 +413,7 @@ class MCWR_Admin_Pro
             }
 
             @media (max-width: 900px) {
-                .mcwr-charts-row {
+                .reviewkit-charts-row {
                     grid-template-columns: 1fr;
                 }
             }
@@ -477,7 +477,7 @@ class MCWR_Admin_Pro
             }
         </style>
 
-        <div class="mcwr-analytics-grid">
+        <div class="reviewkit-analytics-grid">
             <div class="analytics-card">
                 <span class="label">Tổng đánh giá</span>
                 <span class="value"><?php echo number_format($data['total_reviews']); ?></span>
@@ -501,7 +501,7 @@ class MCWR_Admin_Pro
             </div>
         </div>
 
-        <div class="mcwr-charts-row">
+        <div class="reviewkit-charts-row">
             <div class="chart-container">
                 <h4><span class="dashicons dashicons-chart-line"></span> Xu hướng đánh giá (6 tháng qua)</h4>
                 <div class="chart-wrapper">
@@ -516,7 +516,7 @@ class MCWR_Admin_Pro
             </div>
         </div>
 
-        <div class="mcwr-pro-box">
+        <div class="reviewkit-pro-box">
             <h3><span class="dashicons dashicons-star-filled"></span> Top 5 Sản phẩm được đánh giá tốt nhất</h3>
             <table class="top-products-table">
                 <thead>
@@ -682,7 +682,7 @@ class MCWR_Admin_Pro
             "SELECT cm.comment_id, cm.meta_value as report_count, c.comment_author, c.comment_post_ID, c.comment_content
              FROM {$wpdb->commentmeta} as cm
              JOIN {$wpdb->comments} as c ON cm.comment_id = c.comment_ID
-             WHERE cm.meta_key = 'mcwr_report_count' AND CAST(cm.meta_value AS UNSIGNED) > 0
+             WHERE cm.meta_key = 'reviewkit_report_count' AND CAST(cm.meta_value AS UNSIGNED) > 0
              ORDER BY CAST(cm.meta_value AS UNSIGNED) DESC LIMIT 20"
         );
 

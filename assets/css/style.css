@@ -1,128 +1,128 @@
 /* =============================================================
-   MCWR Plugin – Frontend Styles v2.0
+   ReviewKit Plugin – Frontend Styles v2.0
    Design System: Clean, Professional, No-emoji
    ============================================================= */
 
 /* === DESIGN TOKENS === */
 :root {
-    --mcwr-primary: #ee4d2d;
-    --mcwr-primary-dk: #d63d1e;
-    --mcwr-primary-lt: #fff3f0;
-    --mcwr-accent: #f59e0b;
+    --reviewkit-primary: #ee4d2d;
+    --reviewkit-primary-dk: #d63d1e;
+    --reviewkit-primary-lt: #fff3f0;
+    --reviewkit-accent: #f59e0b;
     /* Amber for stars */
-    --mcwr-green: #16a34a;
-    --mcwr-green-lt: #f0fdf4;
-    --mcwr-text: #1a1a2e;
-    --mcwr-text-muted: #64748b;
-    --mcwr-text-light: #94a3b8;
-    --mcwr-border: #e2e8f0;
-    --mcwr-border-light: #f1f5f9;
-    --mcwr-bg: #ffffff;
-    --mcwr-bg-soft: #f8fafc;
-    --mcwr-radius: 10px;
-    --mcwr-radius-sm: 6px;
-    --mcwr-radius-full: 9999px;
-    --mcwr-shadow: 0 1px 3px 0 rgba(0, 0, 0, .07), 0 1px 2px -1px rgba(0, 0, 0, .04);
-    --mcwr-shadow-md: 0 4px 12px rgba(0, 0, 0, .08);
-    --mcwr-transition: all 0.18s ease;
+    --reviewkit-green: #16a34a;
+    --reviewkit-green-lt: #f0fdf4;
+    --reviewkit-text: #1a1a2e;
+    --reviewkit-text-muted: #64748b;
+    --reviewkit-text-light: #94a3b8;
+    --reviewkit-border: #e2e8f0;
+    --reviewkit-border-light: #f1f5f9;
+    --reviewkit-bg: #ffffff;
+    --reviewkit-bg-soft: #f8fafc;
+    --reviewkit-radius: 10px;
+    --reviewkit-radius-sm: 6px;
+    --reviewkit-radius-full: 9999px;
+    --reviewkit-shadow: 0 1px 3px 0 rgba(0, 0, 0, .07), 0 1px 2px -1px rgba(0, 0, 0, .04);
+    --reviewkit-shadow-md: 0 4px 12px rgba(0, 0, 0, .08);
+    --reviewkit-transition: all 0.18s ease;
 }
 
 /* ============================================================
    PHẦN 1: FORM GỬI ĐÁNH GIÁ
    ============================================================ */
 
-.mcwr-review-form {
-    background: var(--mcwr-bg);
-    border: 1px solid var(--mcwr-border);
-    border-radius: var(--mcwr-radius);
+.reviewkit-review-form {
+    background: var(--reviewkit-bg);
+    border: 1px solid var(--reviewkit-border);
+    border-radius: var(--reviewkit-radius);
     padding: 28px 32px;
     margin: 0 0 28px;
-    box-shadow: var(--mcwr-shadow);
+    box-shadow: var(--reviewkit-shadow);
 }
 
-.mcwr-review-form h3 {
+.reviewkit-review-form h3 {
     font-size: 16px;
     font-weight: 700;
-    color: var(--mcwr-text);
+    color: var(--reviewkit-text);
     margin: 0 0 22px;
     padding-bottom: 14px;
-    border-bottom: 1px solid var(--mcwr-border-light);
+    border-bottom: 1px solid var(--reviewkit-border-light);
     letter-spacing: -0.01em;
 }
 
-.mcwr-form-group {
+.reviewkit-form-group {
     margin-bottom: 18px;
 }
 
-.mcwr-label {
+.reviewkit-label {
     display: block;
     font-size: 13px;
     font-weight: 600;
-    color: var(--mcwr-text);
+    color: var(--reviewkit-text);
     margin-bottom: 7px;
     letter-spacing: 0.01em;
 }
 
-.mcwr-review-form input[type="text"],
-.mcwr-review-form input[type="email"],
-.mcwr-review-form textarea {
+.reviewkit-review-form input[type="text"],
+.reviewkit-review-form input[type="email"],
+.reviewkit-review-form textarea {
     width: 100%;
     padding: 10px 14px;
-    border: 1px solid var(--mcwr-border);
-    border-radius: var(--mcwr-radius-sm);
+    border: 1px solid var(--reviewkit-border);
+    border-radius: var(--reviewkit-radius-sm);
     font-size: 14px;
-    color: var(--mcwr-text);
-    background: var(--mcwr-bg);
+    color: var(--reviewkit-text);
+    background: var(--reviewkit-bg);
     box-sizing: border-box;
-    transition: var(--mcwr-transition);
+    transition: var(--reviewkit-transition);
     outline: none;
     -webkit-appearance: none;
     appearance: none;
 }
 
-.mcwr-review-form input[type="text"]:focus,
-.mcwr-review-form input[type="email"]:focus,
-.mcwr-review-form textarea:focus {
-    border-color: var(--mcwr-primary);
+.reviewkit-review-form input[type="text"]:focus,
+.reviewkit-review-form input[type="email"]:focus,
+.reviewkit-review-form textarea:focus {
+    border-color: var(--reviewkit-primary);
     box-shadow: 0 0 0 3px rgba(238, 77, 45, 0.1);
 }
 
-.mcwr-review-form textarea {
+.reviewkit-review-form textarea {
     min-height: 100px;
     resize: vertical;
     line-height: 1.6;
 }
 
 /* Submit button */
-.mcwr-submit-btn {
+.reviewkit-submit-btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: var(--mcwr-primary) !important;
+    background: var(--reviewkit-primary) !important;
     color: #fff !important;
     border: none !important;
     padding: 11px 26px !important;
-    border-radius: var(--mcwr-radius-sm) !important;
+    border-radius: var(--reviewkit-radius-sm) !important;
     font-size: 14px !important;
     font-weight: 600 !important;
     cursor: pointer;
-    transition: var(--mcwr-transition);
+    transition: var(--reviewkit-transition);
     letter-spacing: 0.01em;
     box-shadow: 0 2px 8px rgba(238, 77, 45, .25);
 }
 
 .custom-review-form button[type="submit"]:hover,
 .custom-review-form .button.alt:hover {
-    background: var(--mcwr-primary-dk) !important;
+    background: var(--reviewkit-primary-dk) !important;
     box-shadow: 0 4px 14px rgba(238, 77, 45, .35);
     transform: translateY(-1px);
 }
 
 /* Notices */
-.mcwr-notice-success,
-.mcwr-notice-warning {
+.reviewkit-notice-success,
+.reviewkit-notice-warning {
     padding: 12px 16px;
-    border-radius: var(--mcwr-radius-sm);
+    border-radius: var(--reviewkit-radius-sm);
     font-size: 14px;
     margin-bottom: 18px;
     display: flex;
@@ -131,13 +131,13 @@
     line-height: 1.5;
 }
 
-.mcwr-notice-success {
-    background: var(--mcwr-green-lt);
+.reviewkit-notice-success {
+    background: var(--reviewkit-green-lt);
     border: 1px solid #bbf7d0;
     color: #166534;
 }
 
-.mcwr-notice-warning {
+.reviewkit-notice-warning {
     background: #fffbeb;
     border: 1px solid #fde68a;
     color: #92400e;
@@ -147,11 +147,11 @@
    PHẦN 2: STAR RATING INPUT (FORM)
    ============================================================ */
 
-.mcwr-star-rating input[type="radio"] {
+.reviewkit-star-rating input[type="radio"] {
     display: none !important;
 }
 
-.mcwr-star-rating {
+.reviewkit-star-rating {
     display: inline-flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
@@ -163,7 +163,7 @@
     height: auto !important;
 }
 
-.mcwr-star-rating label {
+.reviewkit-star-rating label {
     font-size: 32px !important;
     color: #d1d5db !important;
     cursor: pointer;
@@ -181,25 +181,25 @@
     text-indent: 0 !important;
 }
 
-.mcwr-star-rating label:before,
-.mcwr-star-rating label:after {
+.reviewkit-star-rating label:before,
+.reviewkit-star-rating label:after {
     content: none !important;
 }
 
-.mcwr-star-rating label:hover,
-.mcwr-star-rating label:hover~label {
-    color: var(--mcwr-accent) !important;
+.reviewkit-star-rating label:hover,
+.reviewkit-star-rating label:hover~label {
+    color: var(--reviewkit-accent) !important;
 }
 
-.mcwr-star-rating input:checked~label {
-    color: var(--mcwr-accent) !important;
+.reviewkit-star-rating input:checked~label {
+    color: var(--reviewkit-accent) !important;
 }
 
-.mcwr-star-rating input:checked+label:hover,
-.mcwr-star-rating input:checked+label:hover~label,
-.mcwr-star-rating input:checked~label:hover,
-.mcwr-star-rating input:checked~label:hover~label,
-.mcwr-star-rating label:hover~input:checked~label {
+.reviewkit-star-rating input:checked+label:hover,
+.reviewkit-star-rating input:checked+label:hover~label,
+.reviewkit-star-rating input:checked~label:hover,
+.reviewkit-star-rating input:checked~label:hover~label,
+.reviewkit-star-rating label:hover~input:checked~label {
     color: #d97706 !important;
 }
 
@@ -207,61 +207,61 @@
    PHẦN 3: DROPZONE & UPLOAD PREVIEW
    ============================================================ */
 
-.mcwr-dropzone {
-    border: 2px dashed var(--mcwr-border);
-    border-radius: var(--mcwr-radius-sm);
+.reviewkit-dropzone {
+    border: 2px dashed var(--reviewkit-border);
+    border-radius: var(--reviewkit-radius-sm);
     padding: 24px 20px;
     text-align: center;
-    background: var(--mcwr-bg-soft);
+    background: var(--reviewkit-bg-soft);
     cursor: pointer;
-    transition: var(--mcwr-transition);
+    transition: var(--reviewkit-transition);
     margin-top: 8px;
 }
 
-.mcwr-dropzone:hover,
-.mcwr-dropzone.drag-over {
-    border-color: var(--mcwr-primary);
-    background: var(--mcwr-primary-lt);
+.reviewkit-dropzone:hover,
+.reviewkit-dropzone.drag-over {
+    border-color: var(--reviewkit-primary);
+    background: var(--reviewkit-primary-lt);
 }
 
-.mcwr-dropzone p {
+.reviewkit-dropzone p {
     margin: 0 0 4px;
     font-size: 14px;
     font-weight: 500;
-    color: var(--mcwr-text);
+    color: var(--reviewkit-text);
 }
 
-.mcwr-dropzone span {
+.reviewkit-dropzone span {
     font-size: 12px;
-    color: var(--mcwr-text-light);
+    color: var(--reviewkit-text-light);
 }
 
-.mcwr-preview-list {
+.reviewkit-preview-list {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     margin-top: 12px;
 }
 
-.mcwr-preview-item {
+.reviewkit-preview-item {
     position: relative;
     width: 76px;
     height: 76px;
-    border: 1px solid var(--mcwr-border);
-    border-radius: var(--mcwr-radius-sm);
+    border: 1px solid var(--reviewkit-border);
+    border-radius: var(--reviewkit-radius-sm);
     overflow: hidden;
-    background: var(--mcwr-bg-soft);
+    background: var(--reviewkit-bg-soft);
     cursor: grab;
 }
 
-.mcwr-preview-item img {
+.reviewkit-preview-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
 }
 
-.mcwr-remove-btn {
+.reviewkit-remove-btn {
     position: absolute;
     top: 3px;
     right: 3px;
@@ -279,17 +279,17 @@
     transition: background 0.15s;
 }
 
-.mcwr-remove-btn:hover {
+.reviewkit-remove-btn:hover {
     background: rgba(239, 68, 68, 0.9);
 }
 
-.mcwr-preview-item.dragging {
+.reviewkit-preview-item.dragging {
     opacity: 0.45;
-    border: 2px dashed var(--mcwr-primary);
+    border: 2px dashed var(--reviewkit-primary);
 }
 
 /* Video Thumbnail Play Overlay */
-.mcwr-thumb-play-overlay {
+.reviewkit-thumb-play-overlay {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -312,21 +312,21 @@
    Cột trái: danh sách review | Cột phải: thống kê + form
    ============================================================ */
 
-.mcwr-two-col-layout {
+.reviewkit-two-col-layout {
     display: flex;
     gap: 28px;
     align-items: flex-start;
 }
 
 /* Cột trái: chiếm phần lớn diện tích */
-.mcwr-col-left {
+.reviewkit-col-left {
     flex: 1;
     min-width: 0;
     /* ngăn overflow khi có content dài */
 }
 
 /* Cột phải: sidebar cố định, dính khi cuộn */
-.mcwr-col-right {
+.reviewkit-col-right {
     flex: 0 0 360px;
     width: 360px;
     position: sticky;
@@ -335,7 +335,7 @@
 }
 
 /* Summary trong cột phải: xếp dọc (số điểm trung bình + progress bars thảng đứng) */
-.mcwr-col-right .mcwr-summary-box {
+.reviewkit-col-right .reviewkit-summary-box {
     flex-direction: column;
     align-items: stretch;
     gap: 14px;
@@ -343,7 +343,7 @@
     margin-bottom: 20px;
 }
 
-.mcwr-col-right .summary-left {
+.reviewkit-col-right .summary-left {
     display: flex;
     align-items: center;
     gap: 16px;
@@ -352,13 +352,13 @@
     text-align: left;
 }
 
-.mcwr-col-right .summary-right {
+.reviewkit-col-right .summary-right {
     width: 100%;
     max-width: 100%;
 }
 
 /* Form trong cột phải: bỏ margin dưới (sticky sidebar không cần) */
-.mcwr-col-right .mcwr-review-form {
+.reviewkit-col-right .reviewkit-review-form {
     margin-bottom: 0;
 }
 
@@ -366,16 +366,16 @@
    PHẦN 4: SUMMARY BOX (Bảng thống kê điểm số)
    ============================================================ */
 
-.mcwr-summary-box {
+.reviewkit-summary-box {
     display: flex;
     align-items: center;
     gap: 40px;
-    background: var(--mcwr-bg);
-    border: 1px solid var(--mcwr-border);
-    border-radius: var(--mcwr-radius);
+    background: var(--reviewkit-bg);
+    border: 1px solid var(--reviewkit-border);
+    border-radius: var(--reviewkit-radius);
     padding: 24px 28px;
     margin-bottom: 20px;
-    box-shadow: var(--mcwr-shadow);
+    box-shadow: var(--reviewkit-shadow);
 }
 
 .summary-left {
@@ -387,19 +387,19 @@
 .average-score {
     line-height: 1;
     margin-bottom: 6px;
-    color: var(--mcwr-text);
+    color: var(--reviewkit-text);
 }
 
 .score-number {
     font-size: 44px;
     font-weight: 800;
-    color: var(--mcwr-text);
+    color: var(--reviewkit-text);
     letter-spacing: -0.04em;
 }
 
 .score-total {
     font-size: 18px;
-    color: var(--mcwr-text-muted);
+    color: var(--reviewkit-text-muted);
     font-weight: 400;
 }
 
@@ -426,7 +426,7 @@
     top: 0;
     left: 0;
     overflow: hidden;
-    color: var(--mcwr-accent);
+    color: var(--reviewkit-accent);
     z-index: 1;
 }
 
@@ -439,7 +439,7 @@
 
 .total-text {
     font-size: 12px;
-    color: var(--mcwr-text-muted);
+    color: var(--reviewkit-text-muted);
     margin-top: 4px;
 }
 
@@ -458,12 +458,12 @@
 }
 
 .summary-row:hover .row-label {
-    color: var(--mcwr-primary);
+    color: var(--reviewkit-primary);
 }
 
 .row-label {
     width: 44px;
-    color: var(--mcwr-text-muted);
+    color: var(--reviewkit-text-muted);
     font-weight: 500;
     font-size: 12px;
     flex-shrink: 0;
@@ -472,23 +472,23 @@
 .row-bar-bg {
     flex-grow: 1;
     height: 5px;
-    background: var(--mcwr-border-light);
-    border-radius: var(--mcwr-radius-full);
+    background: var(--reviewkit-border-light);
+    border-radius: var(--reviewkit-radius-full);
     overflow: hidden;
 }
 
 .row-bar-fill {
     height: 100%;
-    background: var(--mcwr-accent);
-    border-radius: var(--mcwr-radius-full);
+    background: var(--reviewkit-accent);
+    border-radius: var(--reviewkit-radius-full);
     width: 0;
     transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.mcwr-progress-bar {
+.reviewkit-progress-bar {
     height: 100%;
-    background: var(--mcwr-accent);
-    border-radius: var(--mcwr-radius-full);
+    background: var(--reviewkit-accent);
+    border-radius: var(--reviewkit-radius-full);
     width: 0;
     transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -496,7 +496,7 @@
 .row-count {
     width: 28px;
     text-align: right;
-    color: var(--mcwr-text-light);
+    color: var(--reviewkit-text-light);
     font-size: 12px;
     flex-shrink: 0;
 }
@@ -505,24 +505,24 @@
    PHẦN 5: FILTER & SORT TOOLBAR
    ============================================================ */
 
-.mcwr-filter-container {
-    background: var(--mcwr-bg);
-    border: 1px solid var(--mcwr-border);
-    border-radius: var(--mcwr-radius);
+.reviewkit-filter-container {
+    background: var(--reviewkit-bg);
+    border: 1px solid var(--reviewkit-border);
+    border-radius: var(--reviewkit-radius);
     padding: 20px 22px;
     margin-bottom: 18px;
-    box-shadow: var(--mcwr-shadow);
+    box-shadow: var(--reviewkit-shadow);
 }
 
-.mcwr-filter-container h3 {
+.reviewkit-filter-container h3 {
     font-size: 15px;
     font-weight: 700;
-    color: var(--mcwr-text);
+    color: var(--reviewkit-text);
     margin: 0 0 14px;
     letter-spacing: -0.01em;
 }
 
-.mcwr-toolbar {
+.reviewkit-toolbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -530,51 +530,51 @@
     gap: 10px;
 }
 
-.mcwr-filter-group {
+.reviewkit-filter-group {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
 }
 
 .filter-btn {
-    background: var(--mcwr-bg-soft);
-    border: 1px solid var(--mcwr-border);
+    background: var(--reviewkit-bg-soft);
+    border: 1px solid var(--reviewkit-border);
     margin: 0;
     padding: 5px 14px;
-    border-radius: var(--mcwr-radius-full);
+    border-radius: var(--reviewkit-radius-full);
     cursor: pointer;
     font-size: 13px;
-    color: var(--mcwr-text-muted);
-    transition: var(--mcwr-transition);
+    color: var(--reviewkit-text-muted);
+    transition: var(--reviewkit-transition);
     font-weight: 500;
     outline: none;
     line-height: 1.5;
 }
 
 .filter-btn:hover {
-    border-color: var(--mcwr-primary);
-    color: var(--mcwr-primary);
-    background: var(--mcwr-primary-lt);
+    border-color: var(--reviewkit-primary);
+    color: var(--reviewkit-primary);
+    background: var(--reviewkit-primary-lt);
 }
 
 .filter-btn.active {
-    border-color: var(--mcwr-primary);
-    color: var(--mcwr-primary);
-    background: var(--mcwr-primary-lt);
+    border-color: var(--reviewkit-primary);
+    color: var(--reviewkit-primary);
+    background: var(--reviewkit-primary-lt);
     font-weight: 600;
 }
 
-.mcwr-sort-dropdown {
-    background: var(--mcwr-bg);
-    border: 1px solid var(--mcwr-border);
+.reviewkit-sort-dropdown {
+    background: var(--reviewkit-bg);
+    border: 1px solid var(--reviewkit-border);
     padding: 6px 12px;
-    border-radius: var(--mcwr-radius-sm);
+    border-radius: var(--reviewkit-radius-sm);
     font-size: 13px;
-    color: var(--mcwr-text);
+    color: var(--reviewkit-text);
     outline: none;
     cursor: pointer;
     min-width: 140px;
-    transition: var(--mcwr-transition);
+    transition: var(--reviewkit-transition);
     -webkit-appearance: none;
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2394a3b8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
@@ -583,8 +583,8 @@
     padding-right: 28px;
 }
 
-.mcwr-sort-dropdown:focus {
-    border-color: var(--mcwr-primary);
+.reviewkit-sort-dropdown:focus {
+    border-color: var(--reviewkit-primary);
     box-shadow: 0 0 0 3px rgba(238, 77, 45, 0.08);
 }
 
@@ -592,16 +592,16 @@
    PHẦN 6: DANH SÁCH ĐÁNH GIÁ (REVIEW LIST)
    ============================================================ */
 
-.mcwr-review-list {
+.reviewkit-review-list {
     display: flex;
     flex-direction: column;
     gap: 16px;
     margin-top: 0;
 }
 
-.mcwr-no-review {
+.reviewkit-no-review {
     text-align: center;
-    color: var(--mcwr-text-muted);
+    color: var(--reviewkit-text-muted);
     font-size: 14px;
     padding: 40px 20px;
 }
@@ -611,16 +611,16 @@
    ============================================================ */
 
 .review-card-item {
-    background: var(--mcwr-bg);
-    border: 1px solid var(--mcwr-border);
-    border-radius: var(--mcwr-radius);
+    background: var(--reviewkit-bg);
+    border: 1px solid var(--reviewkit-border);
+    border-radius: var(--reviewkit-radius);
     padding: 20px 22px;
-    box-shadow: var(--mcwr-shadow);
+    box-shadow: var(--reviewkit-shadow);
     transition: box-shadow 0.2s ease;
 }
 
 .review-card-item:hover {
-    box-shadow: var(--mcwr-shadow-md);
+    box-shadow: var(--reviewkit-shadow-md);
 }
 
 /* Header */
@@ -642,7 +642,7 @@
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid var(--mcwr-border-light);
+    border: 2px solid var(--reviewkit-border-light);
 }
 
 .user-info {
@@ -662,7 +662,7 @@
 .author-name {
     font-weight: 700;
     font-size: 14px;
-    color: var(--mcwr-text);
+    color: var(--reviewkit-text);
     line-height: 1.3;
 }
 
@@ -673,9 +673,9 @@
     font-size: 11px;
     font-weight: 600;
     padding: 2px 8px;
-    border-radius: var(--mcwr-radius-full);
-    background: var(--mcwr-green-lt);
-    color: var(--mcwr-green);
+    border-radius: var(--reviewkit-radius-full);
+    background: var(--reviewkit-green-lt);
+    color: var(--reviewkit-green);
     border: 1px solid #bbf7d0;
     line-height: 1.4;
 }
@@ -688,24 +688,24 @@
 
 .date-row {
     font-size: 12px;
-    color: var(--mcwr-text-light);
+    color: var(--reviewkit-text-light);
     line-height: 1.3;
 }
 
 /* Thời gian tương đối – gợi ý hover để xem ngày đầy đủ */
-.mcwr-comment-date {
+.reviewkit-comment-date {
     font-style: normal;
     cursor: default;
     text-decoration: underline;
     text-decoration-style: dotted;
-    text-decoration-color: var(--mcwr-border);
+    text-decoration-color: var(--reviewkit-border);
     text-underline-offset: 2px;
     transition: color 0.15s, text-decoration-color 0.15s;
 }
 
-.mcwr-comment-date:hover {
-    color: var(--mcwr-text-muted);
-    text-decoration-color: var(--mcwr-text-light);
+.reviewkit-comment-date:hover {
+    color: var(--reviewkit-text-muted);
+    text-decoration-color: var(--reviewkit-text-light);
 }
 
 
@@ -715,7 +715,7 @@
 }
 
 .star-display {
-    color: var(--mcwr-accent);
+    color: var(--reviewkit-accent);
     font-size: 15px;
     letter-spacing: 1px;
     line-height: 1;
@@ -727,7 +727,7 @@
 
 /* Body */
 .review-body {
-    color: var(--mcwr-text-muted);
+    color: var(--reviewkit-text-muted);
     font-size: 14px;
     line-height: 1.65;
     margin-bottom: 14px;
@@ -756,12 +756,12 @@
     position: relative;
     width: 72px;
     height: 72px;
-    border-radius: var(--mcwr-radius-sm);
+    border-radius: var(--reviewkit-radius-sm);
     overflow: hidden;
     cursor: pointer;
-    border: 1px solid var(--mcwr-border);
+    border: 1px solid var(--reviewkit-border);
     flex-shrink: 0;
-    background: var(--mcwr-bg-soft);
+    background: var(--reviewkit-bg-soft);
 }
 
 .review-gallery-item img {
@@ -823,7 +823,7 @@
     gap: 4px;
     margin-top: 14px;
     padding-top: 12px;
-    border-top: 1px solid var(--mcwr-border-light);
+    border-top: 1px solid var(--reviewkit-border-light);
     flex-wrap: wrap;
 }
 
@@ -833,12 +833,12 @@
     gap: 5px;
     background: none;
     border: 1px solid transparent;
-    border-radius: var(--mcwr-radius-sm);
+    border-radius: var(--reviewkit-radius-sm);
     cursor: pointer;
     font-size: 12.5px;
-    color: var(--mcwr-text-muted);
+    color: var(--reviewkit-text-muted);
     padding: 5px 11px;
-    transition: var(--mcwr-transition);
+    transition: var(--reviewkit-transition);
     font-weight: 500;
     line-height: 1;
 }
@@ -851,13 +851,13 @@
 }
 
 .like-btn:hover {
-    color: var(--mcwr-primary);
-    background: var(--mcwr-primary-lt);
+    color: var(--reviewkit-primary);
+    background: var(--reviewkit-primary-lt);
     border-color: #fecaca;
 }
 
 .like-btn.voted {
-    color: var(--mcwr-primary);
+    color: var(--reviewkit-primary);
     font-weight: 600;
 }
 
@@ -868,21 +868,21 @@
 }
 
 /* Report button – pushed to far right */
-.mcwr-report-btn {
+.reviewkit-report-btn {
     margin-left: auto;
-    color: var(--mcwr-text-light);
+    color: var(--reviewkit-text-light);
     font-size: 12px;
 }
 
-.mcwr-report-btn:hover {
+.reviewkit-report-btn:hover {
     color: #dc2626;
     background: #fef2f2;
     border-color: #fecaca;
 }
 
-.mcwr-report-btn.mcwr-reported {
-    color: var(--mcwr-green);
-    background: var(--mcwr-green-lt);
+.reviewkit-report-btn.reviewkit-reported {
+    color: var(--reviewkit-green);
+    background: var(--reviewkit-green-lt);
     border-color: #bbf7d0;
     cursor: default;
 }
@@ -891,34 +891,34 @@
    PHẦN 10: ADMIN REPLY FORM & SHOP RESPONSE
    ============================================================ */
 
-.mcwr-admin-reply-area {
+.reviewkit-admin-reply-area {
     display: none;
     margin-top: 14px;
     background: #f8fafc;
-    border: 1px solid var(--mcwr-border);
-    border-radius: var(--mcwr-radius-sm);
+    border: 1px solid var(--reviewkit-border);
+    border-radius: var(--reviewkit-radius-sm);
     padding: 16px 18px;
 }
 
 .admin-reply-area textarea {
     width: 100%;
-    border: 1px solid var(--mcwr-border);
-    border-radius: var(--mcwr-radius-sm);
+    border: 1px solid var(--reviewkit-border);
+    border-radius: var(--reviewkit-radius-sm);
     padding: 10px 12px;
     font-size: 13.5px;
     line-height: 1.6;
     min-height: 80px;
     margin-bottom: 10px;
-    background: var(--mcwr-bg);
+    background: var(--reviewkit-bg);
     resize: vertical;
-    color: var(--mcwr-text);
-    transition: var(--mcwr-transition);
+    color: var(--reviewkit-text);
+    transition: var(--reviewkit-transition);
     outline: none;
     box-sizing: border-box;
 }
 
 .admin-reply-area textarea:focus {
-    border-color: var(--mcwr-primary);
+    border-color: var(--reviewkit-primary);
     box-shadow: 0 0 0 3px rgba(238, 77, 45, 0.08);
 }
 
@@ -930,47 +930,47 @@
 
 .cancel-btn {
     background: none;
-    border: 1px solid var(--mcwr-border);
-    color: var(--mcwr-text-muted);
+    border: 1px solid var(--reviewkit-border);
+    color: var(--reviewkit-text-muted);
     cursor: pointer;
     font-size: 13px;
     padding: 7px 16px;
-    border-radius: var(--mcwr-radius-sm);
-    transition: var(--mcwr-transition);
+    border-radius: var(--reviewkit-radius-sm);
+    transition: var(--reviewkit-transition);
 }
 
 .cancel-btn:hover {
-    border-color: var(--mcwr-text-muted);
-    color: var(--mcwr-text);
+    border-color: var(--reviewkit-text-muted);
+    color: var(--reviewkit-text);
 }
 
 .submit-btn {
-    background: var(--mcwr-primary);
+    background: var(--reviewkit-primary);
     color: #fff;
     border: none;
     padding: 7px 18px;
-    border-radius: var(--mcwr-radius-sm);
+    border-radius: var(--reviewkit-radius-sm);
     cursor: pointer;
     font-weight: 600;
     font-size: 13px;
-    transition: var(--mcwr-transition);
+    transition: var(--reviewkit-transition);
 }
 
 .submit-btn:hover {
-    background: var(--mcwr-primary-dk);
+    background: var(--reviewkit-primary-dk);
     transform: translateY(-1px);
 }
 
 /* Shop Response (nested reply) */
-.mcwr-nested-reply {
+.reviewkit-nested-reply {
     margin-top: 14px;
-    border-radius: var(--mcwr-radius-sm);
+    border-radius: var(--reviewkit-radius-sm);
     overflow: hidden;
     border: 1px solid #e0f2fe;
     background: #f0f9ff;
 }
 
-.mcwr-nested-reply .reply-header {
+.reviewkit-nested-reply .reply-header {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -978,7 +978,7 @@
     border-bottom: 1px solid #e0f2fe;
 }
 
-.mcwr-nested-reply .reply-avatar img {
+.reviewkit-nested-reply .reply-avatar img {
     border-radius: 50%;
     display: block;
     width: 32px;
@@ -987,7 +987,7 @@
     flex-shrink: 0;
 }
 
-.mcwr-nested-reply .reply-author-info {
+.reviewkit-nested-reply .reply-author-info {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -995,13 +995,13 @@
     flex: 1;
 }
 
-.mcwr-nested-reply .reply-author-name {
+.reviewkit-nested-reply .reply-author-name {
     font-weight: 700;
     font-size: 13px;
     color: #0c4a6e;
 }
 
-.mcwr-nested-reply .reply-badge {
+.reviewkit-nested-reply .reply-badge {
     display: inline-flex;
     align-items: center;
     gap: 3px;
@@ -1009,34 +1009,34 @@
     color: #fff;
     font-size: 11px;
     padding: 2px 7px;
-    border-radius: var(--mcwr-radius-full);
+    border-radius: var(--reviewkit-radius-full);
     font-weight: 600;
 }
 
-.mcwr-nested-reply .reply-badge .dashicons {
+.reviewkit-nested-reply .reply-badge .dashicons {
     font-size: 12px;
     width: 12px;
     height: 12px;
 }
 
-.mcwr-nested-reply .reply-date {
+.reviewkit-nested-reply .reply-date {
     font-size: 12px;
     color: #7dd3fc;
     margin-left: auto;
 }
 
-.mcwr-nested-reply .reply-content {
+.reviewkit-nested-reply .reply-content {
     padding: 11px 14px;
     font-size: 13.5px;
     color: #164e63;
     line-height: 1.6;
 }
 
-.mcwr-nested-reply .reply-content p {
+.reviewkit-nested-reply .reply-content p {
     margin: 0 0 8px;
 }
 
-.mcwr-nested-reply .reply-content p:last-child {
+.reviewkit-nested-reply .reply-content p:last-child {
     margin-bottom: 0;
 }
 
@@ -1044,8 +1044,8 @@
    PHẦN 11: PAGINATION
    ============================================================ */
 
-.mcwr-pagination,
-.mcwr-load-more-container {
+.reviewkit-pagination,
+.reviewkit-load-more-container {
     margin-top: 28px;
     display: flex;
     justify-content: center;
@@ -1055,66 +1055,66 @@
 }
 
 .page-btn {
-    background: var(--mcwr-bg);
-    border: 1px solid var(--mcwr-border);
+    background: var(--reviewkit-bg);
+    border: 1px solid var(--reviewkit-border);
     min-width: 34px;
     height: 34px;
     padding: 0 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: var(--mcwr-radius-sm);
+    border-radius: var(--reviewkit-radius-sm);
     cursor: pointer;
-    color: var(--mcwr-text-muted);
+    color: var(--reviewkit-text-muted);
     font-size: 13px;
     font-weight: 500;
-    transition: var(--mcwr-transition);
+    transition: var(--reviewkit-transition);
 }
 
 .page-btn:hover {
-    border-color: var(--mcwr-primary);
-    color: var(--mcwr-primary);
-    background: var(--mcwr-primary-lt);
+    border-color: var(--reviewkit-primary);
+    color: var(--reviewkit-primary);
+    background: var(--reviewkit-primary-lt);
 }
 
 .page-btn.active {
-    background: var(--mcwr-primary);
-    border-color: var(--mcwr-primary);
+    background: var(--reviewkit-primary);
+    border-color: var(--reviewkit-primary);
     color: #fff;
     cursor: default;
     pointer-events: none;
     box-shadow: 0 2px 6px rgba(238, 77, 45, .3);
 }
 
-.mcwr-pagination .dots {
-    color: var(--mcwr-text-light);
+.reviewkit-pagination .dots {
+    color: var(--reviewkit-text-light);
     font-size: 13px;
     padding: 0 2px;
 }
 
-#mcwr-load-more-btn {
-    background: var(--mcwr-bg);
-    border: 1px solid var(--mcwr-border);
-    color: var(--mcwr-text-muted);
+#reviewkit-load-more-btn {
+    background: var(--reviewkit-bg);
+    border: 1px solid var(--reviewkit-border);
+    color: var(--reviewkit-text-muted);
     padding: 10px 32px;
-    border-radius: var(--mcwr-radius-full);
+    border-radius: var(--reviewkit-radius-full);
     font-size: 13.5px;
     font-weight: 600;
     cursor: pointer;
-    transition: var(--mcwr-transition);
+    transition: var(--reviewkit-transition);
 }
 
-#mcwr-load-more-btn:hover {
-    border-color: var(--mcwr-primary);
-    color: var(--mcwr-primary);
-    background: var(--mcwr-primary-lt);
+#reviewkit-load-more-btn:hover {
+    border-color: var(--reviewkit-primary);
+    color: var(--reviewkit-primary);
+    background: var(--reviewkit-primary-lt);
     transform: translateY(-1px);
 }
 
-#mcwr-load-more-btn:disabled {
-    background: var(--mcwr-bg-soft);
-    border-color: var(--mcwr-border);
-    color: var(--mcwr-text-light);
+#reviewkit-load-more-btn:disabled {
+    background: var(--reviewkit-bg-soft);
+    border-color: var(--reviewkit-border);
+    color: var(--reviewkit-text-light);
     cursor: not-allowed;
     transform: none;
 }
@@ -1152,7 +1152,7 @@
         padding: 20px 18px;
     }
 
-    .mcwr-summary-box {
+    .reviewkit-summary-box {
         flex-direction: column;
         gap: 18px;
         padding: 18px;
@@ -1165,26 +1165,26 @@
     }
 
     /* Layout 2 cột → xếp dọc trên mobile */
-    .mcwr-two-col-layout {
+    .reviewkit-two-col-layout {
         flex-direction: column;
         gap: 20px;
     }
 
-    .mcwr-col-right {
+    .reviewkit-col-right {
         position: static;
         /* không sticky trên mobile */
         flex: unset;
         width: 100%;
     }
 
-    .mcwr-col-right .mcwr-summary-box {
+    .reviewkit-col-right .reviewkit-summary-box {
         flex-direction: row;
         align-items: center;
         gap: 20px;
         padding: 18px;
     }
 
-    .mcwr-col-right .summary-left {
+    .reviewkit-col-right .summary-left {
         flex-direction: column;
         align-items: center;
         gap: 4px;
@@ -1192,17 +1192,17 @@
         text-align: center;
     }
 
-    .mcwr-toolbar {
+    .reviewkit-toolbar {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
     }
 
-    .mcwr-sort-group {
+    .reviewkit-sort-group {
         width: 100%;
     }
 
-    .mcwr-sort-dropdown {
+    .reviewkit-sort-dropdown {
         width: 100%;
     }
 
@@ -1230,12 +1230,12 @@
    SHORTCODE STANDALONE — wrapper class alias
    ============================================================ */
 
-/* .mcwr-reviews-wrapper thay thế #mcwr-reviews-wrapper
+/* .reviewkit-reviews-wrapper thay thế #reviewkit-reviews-wrapper
    để hỗ trợ nhiều shortcode trên cùng trang */
-.mcwr-reviews-wrapper {
+.reviewkit-reviews-wrapper {
     transition: opacity 0.2s ease;
 }
 
-.mcwr-filter-container + .mcwr-reviews-wrapper {
+.reviewkit-filter-container + .reviewkit-reviews-wrapper {
     margin-top: 8px;
 }

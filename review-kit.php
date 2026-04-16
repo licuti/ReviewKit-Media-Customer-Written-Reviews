@@ -23,10 +23,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 // ============================================================
 // CONSTANTS
 // ============================================================
-define( 'MCWR_VERSION',     '1.1.0' );
-define( 'MCWR_PLUGIN_FILE', __FILE__ );
-define( 'MCWR_PLUGIN_DIR',  plugin_dir_path( __FILE__ ) );
-define( 'MCWR_PLUGIN_URL',  plugin_dir_url( __FILE__ ) );
+define( 'ReviewKit_VERSION',     '1.1.0' );
+define( 'ReviewKit_PLUGIN_FILE', __FILE__ );
+define( 'ReviewKit_PLUGIN_DIR',  plugin_dir_path( __FILE__ ) );
+define( 'ReviewKit_PLUGIN_URL',  plugin_dir_url( __FILE__ ) );
 
 // ============================================================
 // THÊM LINK "Settings" TRONG DANH SÁCH PLUGIN
@@ -36,7 +36,7 @@ add_filter(
     function( $links ) {
         $settings_link = sprintf(
             '<a href="%s">%s</a>',
-            esc_url( admin_url( 'admin.php?page=mcwr-settings' ) ),
+            esc_url( admin_url( 'admin.php?page=reviewkit-settings' ) ),
             __( 'Settings', 'review-kit' )
         );
         array_unshift( $links, $settings_link );
@@ -47,44 +47,44 @@ add_filter(
 // ============================================================
 // LOAD INCLUDES
 // ============================================================
-require_once MCWR_PLUGIN_DIR . 'includes/class-icon-helper.php';   // Icon system (load trước traits)
-require_once MCWR_PLUGIN_DIR . 'includes/trait-review-renderer.php';
-require_once MCWR_PLUGIN_DIR . 'includes/trait-ajax-handlers.php';
-require_once MCWR_PLUGIN_DIR . 'includes/class-frontend.php';
-require_once MCWR_PLUGIN_DIR . 'includes/class-admin-settings.php';
-require_once MCWR_PLUGIN_DIR . 'includes/class-pro-features.php';
-require_once MCWR_PLUGIN_DIR . 'includes/class-admin-pro.php';
-require_once MCWR_PLUGIN_DIR . 'includes/class-admin-review-editor.php';
+require_once ReviewKit_PLUGIN_DIR . 'includes/class-icon-helper.php';   // Icon system (load trước traits)
+require_once ReviewKit_PLUGIN_DIR . 'includes/trait-review-renderer.php';
+require_once ReviewKit_PLUGIN_DIR . 'includes/trait-ajax-handlers.php';
+require_once ReviewKit_PLUGIN_DIR . 'includes/class-frontend.php';
+require_once ReviewKit_PLUGIN_DIR . 'includes/class-admin-settings.php';
+require_once ReviewKit_PLUGIN_DIR . 'includes/class-pro-features.php';
+require_once ReviewKit_PLUGIN_DIR . 'includes/class-admin-pro.php';
+require_once ReviewKit_PLUGIN_DIR . 'includes/class-admin-review-editor.php';
 
 // ============================================================
 // ACTIVATION / DEACTIVATION
 // ============================================================
-register_activation_hook( __FILE__, 'mcwr_activate' );
-register_deactivation_hook( __FILE__, 'mcwr_deactivate' );
+register_activation_hook( __FILE__, 'reviewkit_activate' );
+register_deactivation_hook( __FILE__, 'reviewkit_deactivate' );
 
 /**
  * Khi kich hoat plugin: ghi default options neu chua ton tai.
  */
-function mcwr_activate() {
+function reviewkit_activate() {
     $defaults = array(
-        'mcwr_moderation_mode'          => '1',
-        'mcwr_enable_voting'            => '1',
-        'mcwr_require_login'            => '0',
-        'mcwr_enable_uploads'           => '1',
-        'mcwr_max_images'               => '5',
-        'mcwr_max_file_size'            => '5',
-        'mcwr_enable_video_upload'      => '0',
-        'mcwr_max_video_size'           => '10',
-        'mcwr_allowed_video_types'      => 'mp4,webm,mov',
-        'mcwr_per_page'                 => '5',
-        'mcwr_pagination_style'         => 'numbered_ajax',
-        'mcwr_primary_color'            => '#ee4d2d',
-        'mcwr_stars_color'              => '#f59e0b',
-        'mcwr_border_color'             => '#e2e8f0',
-        'mcwr_lightbox_layout'          => 'modern',
-        'mcwr_lightbox_theme'           => 'dark',
-        'mcwr_lightbox_toolbar'         => '1',
-        'mcwr_delete_media_with_review' => '0',
+        'reviewkit_moderation_mode'          => '1',
+        'reviewkit_enable_voting'            => '1',
+        'reviewkit_require_login'            => '0',
+        'reviewkit_enable_uploads'           => '1',
+        'reviewkit_max_images'               => '5',
+        'reviewkit_max_file_size'            => '5',
+        'reviewkit_enable_video_upload'      => '0',
+        'reviewkit_max_video_size'           => '10',
+        'reviewkit_allowed_video_types'      => 'mp4,webm,mov',
+        'reviewkit_per_page'                 => '5',
+        'reviewkit_pagination_style'         => 'numbered_ajax',
+        'reviewkit_primary_color'            => '#ee4d2d',
+        'reviewkit_stars_color'              => '#f59e0b',
+        'reviewkit_border_color'             => '#e2e8f0',
+        'reviewkit_lightbox_layout'          => 'modern',
+        'reviewkit_lightbox_theme'           => 'dark',
+        'reviewkit_lightbox_toolbar'         => '1',
+        'reviewkit_delete_media_with_review' => '0',
     );
 
     foreach ( $defaults as $key => $value ) {
@@ -93,13 +93,13 @@ function mcwr_activate() {
         }
     }
 
-    update_option( 'mcwr_installed_version', MCWR_VERSION );
+    update_option( 'reviewkit_installed_version', ReviewKit_VERSION );
 }
 
 /**
  * Khi tat plugin: khong xoa data (dung uninstall.php neu muon xoa).
  */
-function mcwr_deactivate() {
+function reviewkit_deactivate() {
     // Intentionally empty
 }
 
@@ -126,16 +126,16 @@ add_action( 'init', function () {
 // ============================================================
 // INIT CLASSES
 // ============================================================
-function mcwr_init() {
-    new MCWR_Frontend();
-    new MCWR_Pro_Features();
+function reviewkit_init() {
+    new ReviewKit_Frontend();
+    new ReviewKit_Pro_Features();
 }
 
-function mcwr_admin_init() {
-    new MCWR_Admin_Settings();
-    new MCWR_Admin_Pro();
-    new MCWR_Admin_Review_Editor();
+function reviewkit_admin_init() {
+    new ReviewKit_Admin_Settings();
+    new ReviewKit_Admin_Pro();
+    new ReviewKit_Admin_Review_Editor();
 }
 
-add_action( 'plugins_loaded', 'mcwr_init' );
-add_action( 'plugins_loaded', 'mcwr_admin_init' );
+add_action( 'plugins_loaded', 'reviewkit_init' );
+add_action( 'plugins_loaded', 'reviewkit_admin_init' );

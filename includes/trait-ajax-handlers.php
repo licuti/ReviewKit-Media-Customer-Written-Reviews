@@ -2,7 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Trait MCWR_Trait_Ajax_Handlers
+ * Trait ReviewKit_Trait_Ajax_Handlers
  *
  * Chứa toàn bộ logic xử lý dữ liệu đầu vào:
  * - Xác minh người mua hàng
@@ -11,9 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * - Admin phản hồi bình luận
  * - Vote "Hữu ích" (Like)
  *
- * Trait này được dùng bởi MCWR_Frontend.
+ * Trait này được dùng bởi ReviewKit_Frontend.
  */
-trait MCWR_Trait_Ajax_Handlers {
+trait ReviewKit_Trait_Ajax_Handlers {
 
     // ============================================================
     // HELPER: XÁC MINH NGƯỜI MUA HÀNG
@@ -62,7 +62,7 @@ trait MCWR_Trait_Ajax_Handlers {
 
     /**
      * Xử lý AJAX lọc/sắp xếp danh sách review.
-     * Hook: wp_ajax_mcwr_filter_reviews / wp_ajax_nopriv_mcwr_filter_reviews
+     * Hook: wp_ajax_reviewkit_filter_reviews / wp_ajax_nopriv_reviewkit_filter_reviews
      */
     public function handle_filter_reviews() {
         $product_id  = intval( $_POST['product_id'] );
@@ -70,8 +70,8 @@ trait MCWR_Trait_Ajax_Handlers {
         $sort_type   = sanitize_text_field( $_POST['sort_type'] );
 
         $page             = isset($_POST['page']) ? intval($_POST['page']) : 1;
-        $per_page         = get_option('mcwr_per_page', 5);
-        $pagination_style = get_option('mcwr_pagination_style', 'numbered_ajax');
+        $per_page         = get_option('reviewkit_per_page', 5);
+        $pagination_style = get_option('reviewkit_pagination_style', 'numbered_ajax');
         $offset           = ($page - 1) * $per_page;
 
         // Không thể vừa lọc theo sao, vừa sort theo sao — fallback về newest
@@ -133,7 +133,7 @@ trait MCWR_Trait_Ajax_Handlers {
         ob_start();
 
         if ( ! $comments ) {
-            echo '<p class="mcwr-no-review">' . __( 'Không tìm thấy đánh giá nào phù hợp.', 'review-kit' ) . '</p>';
+            echo '<p class="reviewkit-no-review">' . __( 'Không tìm thấy đánh giá nào phù hợp.', 'review-kit' ) . '</p>';
         } else {
             foreach ( $comments as $comment ) {
                 echo $this->get_single_review_html( $comment, $product );
@@ -142,8 +142,8 @@ trait MCWR_Trait_Ajax_Handlers {
             if ( $pagination_style == 'load_more' ) {
                 if ( count($comments) == $per_page && ($offset + $per_page < $total_comments) ) {
                     $next_page = $page + 1;
-                    echo '<div class="mcwr-load-more-container">';
-                    echo '<button id="mcwr-load-more-btn" class="mcwr-btn mcwr-load-more-btn" data-page="' . $next_page . '">' . __( 'Tải thêm đánh giá', 'review-kit' ) . '</button>';
+                    echo '<div class="reviewkit-load-more-container">';
+                    echo '<button id="reviewkit-load-more-btn" class="reviewkit-btn reviewkit-load-more-btn" data-page="' . $next_page . '">' . __( 'Tải thêm đánh giá', 'review-kit' ) . '</button>';
                     echo '</div>';
                 }
             } else {
@@ -172,7 +172,7 @@ trait MCWR_Trait_Ajax_Handlers {
         require_once( ABSPATH . 'wp-admin/includes/file.php' );
         require_once( ABSPATH . 'wp-admin/includes/media.php' );
 
-        if ( ! isset( $_POST['mcwr_nonce'] ) || ! wp_verify_nonce( $_POST['mcwr_nonce'], 'submit_review' ) ) {
+        if ( ! isset( $_POST['reviewkit_nonce'] ) || ! wp_verify_nonce( $_POST['reviewkit_nonce'], 'submit_review' ) ) {
             wp_die( __( 'Lỗi bảo mật (Nonce Error). Vui lòng tải lại trang.', 'review-kit' ) );
         }
 
@@ -186,7 +186,7 @@ trait MCWR_Trait_Ajax_Handlers {
         if ( ! $rating )     wp_die( __( 'Lỗi: Chưa chọn số sao.', 'review-kit' ) );
         if ( empty($email) ) wp_die( __( 'Lỗi: Email trống.', 'review-kit' ) );
 
-        $require_login = get_option('mcwr_require_login', 0);
+        $require_login = get_option('reviewkit_require_login', 0);
         if ( $require_login && ! is_user_logged_in() ) {
             wp_die(
                 __( 'Bạn cần phải đăng nhập để gửi đánh giá.', 'review-kit' ),
@@ -196,7 +196,7 @@ trait MCWR_Trait_Ajax_Handlers {
         }
 
         $user_id          = get_current_user_id();
-        $moderation_mode  = get_option( 'mcwr_moderation_mode', 0 );
+        $moderation_mode  = get_option( 'reviewkit_moderation_mode', 0 );
         $comment_approved = current_user_can('administrator') ? 1 : intval( $moderation_mode );
 
         $comment_data = array(
@@ -277,7 +277,7 @@ trait MCWR_Trait_Ajax_Handlers {
                 $data_store->refresh_review_count( $product );
             }
         }
-        delete_transient( 'mcwr_rating_counts_' . $product_id );
+        delete_transient( 'reviewkit_rating_counts_' . $product_id );
 
         $redirect_url = get_permalink( $product_id ) . '#reviews';
         if ( $comment_approved == 0 ) {
@@ -294,14 +294,14 @@ trait MCWR_Trait_Ajax_Handlers {
 
     /**
      * Xử lý form Admin phản hồi một đánh giá.
-     * Hook: admin_post_mcwr_admin_reply_submission
+     * Hook: admin_post_reviewkit_admin_reply_submission
      */
     public function handle_admin_reply_submission() {
         if ( ! current_user_can( 'administrator' ) ) {
             wp_die( __( 'Bạn không có quyền thực hiện tác vụ này.', 'review-kit' ) );
         }
 
-        if ( ! isset( $_POST['mcwr_admin_reply_nonce'] ) || ! wp_verify_nonce( $_POST['mcwr_admin_reply_nonce'], 'mcwr_admin_reply_action' ) ) {
+        if ( ! isset( $_POST['reviewkit_admin_reply_nonce'] ) || ! wp_verify_nonce( $_POST['reviewkit_admin_reply_nonce'], 'reviewkit_admin_reply_action' ) ) {
             wp_die( __( 'Lỗi bảo mật.', 'review-kit' ) );
         }
 
@@ -339,13 +339,13 @@ trait MCWR_Trait_Ajax_Handlers {
 
     /**
      * Xử lý AJAX vote "Hữu ích" cho một đánh giá.
-     * Hook: wp_ajax_mcwr_vote_review / wp_ajax_nopriv_mcwr_vote_review
+     * Hook: wp_ajax_reviewkit_vote_review / wp_ajax_nopriv_reviewkit_vote_review
      */
     public function handle_vote_review() {
-        check_ajax_referer( 'mcwr_ajax_nonce', 'nonce' );
+        check_ajax_referer( 'reviewkit_ajax_nonce', 'nonce' );
         $comment_id = intval( $_POST['comment_id'] );
 
-        $cookie_name = 'mcwr_voted_' . $comment_id;
+        $cookie_name = 'reviewkit_voted_' . $comment_id;
         if ( isset( $_COOKIE[$cookie_name] ) ) {
             wp_send_json_error( array( 'message' => __( 'Bạn đã bình chọn rồi.', 'review-kit' ) ) );
         }
@@ -358,4 +358,4 @@ trait MCWR_Trait_Ajax_Handlers {
         wp_send_json_success( array( 'new_count' => $new_likes ) );
     }
 
-} // end trait MCWR_Trait_Ajax_Handlers
+} // end trait ReviewKit_Trait_Ajax_Handlers

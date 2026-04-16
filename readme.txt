@@ -29,10 +29,10 @@ Nâng cấp hệ thống đánh giá WooCommerce với upload ảnh/video, bộ 
 
 = Shortcodes hỗ trợ =
 
-* `[mcwr_reviews product_id="123"]` — Toàn bộ giao diện đánh giá.
-* `[mcwr_review_form product_id="123"]` — Chỉ Form gửi đánh giá.
-* `[mcwr_review_list product_id="123"]` — Chỉ Danh sách đánh giá.
-* `[mcwr_review_summary product_id="123"]` — Chỉ Thống kê sao.
+* `[reviewkit_reviews product_id="123"]` — Toàn bộ giao diện đánh giá.
+* `[reviewkit_review_form product_id="123"]` — Chỉ Form gửi đánh giá.
+* `[reviewkit_review_list product_id="123"]` — Chỉ Danh sách đánh giá.
+* `[reviewkit_review_summary product_id="123"]` — Chỉ Thống kê sao.
 
 = Yêu cầu hệ thống =
 

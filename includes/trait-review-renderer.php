@@ -2,7 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * Trait MCWR_Trait_Renderer
+ * Trait ReviewKit_Trait_Renderer
  *
  * Chứa toàn bộ logic RENDER HTML:
  * - Layout 2 cột chính
@@ -11,10 +11,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * - Khối thống kê sao (Summary)
  * - Hàm tiện ích: phân trang, màu sắc, thời gian
  *
- * Trait này được dùng bởi MCWR_Frontend. Mọi $this-> call đều hoạt động
+ * Trait này được dùng bởi ReviewKit_Frontend. Mọi $this-> call đều hoạt động
  * như thể method nằm trực tiếp trong class gốc.
  */
-trait MCWR_Trait_Renderer {
+trait ReviewKit_Trait_Renderer {
 
     // ============================================================
     // HELPERS: product_id & asset loading
@@ -39,7 +39,7 @@ trait MCWR_Trait_Renderer {
      * Đảm bảo CSS/JS của plugin được enqueue khi shortcode dùng ngoài trang sản phẩm
      */
     private function ensure_assets_loaded() {
-        if ( ! wp_style_is( 'mcwr-style', 'enqueued' ) ) {
+        if ( ! wp_style_is( 'reviewkit-style', 'enqueued' ) ) {
             $this->enqueue_assets();
         }
     }
@@ -49,29 +49,29 @@ trait MCWR_Trait_Renderer {
     // ============================================================
 
     /**
-     * Render toàn bộ layout 2 cột (dùng chung cho tab WooCommerce & [mcwr_reviews])
+     * Render toàn bộ layout 2 cột (dùng chung cho tab WooCommerce & [reviewkit_reviews])
      */
     private function render_full_layout( $product_id ) {
         $product          = wc_get_product( $product_id );
-        $per_page         = get_option( 'mcwr_per_page', 5 );
-        $pagination_style = get_option( 'mcwr_pagination_style', 'numbered_ajax' );
-        $require_login    = get_option( 'mcwr_require_login', 0 );
+        $per_page         = get_option( 'reviewkit_per_page', 5 );
+        $pagination_style = get_option( 'reviewkit_pagination_style', 'numbered_ajax' );
+        $require_login    = get_option( 'reviewkit_require_login', 0 );
         $can_show_form    = ! ( $require_login && ! is_user_logged_in() );
 
         ob_start();
-        echo '<div class="mcwr-two-col-layout">';
+        echo '<div class="reviewkit-two-col-layout">';
 
             // ── CỘT TRÁI ──────────────────────────────────────
-            echo '<div class="mcwr-col-left">';
+            echo '<div class="reviewkit-col-left">';
                 echo $this->render_review_list_html( $product );
             echo '</div>';
 
             // ── CỘT PHẢI ──────────────────────────────────────
-            echo '<div class="mcwr-col-right">';
+            echo '<div class="reviewkit-col-right">';
                 echo $this->render_review_summary_html( $product );
 
                 if ( ! $can_show_form ) {
-                    echo '<div class="mcwr-notice-warning">';
+                    echo '<div class="reviewkit-notice-warning">';
                     echo sprintf(
                         __( 'Vui lòng %sĐăng nhập%s để gửi đánh giá.', 'review-kit' ),
                         '<a href="' . wp_login_url( get_permalink() ) . '"><strong>',
@@ -80,8 +80,8 @@ trait MCWR_Trait_Renderer {
                     echo '</div>';
                 } else {
                     $current_product_id = $product_id;
-                    $template_path = defined( 'MCWR_PLUGIN_DIR' )
-                        ? MCWR_PLUGIN_DIR . 'templates/review-form.php'
+                    $template_path = defined( 'ReviewKit_PLUGIN_DIR' )
+                        ? ReviewKit_PLUGIN_DIR . 'templates/review-form.php'
                         : dirname( __DIR__ ) . '/templates/review-form.php';
                     if ( file_exists( $template_path ) ) {
                         include $template_path;
@@ -89,7 +89,7 @@ trait MCWR_Trait_Renderer {
                 }
             echo '</div>';
 
-        echo '</div>'; // .mcwr-two-col-layout
+        echo '</div>'; // .reviewkit-two-col-layout
         return ob_get_clean();
     }
 
@@ -104,19 +104,19 @@ trait MCWR_Trait_Renderer {
      * @return string HTML
      */
     private function render_review_list_html( $product ) {
-        $per_page         = get_option( 'mcwr_per_page', 5 );
-        $pagination_style = get_option( 'mcwr_pagination_style', 'numbered_ajax' );
+        $per_page         = get_option( 'reviewkit_per_page', 5 );
+        $pagination_style = get_option( 'reviewkit_pagination_style', 'numbered_ajax' );
 
         ob_start();
 
         $product_id = $product->get_id();
-        $uid = 'mcwr-' . $product_id;
+        $uid = 'reviewkit-' . $product_id;
 
         // Toolbar lọc & sắp xếp
-        echo '<div class="mcwr-filter-container" data-product-id="' . $product_id . '">';
+        echo '<div class="reviewkit-filter-container" data-product-id="' . $product_id . '">';
             echo '<h3>' . __( 'Đánh giá từ khách hàng', 'review-kit' ) . '</h3>';
-            echo '<div class="mcwr-toolbar">';
-                echo '<div class="mcwr-filter-group">';
+            echo '<div class="reviewkit-toolbar">';
+                echo '<div class="reviewkit-filter-group">';
                     echo '<button class="filter-btn active" data-filter="all">'  . __( 'Tất cả', 'review-kit' )     . '</button>';
                     echo '<button class="filter-btn" data-filter="5">'           . __( '5 Sao', 'review-kit' )      . '</button>';
                     echo '<button class="filter-btn" data-filter="4">'           . __( '4 Sao', 'review-kit' )      . '</button>';
@@ -126,8 +126,8 @@ trait MCWR_Trait_Renderer {
                     echo '<button class="filter-btn" data-filter="has_image">'   . __( 'Có hình ảnh', 'review-kit' )  . '</button>';
                     echo '<button class="filter-btn" data-filter="verified">'    . __( 'Đã mua hàng', 'review-kit' ) . '</button>';
                 echo '</div>';
-                echo '<div class="mcwr-sort-group">';
-                    echo '<select class="mcwr-sort-dropdown" data-uid="' . esc_attr($uid) . '">';
+                echo '<div class="reviewkit-sort-group">';
+                    echo '<select class="reviewkit-sort-dropdown" data-uid="' . esc_attr($uid) . '">';
                         echo '<option value="newest" selected>' . __( 'Mới nhất', 'review-kit' )    . '</option>';
                         echo '<option value="helpful">'         . __( 'Hữu ích nhất', 'review-kit' ) . '</option>';
                         echo '<option value="rating_desc">'     . __( 'Đánh giá cao', 'review-kit' ) . '</option>';
@@ -139,7 +139,7 @@ trait MCWR_Trait_Renderer {
         echo '</div>';
 
         // Danh sách review
-        echo '<div class="mcwr-reviews-wrapper" data-product-id="' . $product_id . '">';
+        echo '<div class="reviewkit-reviews-wrapper" data-product-id="' . $product_id . '">';
             $args = array(
                 'post_id' => $product->get_id(),
                 'status'  => 'approve',
@@ -157,22 +157,22 @@ trait MCWR_Trait_Renderer {
             $total_pages    = ceil( $total_comments / $per_page );
 
             if ( ! $comments ) {
-                echo '<p class="mcwr-no-review">' . __( 'Chưa có đánh giá nào.', 'review-kit' ) . '</p>';
+                echo '<p class="reviewkit-no-review">' . __( 'Chưa có đánh giá nào.', 'review-kit' ) . '</p>';
             } else {
                 foreach ( $comments as $comment ) {
                     echo $this->get_single_review_html( $comment, $product );
                 }
                 if ( $pagination_style == 'load_more' ) {
                     if ( $total_comments > $per_page ) {
-                        echo '<div class="mcwr-load-more-container">';
-                        echo '<button id="mcwr-load-more-btn" class="mcwr-btn" data-page="2">' . __( 'Tải thêm đánh giá', 'review-kit' ) . '</button>';
+                        echo '<div class="reviewkit-load-more-container">';
+                        echo '<button id="reviewkit-load-more-btn" class="reviewkit-btn" data-page="2">' . __( 'Tải thêm đánh giá', 'review-kit' ) . '</button>';
                         echo '</div>';
                     }
                 } else {
                     echo $this->get_pagination_html( $total_pages, 1 );
                 }
             }
-        echo '</div>'; // .mcwr-reviews-wrapper
+        echo '</div>'; // .reviewkit-reviews-wrapper
 
         return ob_get_clean();
     }
@@ -187,7 +187,7 @@ trait MCWR_Trait_Renderer {
     private function get_pagination_html( $total_pages, $current_page ) {
         if ( $total_pages <= 1 ) return '';
 
-        $html = '<div class="mcwr-pagination">';
+        $html = '<div class="reviewkit-pagination">';
 
         if ( $current_page > 1 ) {
             $html .= '<button class="page-btn" data-page="' . ($current_page - 1) . '">&laquo;</button>';
@@ -231,9 +231,9 @@ trait MCWR_Trait_Renderer {
         $image_ids_str = get_comment_meta( $comment->comment_ID, 'review_image_ids', true );
         $is_verified   = get_comment_meta( $comment->comment_ID, 'verified', true );
         $helpful_count = intval( get_comment_meta( $comment->comment_ID, 'helpful_count', true ) );
-        $enable_voting = get_option( 'mcwr_enable_voting', 1 );
-        $badge_text    = get_option( 'mcwr_verified_text', __( 'Đã mua hàng', 'review-kit' ) );
-        $badge_color   = get_option( 'mcwr_verified_color', '#27ae60' );
+        $enable_voting = get_option( 'reviewkit_enable_voting', 1 );
+        $badge_text    = get_option( 'reviewkit_verified_text', __( 'Đã mua hàng', 'review-kit' ) );
+        $badge_color   = get_option( 'reviewkit_verified_color', '#27ae60' );
 
         ob_start();
         ?>
@@ -246,7 +246,7 @@ trait MCWR_Trait_Renderer {
                             <span class="author-name" itemprop="name"><?php echo get_comment_author( $comment->comment_ID ); ?></span>
                             <?php if ( $is_verified ): ?>
                                 <span class="verified-badge" style="--badge-color-rgb: <?php echo $this->hex2rgb($badge_color); ?>; color: <?php echo esc_attr($badge_color); ?>;">
-                                    <?php echo mcwr_icon( 'verified' ); echo esc_html( $badge_text ); ?>
+                                    <?php echo reviewkit_icon( 'verified' ); echo esc_html( $badge_text ); ?>
                                 </span>
                             <?php endif; ?>
                         </div>
@@ -254,7 +254,7 @@ trait MCWR_Trait_Renderer {
                             <?php
                             $comment_timestamp = strtotime( $comment->comment_date );
                             $full_date         = get_comment_date( 'd/m/Y H:i', $comment->comment_ID );
-                            echo '<time itemprop="datePublished" class="mcwr-comment-date" datetime="' . esc_attr( date( 'Y-m-d', $comment_timestamp ) ) . '" title="' . esc_attr( $full_date ) . '">' . $this->mcwr_human_time_diff( $comment_timestamp ) . '</time>';
+                            echo '<time itemprop="datePublished" class="reviewkit-comment-date" datetime="' . esc_attr( date( 'Y-m-d', $comment_timestamp ) ) . '" title="' . esc_attr( $full_date ) . '">' . $this->reviewkit_human_time_diff( $comment_timestamp ) . '</time>';
                             ?>
                         </div>
                     </div>
@@ -289,7 +289,7 @@ trait MCWR_Trait_Renderer {
                             if ( $video_url ) {
                                 ?>
                                 <div class="review-gallery-item video-item" data-fancybox="gallery-<?php echo $comment->comment_ID; ?>" data-src="<?php echo esc_url( $video_url ); ?>">
-                                    <div class="video-overlay"><?php echo mcwr_icon( 'play' ); ?></div>
+                                    <div class="video-overlay"><?php echo reviewkit_icon( 'play' ); ?></div>
                                     <video src="<?php echo esc_url( $video_url ); ?>" muted></video>
                                 </div>
                                 <?php
@@ -325,28 +325,28 @@ trait MCWR_Trait_Renderer {
             <div class="review-actions">
                 <?php if ( $enable_voting ): ?>
                 <button class="action-btn like-btn" data-comment-id="<?php echo $comment->comment_ID; ?>">
-                        <?php echo mcwr_icon( 'thumbs-up' ); ?> <?php _e( 'Hữu ích', 'review-kit' ); ?> (<span class="count"><?php echo $helpful_count; ?></span>)
+                        <?php echo reviewkit_icon( 'thumbs-up' ); ?> <?php _e( 'Hữu ích', 'review-kit' ); ?> (<span class="count"><?php echo $helpful_count; ?></span>)
                     </button>
                 <?php endif; ?>
 
                 <?php if ( current_user_can( 'administrator' ) ): ?>
                 <button class="action-btn reply-toggle-btn" data-comment-id="<?php echo $comment->comment_ID; ?>">
-                        <?php echo mcwr_icon( 'chat' ); ?> <?php _e( 'Phản hồi', 'review-kit' ); ?>
+                        <?php echo reviewkit_icon( 'chat' ); ?> <?php _e( 'Phản hồi', 'review-kit' ); ?>
                     </button>
                 <?php endif; ?>
 
-                <button class="action-btn mcwr-report-btn" data-comment-id="<?php echo $comment->comment_ID; ?>" title="<?php _e( 'Báo cáo đánh giá vi phạm', 'review-kit' ); ?>">
-                    <?php echo mcwr_icon( 'flag' ); ?> <?php _e( 'Báo cáo', 'review-kit' ); ?>
+                <button class="action-btn reviewkit-report-btn" data-comment-id="<?php echo $comment->comment_ID; ?>" title="<?php _e( 'Báo cáo đánh giá vi phạm', 'review-kit' ); ?>">
+                    <?php echo reviewkit_icon( 'flag' ); ?> <?php _e( 'Báo cáo', 'review-kit' ); ?>
                 </button>
             </div>
 
             <?php if ( current_user_can( 'administrator' ) ): ?>
-                <div class="admin-reply-area mcwr-admin-reply-area" id="reply-form-<?php echo $comment->comment_ID; ?>" style="display:none;">
+                <div class="admin-reply-area reviewkit-admin-reply-area" id="reply-form-<?php echo $comment->comment_ID; ?>" style="display:none;">
                     <form action="<?php echo admin_url('admin-post.php'); ?>" method="post">
-                        <input type="hidden" name="action" value="mcwr_admin_reply_submission">
+                        <input type="hidden" name="action" value="reviewkit_admin_reply_submission">
                         <input type="hidden" name="product_id" value="<?php echo $product->get_id(); ?>">
                         <input type="hidden" name="parent_id" value="<?php echo $comment->comment_ID; ?>">
-                        <?php wp_nonce_field( 'mcwr_admin_reply_action', 'mcwr_admin_reply_nonce' ); ?>
+                        <?php wp_nonce_field( 'reviewkit_admin_reply_action', 'reviewkit_admin_reply_nonce' ); ?>
                         <textarea name="admin_reply_content" placeholder="<?php _e( 'Viết phản hồi...', 'review-kit' ); ?>" required></textarea>
                         <div class="reply-form-actions">
                             <button type="button" class="cancel-btn" onclick="document.getElementById('reply-form-<?php echo $comment->comment_ID; ?>').style.display='none'"><?php _e( 'Hủy', 'review-kit' ); ?></button>
@@ -361,18 +361,18 @@ trait MCWR_Trait_Renderer {
             if ( $replies ) :
                 foreach ( $replies as $reply ) :
             ?>
-                <div class="shop-response mcwr-nested-reply">
+                <div class="shop-response reviewkit-nested-reply">
                     <div class="reply-header">
                         <div class="reply-avatar">
                             <?php echo get_avatar( $reply->comment_author_email, 36 ); ?>
                         </div>
                         <div class="reply-author-info">
                             <span class="reply-author-name"><?php echo esc_html( $reply->comment_author ); ?></span>
-                            <span class="reply-badge"><?php echo mcwr_icon( 'admin' ); ?> <?php _e( 'Quản trị viên', 'review-kit' ); ?></span>
+                            <span class="reply-badge"><?php echo reviewkit_icon( 'admin' ); ?> <?php _e( 'Quản trị viên', 'review-kit' ); ?></span>
                             <span class="reply-date">&bull; <?php
                                 $reply_ts   = strtotime( $reply->comment_date );
                                 $reply_full = get_comment_date( 'd/m/Y H:i', $reply->comment_ID );
-                                echo '<time class="mcwr-comment-date" datetime="' . esc_attr( date( 'c', $reply_ts ) ) . '" title="' . esc_attr( $reply_full ) . '">' . $this->mcwr_human_time_diff( $reply_ts ) . '</time>';
+                                echo '<time class="reviewkit-comment-date" datetime="' . esc_attr( date( 'c', $reply_ts ) ) . '" title="' . esc_attr( $reply_full ) . '">' . $this->reviewkit_human_time_diff( $reply_ts ) . '</time>';
                             ?></span>
                         </div>
                     </div>
@@ -400,7 +400,7 @@ trait MCWR_Trait_Renderer {
      * @return array { counts, total, average }
      */
     private function get_rating_counts( $product_id ) {
-        $transient_key = 'mcwr_rating_counts_' . $product_id;
+        $transient_key = 'reviewkit_rating_counts_' . $product_id;
         $cached_counts = get_transient( $transient_key );
 
         if ( false !== $cached_counts ) {
@@ -463,7 +463,7 @@ trait MCWR_Trait_Renderer {
 
         ob_start();
         ?>
-        <div class="mcwr-summary-box" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+        <div class="reviewkit-summary-box" itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
             <meta itemprop="ratingValue" content="<?php echo esc_attr( $average ); ?>" />
             <meta itemprop="reviewCount" content="<?php echo esc_attr( $total ); ?>" />
             <div class="summary-left">
@@ -473,10 +473,10 @@ trait MCWR_Trait_Renderer {
                 </div>
                 <div class="average-stars-container" title="<?php echo esc_attr($average); ?> sao">
                     <div class="stars-bg">
-                        <?php echo str_repeat( mcwr_icon( 'star' ), 5 ); ?>
+                        <?php echo str_repeat( reviewkit_icon( 'star' ), 5 ); ?>
                     </div>
                     <div class="stars-fill" style="width: <?php echo esc_attr($percentage); ?>%;">
-                        <?php echo str_repeat( mcwr_icon( 'star' ), 5 ); ?>
+                        <?php echo str_repeat( reviewkit_icon( 'star' ), 5 ); ?>
                     </div>
                 </div>
                 <div class="total-text"><?php echo sprintf( __( '%d đánh giá', 'review-kit' ), $total ); ?></div>
@@ -490,7 +490,7 @@ trait MCWR_Trait_Renderer {
                     <div class="summary-row" onclick="jQuery('.filter-btn[data-filter=<?php echo $i; ?>]').trigger('click');">
                         <span class="row-label"><?php echo sprintf( __( '%d sao', 'review-kit' ), $i ); ?></span>
                         <div class="row-bar-bg">
-                            <div class="row-bar-fill mcwr-progress-bar" style="width: 0;" data-percent="<?php echo esc_attr( $percent ); ?>%"></div>
+                            <div class="row-bar-fill reviewkit-progress-bar" style="width: 0;" data-percent="<?php echo esc_attr( $percent ); ?>%"></div>
                         </div>
                         <span class="row-count"><?php echo $count; ?></span>
                     </div>
@@ -555,7 +555,7 @@ trait MCWR_Trait_Renderer {
      * @param  int    $timestamp Unix timestamp
      * @return string
      */
-    private function mcwr_human_time_diff( $timestamp ) {
+    private function reviewkit_human_time_diff( $timestamp ) {
         $now  = current_time( 'timestamp' );
         $diff = $now - $timestamp;
 
@@ -578,4 +578,4 @@ trait MCWR_Trait_Renderer {
         return date_i18n( 'd/m/Y', $timestamp );
     }
 
-} // end trait MCWR_Trait_Renderer
+} // end trait ReviewKit_Trait_Renderer
